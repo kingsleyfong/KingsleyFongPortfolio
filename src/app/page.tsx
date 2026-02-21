@@ -184,20 +184,20 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="hidden md:flex items-center gap-6 font-semibold pointer-events-auto">
-          <button onClick={() => scrollToSection('hero')} className="bg-clip-text text-transparent bg-gradient-to-r from-white/40 via-white to-white/40 bg-[length:200%_auto] animate-[pulse_3s_ease-in-out_infinite] text-xl md:text-2xl tracking-tight hover:opacity-80 transition-opacity">
+        <div className="flex items-center gap-4 md:gap-6 font-semibold pointer-events-auto">
+          <button onClick={() => scrollToSection('hero')} className="hidden md:block bg-clip-text text-transparent bg-gradient-to-r from-white/40 via-white to-white/40 bg-[length:200%_auto] animate-[pulse_3s_ease-in-out_infinite] text-xl md:text-2xl tracking-tight hover:opacity-80 transition-opacity">
             Building the future.
           </button>
 
           {/* Minimal Divider */}
-          <div className="w-[1px] h-6 bg-white/20" />
+          <div className="hidden md:block w-[1px] h-6 bg-white/20" />
 
           {/* Liquid Glass Navigation Pills */}
           <div className="flex items-center gap-4">
             {/* Work Pill (White Liquid Glass) */}
             <button
               onClick={() => scrollToSection('projects')}
-              className="relative overflow-hidden px-8 py-3 rounded-full bg-white text-black font-semibold text-base tracking-wide transition-all duration-500 ease-out hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] group"
+              className="hidden md:block relative overflow-hidden px-8 py-3 rounded-full bg-white text-black font-semibold text-base tracking-wide transition-all duration-500 ease-out hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] group"
             >
               {/* Liquid flowing inner highlight */}
               <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-white/0 via-black/10 to-white/0 bg-[length:200%_auto] animate-[fluid-flow_3s_linear_infinite]" />
@@ -207,7 +207,7 @@ export default function Home() {
             {/* Contact Pill (Clear/Dark Liquid Glass) */}
             <button
               onClick={() => scrollToSection('contact')}
-              className="relative overflow-hidden px-8 py-3 rounded-full bg-black/20 border border-white/20 text-white font-semibold text-base tracking-wide transition-all duration-500 ease-out backdrop-blur-xl hover:scale-105 hover:bg-white/[0.1] hover:border-white/40 hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] group"
+              className="relative overflow-hidden px-6 py-2 md:px-8 md:py-3 rounded-full bg-black/20 border border-white/20 text-white font-semibold text-sm md:text-base tracking-wide transition-all duration-500 ease-out backdrop-blur-xl hover:scale-105 hover:bg-white/[0.1] hover:border-white/40 hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] group"
             >
               {/* Liquid flowing inner highlight */}
               <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent bg-[length:200%_auto] animate-[fluid-flow_3s_linear_infinite]" />
@@ -218,7 +218,7 @@ export default function Home() {
       </header>
 
       {/* ═══════ MINIMALIST LEFT SIDEBAR (z-50) ═══════ */}
-      <nav className="fixed left-8 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-6 items-start">
+      <nav className="fixed left-4 md:left-8 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-4 md:gap-6 items-start">
         {navItems.map((item) => {
           const isActive = activeSectionId === item.id;
           return (
@@ -303,7 +303,7 @@ export default function Home() {
 
           <div className="flex flex-col md:flex-row gap-12 items-start w-full">
             {/* The About block */}
-            <div className="w-full md:w-1/2 sticky top-32">
+            <div className="w-full md:w-1/2 md:sticky md:top-32 relative z-10">
               <GlassCard className="p-12 border-white/10 bg-white/[0.03] backdrop-blur-2xl">
                 <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-6">Background</h2>
                 <div className="space-y-4 text-white/70 text-lg leading-relaxed font-light">
