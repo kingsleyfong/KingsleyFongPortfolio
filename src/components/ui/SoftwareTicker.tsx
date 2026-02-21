@@ -30,9 +30,7 @@ export function SoftwareTicker() {
         <>
             {/* The entire block becomes a group to trap hover, and it kills animation on itself or children when group-hovered  */}
             <div className="w-full overflow-hidden relative opacity-100 flex py-4 z-40 pointer-events-auto group">
-                {/* Left and Right Fade Indicators (Optional, but looks nice with glassmorphism) */}
-                <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
-                <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
+                {/* Left and Right Fade Indicators Removed per User Request */}
 
                 {/* Ticker Container Container */}
                 <div className="flex gap-8 w-max animate-marquee hover:[animation-play-state:paused] py-4 pointer-events-auto">

@@ -293,7 +293,7 @@ export default function Home() {
           </div>
 
           {/* Software Ticker Tape at the absolute bottom of the Hero screen */}
-          <div className="absolute bottom-10 left-0 w-full z-30 px-6 pointer-events-auto">
+          <div className="absolute bottom-10 left-0 w-full z-30 pointer-events-auto">
             <SoftwareTicker />
           </div>
         </section>

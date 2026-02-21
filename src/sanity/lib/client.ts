@@ -23,25 +23,36 @@ export async function getProjects(): Promise<Project[]> {
     return mockProjects;
   }
 
-  return client.fetch<Project[]>(
-    `*[_type == "project"] | order(date desc){
-      _id,
-      title,
-      slug,
-      description,
-      mainImage{
-        asset->{
-          url
+  try {
+    const fetchedProjects = await client.fetch<Project[]>(
+      `*[_type == "project"] | order(date desc){
+        _id,
+        title,
+        slug,
+        description,
+        mainImage{
+          asset->{
+            url
+          },
+          alt
         },
-        alt
-      },
-      tags,
-      links,
-      date,
-      category,
-      specs,
-      content,
-      media
-    }`
-  );
+        tags,
+        links,
+        date,
+        category,
+        specs,
+        content,
+        media
+      }`
+    );
+
+    if (!fetchedProjects || fetchedProjects.length === 0) {
+      console.warn('Sanity returned 0 projects. Falling back to mock data for layout stability.');
+      return mockProjects;
+    }
+    return fetchedProjects;
+  } catch (error) {
+    console.error('Error fetching from Sanity:', error);
+    return mockProjects;
+  }
 }
