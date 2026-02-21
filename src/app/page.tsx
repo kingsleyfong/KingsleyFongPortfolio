@@ -45,8 +45,43 @@ export default function Home() {
       canvas.dispatchEvent(syntheticEvent);
     };
 
+    const handleTouchMove = (e: TouchEvent) => {
+      const canvas = robotCanvasRef.current;
+      if (!canvas || e.touches.length === 0) return;
+
+      const touch = e.touches[0];
+      const rect = canvas.getBoundingClientRect();
+      const offsetX = touch.clientX - rect.left;
+      const offsetY = touch.clientY - rect.top;
+
+      const syntheticEvent = new PointerEvent('pointermove', {
+        clientX: touch.clientX,
+        clientY: touch.clientY,
+        screenX: touch.screenX,
+        screenY: touch.screenY,
+        pointerId: 1, // Spline often just needs generic pointerId
+        pointerType: 'touch',
+        bubbles: true,
+        cancelable: true,
+      });
+
+      Object.defineProperties(syntheticEvent, {
+        offsetX: { value: offsetX },
+        offsetY: { value: offsetY },
+      });
+
+      canvas.dispatchEvent(syntheticEvent);
+    };
+
     window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    window.addEventListener('touchstart', handleTouchMove, { passive: true });
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('touchstart', handleTouchMove);
+    };
   }, []);
 
   const handleRobotCanvasReady = useCallback((canvas: HTMLCanvasElement) => {
