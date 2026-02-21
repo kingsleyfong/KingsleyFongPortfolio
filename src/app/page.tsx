@@ -79,6 +79,9 @@ export default function Home() {
   const [projects, setProjects] = useState<ExtendedProject[]>([]);
   const [visibleCount, setVisibleCount] = useState(3);
 
+  // Mobile Menu State
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   // Fetch projects on mount
   useEffect(() => {
     getProjects().then(setProjects);
@@ -218,7 +221,7 @@ export default function Home() {
       </header>
 
       {/* ═══════ MINIMALIST LEFT SIDEBAR (z-50) ═══════ */}
-      <nav className="fixed left-4 md:left-8 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-4 md:gap-6 items-start">
+      <nav className="fixed left-8 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-6 items-start">
         {navItems.map((item) => {
           const isActive = activeSectionId === item.id;
           return (
@@ -445,6 +448,70 @@ export default function Home() {
           <p>© {new Date().getFullYear()} Kingsley Fong. All rights reserved.</p>
         </footer>
 
+      </div>
+
+      {/* ═══════ MOBILE FLOATING PILL MENU (z-50) ═══════ */}
+      <div className="fixed bottom-6 left-6 z-[60] md:hidden block pointer-events-auto">
+        <div className="relative flex flex-col-reverse items-start gap-4">
+
+          {/* Main Pill Button */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className={`
+              flex items-center gap-3 px-6 py-3 rounded-full 
+              border border-white/20 backdrop-blur-2xl shadow-lg
+              transition-all duration-300 ease-out
+              ${isMobileMenuOpen ? 'bg-white/20' : 'bg-black/40'}
+            `}
+          >
+            {/* Find the label of the active section to display in the closed pill */}
+            <span className="text-white font-semibold text-sm tracking-wide">
+              {navItems.find(item => item.id === activeSectionId)?.label || 'Menu'}
+            </span>
+
+            {/* Animated Chevron */}
+            <ChevronUp
+              size={18}
+              className={`text-white transition-transform duration-300 ${isMobileMenuOpen ? 'rotate-180' : ''}`}
+            />
+          </button>
+
+          {/* Expandable Menu Items */}
+          <div
+            className={`
+              absolute bottom-full left-0 mb-4 flex flex-col gap-2
+              transition-all duration-300 origin-bottom
+              ${isMobileMenuOpen
+                ? 'opacity-100 scale-100 pointer-events-auto'
+                : 'opacity-0 scale-95 pointer-events-none'
+              }
+            `}
+          >
+            {navItems.map((item) => {
+              const isActive = activeSectionId === item.id;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => {
+                    scrollToSection(item.id);
+                    setIsMobileMenuOpen(false); // Close upon selection
+                  }}
+                  className={`
+                    flex items-center gap-3 px-5 py-2.5 rounded-full
+                    backdrop-blur-xl border border-white/10
+                    transition-all duration-300 text-sm font-medium tracking-wide whitespace-nowrap
+                    ${isActive
+                      ? 'bg-white text-black drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]'
+                      : 'bg-black/40 text-white/70 hover:bg-white/10 hover:text-white'
+                    }
+                  `}
+                >
+                  {item.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </main>
   );
