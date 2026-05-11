@@ -23,14 +23,21 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
         impact: "Reduced overall mass by 22% while increasing structural integrity and fatigue resistance under core load."
     };
 
-    const mediaUrl = project.mainImage?.asset?.url || "/placeholder.png";
-    const mockFallback = mockProjects.find(p => p._id === project._id)?.media as any;
-
     const extractUrl = (item: any) => {
         if (typeof item === 'string') return item;
+        // Handle Sanity image object with dereferenced asset url
         if (item?.asset?.url) return item.asset.url;
+        // Handle Sanity image reference object
+        if (item?.asset?._ref) {
+            // If we have a ref but no URL, it means the query didn't dereference it.
+            // We should ideally use urlFor() but let's at least not return broken.
+            return null;
+        }
         return null;
     };
+
+    const mediaUrl = extractUrl(project.mainImage) || "/portfolio-assets/pdf_img_p1_2.png"; // Use a known valid mock image as last resort
+    const mockFallback = mockProjects.find(p => p._id === project._id)?.media as any;
 
     const media = {
         what: extractUrl(project.media?.what) || extractUrl(mockFallback?.what) || mediaUrl,

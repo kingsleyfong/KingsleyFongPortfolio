@@ -16,7 +16,8 @@ export const client = projectId
   : null;
 
 export async function getProjects(): Promise<Project[]> {
-  if (!client || process.env.NODE_ENV === 'development') {
+  if (!client) {
+    console.warn('Sanity client not configured. Using mock projects.');
     return mockProjects;
   }
 
@@ -59,7 +60,8 @@ export async function getProjects(): Promise<Project[]> {
 }
 
 export async function getExperiences(): Promise<Experience[]> {
-  if (!client || process.env.NODE_ENV === 'development') {
+  if (!client) {
+    console.warn('Sanity client not configured. Using mock experiences.');
     return mockExperiences;
   }
 
@@ -85,7 +87,7 @@ export async function getExperiences(): Promise<Experience[]> {
 
 export async function getExperienceBySlug(slug: string): Promise<Experience | null> {
   // If no sanity, fallback to mock
-  if (!client || process.env.NODE_ENV === 'development') {
+  if (!client) {
     return mockExperiences.find(exp => exp.slug.current === slug) || null;
   }
 
@@ -112,7 +114,7 @@ export async function getExperienceBySlug(slug: string): Promise<Experience | nu
 
 export async function getProjectsByIds(ids: string[]): Promise<Project[]> {
   // If no sanity, fallback to mock
-  if (!client || process.env.NODE_ENV === 'development') {
+  if (!client) {
     return mockProjects.filter(p => ids.includes(p._id));
   }
 
@@ -151,7 +153,7 @@ export async function getProjectsByIds(ids: string[]): Promise<Project[]> {
 }
 
 export async function getHero(): Promise<any> {
-  if (!client || process.env.NODE_ENV === 'development') return null;
+  if (!client) return null;
   try {
     return await client.fetch(`*[_type == "hero"][0]{
       headline,

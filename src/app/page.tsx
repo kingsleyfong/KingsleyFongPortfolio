@@ -1,6 +1,8 @@
 import { getProjects, getExperiences, getHero } from '@/sanity/lib/client';
 import HomeClient from '@/components/HomeClient';
 
+export const revalidate = 0; // Force fresh data on every request for "live" feel
+
 // Server Component (Pre-renders HTML with data instantly)
 export default async function Page() {
     // These fetches happen on the SERVER during request (or statically at build time)
