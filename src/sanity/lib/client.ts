@@ -67,7 +67,7 @@ export async function getExperiences(): Promise<Experience[]> {
 
   try {
     const fetchedExps = await client.fetch<Experience[]>(
-      `*[_type == "experience"] | order(date desc){
+      `*[_type == "experience"] | order(startDate desc){
         _id,
         company,
         slug,

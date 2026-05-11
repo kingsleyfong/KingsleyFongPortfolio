@@ -31,6 +31,13 @@ export const experience = defineType({
             description: 'E.g., Jan 2026 - Apr 2026',
         }),
         defineField({
+            name: 'startDate',
+            title: 'Start Date',
+            type: 'date',
+            description: 'Used for sorting (Hidden from frontend but required for chronological order)',
+            validation: (Rule) => Rule.required(),
+        }),
+        defineField({
             name: 'description',
             title: 'Description',
             type: 'text',
