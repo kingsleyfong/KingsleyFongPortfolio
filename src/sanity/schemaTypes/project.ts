@@ -58,10 +58,11 @@ export const project = defineType({
             ],
         }),
         defineField({
-            name: 'date',
-            title: 'Project Date',
-            type: 'date',
-            description: 'Used to sort projects chronologically.',
+            name: 'year',
+            title: 'Year',
+            type: 'number',
+            description: 'E.g., 2025. Used to sort projects chronologically.',
+            validation: (Rule) => Rule.min(2000).max(2100).integer(),
         }),
         defineField({
             name: 'category',

@@ -14,7 +14,7 @@ export interface Project {
         demo?: string;
         github?: string;
     };
-    date?: string;
+    year?: number;
     category?: string;
     specs?: { label: string; value: string }[];
     content?: {

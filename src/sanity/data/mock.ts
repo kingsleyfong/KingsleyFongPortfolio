@@ -5,7 +5,7 @@ export const mockProjects: Project[] = [
         _id: '1',
         title: 'Manufacturing Review Dashboards',
         slug: { current: 'manufacturing-review-dashboards' },
-        date: '',
+        year: 2026,
         category: 'S&C ELECTRIC | AME/MQE',
         specs: [
             { label: 'Time Saved', value: '64%' },
@@ -41,7 +41,7 @@ export const mockProjects: Project[] = [
         _id: '2',
         title: 'Dust Collection Systems',
         slug: { current: 'dust-collection-systems' },
-        date: '',
+        year: 2025,
         category: 'PARAGON SYSTEMS | AME',
         specs: [
             { label: 'Airflow', value: '+10.5%' },
@@ -77,7 +77,7 @@ export const mockProjects: Project[] = [
         _id: '3',
         title: 'Brick It! LEGO 3D Printer',
         slug: { current: 'brick-it-lego-3d-printer' },
-        date: '',
+        year: 2025,
         category: 'ENGINEERING PROJECT',
         specs: [
             { label: 'Speed', value: '9.5 s/brick' },
@@ -113,7 +113,7 @@ export const mockProjects: Project[] = [
         _id: '4',
         title: 'Material Flow Dashboard',
         slug: { current: 'material-flow-dashboard' },
-        date: '',
+        year: 2026,
         category: 'S&C ELECTRIC | AME',
         specs: [
             { label: 'Lookup Time', value: '-70%' },
@@ -149,7 +149,7 @@ export const mockProjects: Project[] = [
         _id: '5',
         title: '3-Axis Assembly Workbench',
         slug: { current: '3-axis-assembly-workbench' },
-        date: '',
+        year: 2026,
         category: 'S&C ELECTRIC | AME',
         specs: [
             { label: 'Workflow', value: '-30%' },
@@ -185,7 +185,7 @@ export const mockProjects: Project[] = [
         _id: '6',
         title: 'Trace It! Interactive Targeting',
         slug: { current: 'trace-it-interactive-targeting' },
-        date: '',
+        year: 2024,
         category: 'ENGINEERING PROJECT',
         specs: [
             { label: 'Accuracy', value: '95%' },

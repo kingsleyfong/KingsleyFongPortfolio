@@ -92,9 +92,9 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
                             <span className="text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase text-muted bg-foreground/5 px-3 py-1 rounded-full border border-border">
                                 {project.category || 'PROJECT'}
                             </span>
-                            {project.date && (
+                            {project.year && (
                                 <span className="text-[10px] md:text-xs font-mono text-muted/60 tracking-wider uppercase">
-                                    {new Date(project.date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+                                    {project.year}
                                 </span>
                             )}
                         </div>
