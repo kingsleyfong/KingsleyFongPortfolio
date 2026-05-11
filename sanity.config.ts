@@ -4,7 +4,7 @@ import { schema } from './src/sanity/schemaTypes'
 
 export default defineConfig({
     basePath: '/studio',
-    projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '',
+    projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'eqlb03gf',
     dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
     title: 'Portfolio Studio',
     plugins: [structureTool()],
