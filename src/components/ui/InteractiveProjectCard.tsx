@@ -6,6 +6,8 @@ import Image from 'next/image';
 import { ExternalLink, Github } from 'lucide-react';
 import { Project } from '../../sanity/types';
 
+import { mockProjects } from '../../sanity/data/mock';
+
 export interface ExtendedProject extends Project {
     content?: {
         challenge: string;
@@ -13,9 +15,9 @@ export interface ExtendedProject extends Project {
         impact: string;
     };
     media?: {
-        what: string;
-        how: string;
-        results: string;
+        what?: { asset?: { url: string } };
+        how?: { asset?: { url: string } };
+        results?: { asset?: { url: string } };
     };
 }
 
@@ -27,10 +29,12 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
     };
 
     const mediaUrl = project.mainImage?.asset?.url || "/placeholder.png";
-    const media = project.media || {
-        what: mediaUrl,
-        how: mediaUrl,
-        results: mediaUrl
+    const mockFallback = mockProjects.find(p => p._id === project._id)?.media as any;
+
+    const media = {
+        what: project.media?.what?.asset?.url || mockFallback?.what || mediaUrl,
+        how: project.media?.how?.asset?.url || mockFallback?.how || mediaUrl,
+        results: project.media?.results?.asset?.url || mockFallback?.results || mediaUrl
     };
 
     return (

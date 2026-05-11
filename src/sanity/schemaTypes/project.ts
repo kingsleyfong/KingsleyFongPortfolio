@@ -98,9 +98,9 @@ export const project = defineType({
             title: 'Media Windows',
             type: 'object',
             fields: [
-                { name: 'what', title: 'What Media URL', type: 'url', description: 'Image or Video URL for the "What" tab.' },
-                { name: 'how', title: 'How Media URL', type: 'url', description: 'Image or Video URL for the "How" tab.' },
-                { name: 'results', title: 'Results Media URL', type: 'url', description: 'Image or Video URL for the "Results" tab.' },
+                { name: 'what', title: 'What Media', type: 'image', options: { hotspot: true }, description: 'Image for the "What" tab.' },
+                { name: 'how', title: 'How Media', type: 'image', options: { hotspot: true }, description: 'Image for the "How" tab.' },
+                { name: 'results', title: 'Results Media', type: 'image', options: { hotspot: true }, description: 'Image for the "Results" tab.' },
             ],
         }),
     ],

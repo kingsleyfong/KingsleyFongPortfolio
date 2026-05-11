@@ -39,7 +39,11 @@ export async function getProjects(): Promise<Project[]> {
         category,
         specs,
         content,
-        media
+        media{
+          what{asset->{url}},
+          how{asset->{url}},
+          results{asset->{url}}
+        }
       }`
     );
 
@@ -113,7 +117,11 @@ export async function getProjectsByIds(ids: string[]): Promise<Project[]> {
         category,
         specs,
         content,
-        media
+        media{
+          what{asset->{url}},
+          how{asset->{url}},
+          results{asset->{url}}
+        }
       }`,
       { ids }
     );
