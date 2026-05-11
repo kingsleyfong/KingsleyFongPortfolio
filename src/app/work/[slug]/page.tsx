@@ -54,7 +54,7 @@ export default async function WorkExperiencePage({ params }: { params: Promise<{
                         <div className="space-y-32">
                             {projects.map((project, index) => (
                                 <div id={project.slug?.current || project._id} key={project._id} className="scroll-mt-32">
-                                    <InteractiveProjectCard project={project as ExtendedProject} index={index} />
+                                    <InteractiveProjectCard project={project as any} />
                                 </div>
                             ))}
                         </div>
