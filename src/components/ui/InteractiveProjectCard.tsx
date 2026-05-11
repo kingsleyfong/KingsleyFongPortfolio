@@ -14,11 +14,6 @@ export interface ExtendedProject extends Project {
         approach: string;
         impact: string;
     };
-    media?: {
-        what?: { asset?: { url: string } };
-        how?: { asset?: { url: string } };
-        results?: { asset?: { url: string } };
-    };
 }
 
 export function InteractiveProjectCard({ project }: { project: ExtendedProject }) {
@@ -31,10 +26,16 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
     const mediaUrl = project.mainImage?.asset?.url || "/placeholder.png";
     const mockFallback = mockProjects.find(p => p._id === project._id)?.media as any;
 
+    const extractUrl = (item: any) => {
+        if (typeof item === 'string') return item;
+        if (item?.asset?.url) return item.asset.url;
+        return null;
+    };
+
     const media = {
-        what: project.media?.what?.asset?.url || mockFallback?.what || mediaUrl,
-        how: project.media?.how?.asset?.url || mockFallback?.how || mediaUrl,
-        results: project.media?.results?.asset?.url || mockFallback?.results || mediaUrl
+        what: extractUrl(project.media?.what) || extractUrl(mockFallback?.what) || mediaUrl,
+        how: extractUrl(project.media?.how) || extractUrl(mockFallback?.how) || mediaUrl,
+        results: extractUrl(project.media?.results) || extractUrl(mockFallback?.results) || mediaUrl
     };
 
     return (

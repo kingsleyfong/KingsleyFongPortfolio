@@ -23,9 +23,9 @@ export interface Project {
         impact: string;
     };
     media?: {
-        what: string;
-        how: string;
-        results: string;
+        what?: string | { asset?: { url: string } };
+        how?: string | { asset?: { url: string } };
+        results?: string | { asset?: { url: string } };
     };
 }
 
