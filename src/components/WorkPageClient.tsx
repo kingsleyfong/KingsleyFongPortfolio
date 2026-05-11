@@ -69,18 +69,18 @@ export default function WorkPageClient({ experience, projects }: WorkPageClientP
 
             {/* ═══════ PROJECT SIDEBAR (desktop only) ═══════ */}
             {projects.length > 0 && (
-                <nav className="fixed left-8 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col gap-1 items-start max-h-[60vh] overflow-y-auto scrollbar-none">
+                <nav className="fixed left-8 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col gap-1 items-start max-h-[70vh] overflow-y-auto scrollbar-none w-[260px] pr-4">
                     {/* Back link */}
                     <Link
                         href="/#about"
-                        className="group flex items-center gap-3 mb-6 text-xs text-muted hover:text-foreground transition-colors"
+                        className="group flex items-center gap-3 mb-8 text-xs text-muted hover:text-foreground transition-colors pl-2"
                     >
                         <ArrowLeft size={14} className="opacity-50 group-hover:opacity-100 transition-opacity" />
                         <span className="tracking-wide">Portfolio</span>
                     </Link>
 
                     {/* Experience title */}
-                    <div className="mb-4 pl-1">
+                    <div className="mb-6 pl-3">
                         <div className="text-[10px] font-bold tracking-[0.25em] uppercase text-muted/50 mb-1">
                             {experience.company}
                         </div>
@@ -89,37 +89,44 @@ export default function WorkPageClient({ experience, projects }: WorkPageClientP
                         </div>
                     </div>
 
-                    {/* Project list */}
-                    {projects.map((project) => {
-                        const id = project.slug?.current || project._id;
-                        const isActive = activeProjectId === id;
-                        return (
-                            <button
-                                key={project._id}
-                                onClick={() => scrollToProject(id)}
-                                className="group flex items-center gap-3 py-2 focus:outline-none w-full text-left"
-                            >
-                                {/* Indicator dot */}
-                                <div
-                                    className={`shrink-0 transition-all duration-300 rounded-full border
-                                        ${isActive
-                                            ? 'w-2.5 h-2.5 bg-foreground border-foreground/50 scale-110'
-                                            : 'w-1.5 h-1.5 bg-transparent border-border group-hover:bg-foreground/20 group-hover:border-foreground/30'
-                                        }`}
-                                />
-                                {/* Label */}
-                                <span
-                                    className={`text-sm leading-tight transition-all duration-300 max-w-[180px] truncate
-                                        ${isActive
-                                            ? 'text-foreground font-medium translate-x-1'
-                                            : 'text-muted/60 font-normal group-hover:text-foreground/80'
-                                        }`}
+                    {/* Project list with sliding pill feel */}
+                    <div className="relative w-full flex flex-col gap-1">
+                        {projects.map((project) => {
+                            const id = project.slug?.current || project._id;
+                            const isActive = activeProjectId === id;
+                            return (
+                                <button
+                                    key={project._id}
+                                    onClick={() => scrollToProject(id)}
+                                    className={`group relative flex items-center gap-3 px-3 py-3 focus:outline-none w-full text-left rounded-xl transition-all duration-300 z-10
+                                        ${isActive 
+                                            ? 'bg-foreground/[0.05] border border-foreground/10 shadow-sm backdrop-blur-md' 
+                                            : 'hover:bg-foreground/[0.02] border border-transparent'
+                                        }
+                                    `}
                                 >
-                                    {project.title}
-                                </span>
-                            </button>
-                        );
-                    })}
+                                    {/* Indicator dot */}
+                                    <div
+                                        className={`shrink-0 transition-all duration-500 rounded-full
+                                            ${isActive
+                                                ? 'w-1.5 h-1.5 bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.5)]'
+                                                : 'w-1 h-1 bg-muted/30 group-hover:bg-muted/50'
+                                            }`}
+                                    />
+                                    {/* Label */}
+                                    <span
+                                        className={`text-[13px] leading-[1.4] transition-all duration-500 whitespace-normal break-words
+                                            ${isActive
+                                                ? 'text-foreground font-medium'
+                                                : 'text-muted/60 font-normal group-hover:text-foreground/80'
+                                            }`}
+                                    >
+                                        {project.title}
+                                    </span>
+                                </button>
+                            );
+                        })}
+                    </div>
                 </nav>
             )}
 
