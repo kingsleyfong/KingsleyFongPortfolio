@@ -2,7 +2,8 @@
 
 import { useTheme } from 'next-themes';
 import { useEffect, useState, useMemo } from 'react';
-import { Github, Linkedin, Mail, Twitter, ChevronDown, ChevronUp, Sun, Moon, ArrowRight } from 'lucide-react';
+import { Sun, Moon, ArrowRight } from 'lucide-react';
+import { SiteHeader } from '@/components/ui/SiteHeader';
 import { Experience } from '@/sanity/types';
 import { ExtendedProject, InteractiveProjectCard } from '@/components/ui/InteractiveProjectCard';
 import { ProjectTicker } from '@/components/ui/ProjectTicker';
@@ -83,29 +84,7 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
             </div>
 
             {/* ═══════ HEADER & THEME TOGGLE ═══════ */}
-            <header className="fixed top-0 left-0 w-full px-6 py-6 flex justify-between items-center z-50 transition-all duration-300 backdrop-blur-md bg-background/80 border-b border-border animate-fade-in">
-                <div className="flex items-center gap-8">
-                    <div className="text-xl md:text-2xl font-bold tracking-tighter cursor-pointer hover:opacity-70 transition-opacity" onClick={() => scrollToSection('hero')}>
-                        Kingsley Fong
-                    </div>
-                    {/* Header Links */}
-                    <div className="hidden md:flex items-center gap-6 text-sm font-medium text-muted">
-                        <button onClick={() => scrollToSection('about')} className="hover:text-foreground transition-colors">Background</button>
-                        <button onClick={() => scrollToSection('projects')} className="hover:text-foreground transition-colors">Projects</button>
-                        <button onClick={() => scrollToSection('contact')} className="hover:text-foreground transition-colors">Contact</button>
-                    </div>
-                </div>
-
-                <div className="flex items-center gap-4 md:gap-6">
-                    <button
-                        onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                        className="p-2 rounded-full hover:bg-foreground/5 transition-colors"
-                        aria-label="Toggle theme"
-                    >
-                        {mounted ? (theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />) : <div className="w-5 h-5" />}
-                    </button>
-                </div>
-            </header>
+            <SiteHeader />
 
             {/* ═══════ MINIMALIST LEFT SIDEBAR ═══════ */}
             <nav className="fixed left-8 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-6 items-start">
