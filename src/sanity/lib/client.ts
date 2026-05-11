@@ -65,7 +65,16 @@ export async function getExperiences(): Promise<Experience[]> {
 
   try {
     const fetchedExps = await client.fetch<Experience[]>(
-      `*[_type == "experience"] | order(date desc)`
+      `*[_type == "experience"] | order(date desc){
+        _id,
+        company,
+        slug,
+        role,
+        date,
+        description,
+        "thumbnail": thumbnail.asset->url,
+        "projectIds": projects[]._ref
+      }`
     );
     return fetchedExps.length > 0 ? fetchedExps : mockExperiences;
   } catch (error) {
@@ -82,7 +91,16 @@ export async function getExperienceBySlug(slug: string): Promise<Experience | nu
 
   try {
     const fetchedExp = await client.fetch<Experience>(
-      `*[_type == "experience" && slug.current == $slug][0]`,
+      `*[_type == "experience" && slug.current == $slug][0]{
+        _id,
+        company,
+        slug,
+        role,
+        date,
+        description,
+        "thumbnail": thumbnail.asset->url,
+        "projectIds": projects[]._ref
+      }`,
       { slug }
     );
     return fetchedExp || mockExperiences.find(exp => exp.slug.current === slug) || null;
