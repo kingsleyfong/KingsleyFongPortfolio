@@ -22,7 +22,7 @@ Whenever you restart your computer or want to work on the site locally, follow t
 
 ---
 
-## 2. Managing Projects (Sanity CMS)
+## 2. Managing Projects (Sanity CMS) 
 
 Your portfolio is connected to a headless CMS (Sanity). All textual project data, specifications, and images are managed here instead of hardcoded into the React files.
 

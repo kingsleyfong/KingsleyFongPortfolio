@@ -1,220 +1,263 @@
-import { Project } from '../types';
+import { Project, Experience } from '../types';
 
 export const mockProjects: Project[] = [
     {
         _id: '1',
-        title: 'Automation Cell Design',
-        slug: { current: 'automation-cell-design' },
-        date: '2024-01-15',
-        category: 'ATS CORPORATION',
+        title: 'Manufacturing Review Dashboards',
+        slug: { current: 'manufacturing-review-dashboards' },
+        date: '',
+        category: 'S&C ELECTRIC | AME/MQE',
         specs: [
-            { label: 'PPM', value: '180' },
-            { label: 'faster', value: '4x' },
-            { label: 'precision', value: '80μm' }
+            { label: 'Time Saved', value: '64%' },
+            { label: 'Manual Work', value: '-86%' },
+            { label: 'Data', value: '100+ logs' }
         ],
         description: [
             {
                 _type: 'block',
-                children: [{ _type: 'span', text: 'High-speed automated assembly for wearable insulin devices.' }],
+                children: [{ _type: 'span', text: 'Power BI dashboards transforming raw safety & hazard records into repeatable KPI views.' }],
             },
         ],
         mainImage: {
-            asset: { url: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop' },
-            alt: 'Automation machinery',
+            asset: { url: '/portfolio-assets/pdf_img_p1_4.png' },
+            alt: 'Data Dashboard',
         },
-        tags: ['SolidWorks', 'Kinematics', 'Controls'],
+        tags: ['Power BI', 'DAX', 'Power Query', 'Data Analytics'],
         links: {
-            demo: 'https://example.com',
+            demo: '#',
         },
         content: {
-            challenge: 'Designed a production cell assembling 5 components into insulin delivery devices at unprecedented speed while maintaining micron-level precision.',
-            approach: 'Iterated pallet design to reduce dimensional stack-up to 80 microns. Performed cycle time analysis, motor/drive sizing, and kinematic calculations. Designed each stations drives, actuators and tooling to accurately locate and perform functional requirements to 50 microns. Implemented blended motion profiles to increase OEE and prolong machine lifetimes.',
-            impact: 'Achieved 4x throughput over previous generation with 40% reduction in calibration time. Standardized 20% of the cell to improve repeat equipment manufacturability driving cost savings.'
+            challenge: 'Scattered safety and hazard logs across production groups made weekly reviews inefficient, causing slow issue escalation and unclear ownership.',
+            approach: 'Built Power BI dashboards from Azure-linked TeamAssurance data tables, using Power Query and DAX measures. Transformed raw safety and hazard records into repeatable KPI views for overdue actions, ownership, backlog, and department-level trends.',
+            impact: 'Reduced weekly production review time by ~64% (from ~51 min to <18 min) by replacing manual log searches. Cut manual filtering work by ~86% and improved open-action visibility across 100+ safety and hazard records.'
         },
         media: {
-            what: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop',
-            how: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=2070&auto=format&fit=crop',
-            results: 'https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?q=80&w=2036&auto=format&fit=crop'
+            what: '/portfolio-assets/pdf_img_p1_4.png',
+            how: '/portfolio-assets/pdf_img_p1_5.png',
+            results: '/portfolio-assets/pdf_img_p1_6.png'
         }
     },
     {
         _id: '2',
-        title: 'Roof Tilt Mechanism',
-        slug: { current: 'roof-tilt-mechanism' },
-        date: '2023-08-20',
-        category: 'DESIGN TEAM PROJECT',
+        title: 'Dust Collection Systems',
+        slug: { current: 'dust-collection-systems' },
+        date: '',
+        category: 'PARAGON SYSTEMS | AME',
         specs: [
-            { label: 'range', value: '85°' },
-            { label: 'capacity', value: '200kg' },
-            { label: 'load-bearing', value: '20% greater' }
+            { label: 'Airflow', value: '+10.5%' },
+            { label: 'Reruns', value: '-22%' },
+            { label: 'Budget', value: '-76%' }
         ],
         description: [
             {
                 _type: 'block',
-                children: [{ _type: 'span', text: 'Mechanical tilt system for solar charging optimization.' }],
+                children: [{ _type: 'span', text: 'Centralized lab airflow system upgrade reducing particulate-related reruns.' }],
             },
         ],
         mainImage: {
-            asset: { url: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=2072&auto=format&fit=crop' },
-            alt: 'Solar array on mechanism',
+            asset: { url: '/portfolio-assets/pdf_img_p2_6.png' },
+            alt: 'Manufacturing Facility Ducting',
         },
-        tags: ['CAD', 'FEA', 'Machining'],
+        tags: ['HVAC', 'Fluid Dynamics', 'Project Management'],
         links: {
-            github: 'https://github.com',
+            demo: '#',
         },
         content: {
-            challenge: 'Design a robust tilt mechanism capable of adjusting solar panel angle throughout seasons while withstanding extreme wind loads.',
-            approach: 'Researched, designed and machined six-bar linkage. Analyzed FEA load cases to verify system performance under worst-case scenarios. Selected ball joint and socket mounts for telescopic poles to ease assembly and reduced stress in pole mounts.',
-            impact: 'Delivered 88% more rotational range with optimized charging abilities. Strengthened and stabilized previous system with stationary support tubes and non-linear hinging. Allows car roof to be tilted at any angle up to 85°.'
+            challenge: 'A scattered dust collection setup led to poor capture, limited station coverage, and inconsistent cleanup around material prep and fixture areas.',
+            approach: 'Mapped duct runs, measured velocity, calculated CFM, and verified airflow. Installed centralized ducting, blast gates, quick-connect drops, custom in-house brackets, and serviceable filter access points.',
+            impact: 'Increased point-of-use airflow by ~10.5% through controlled drops. Expanded coverage from 3 to 8 stations while reducing inefficient duct reruns by ~22%. Delivered the upgrade ~76% under budget.'
         },
         media: {
-            what: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=2072&auto=format&fit=crop',
-            how: 'https://images.unsplash.com/photo-1537462715879-360eeb61a0ad?q=80&w=2136&auto=format&fit=crop',
-            results: 'https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?q=80&w=2073&auto=format&fit=crop'
+            what: '/portfolio-assets/pdf_img_p2_6.png',
+            how: '/portfolio-assets/pdf_img_p2_7.png',
+            results: '/portfolio-assets/pdf_img_p2_5.png'
         }
     },
     {
         _id: '3',
-        title: 'Flower Charm PCB',
-        slug: { current: 'flower-charm-pcb' },
-        date: '2023-04-10',
-        category: 'PERSONAL PROJECT',
+        title: 'Brick It! LEGO 3D Printer',
+        slug: { current: 'brick-it-lego-3d-printer' },
+        date: '',
+        category: 'ENGINEERING PROJECT',
         specs: [
-            { label: 'Layers', value: '4' },
-            { label: 'Size', value: '25mm' },
-            { label: 'Power', value: '3.3V' }
+            { label: 'Speed', value: '9.5 s/brick' },
+            { label: 'Accuracy', value: '92%' },
+            { label: 'Deflection', value: '-15%' }
         ],
         description: [
             {
                 _type: 'block',
-                children: [{ _type: 'span', text: 'Custom wearable PCB project!' }],
+                children: [{ _type: 'span', text: 'Autonomous robotic cell converting user media into physical LEGO builds.' }],
             },
         ],
         mainImage: {
-            asset: { url: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop' },
-            alt: 'Circuit board up close',
+            asset: { url: '/portfolio-assets/pdf_img_p3_1.png' },
+            alt: 'LEGO Bricks',
         },
-        tags: ['Altium', 'Electronics', 'SMD'],
+        tags: ['SolidWorks', 'Robotics', 'React', 'Three.js'],
         links: {
-            github: 'https://github.com',
+            demo: '#',
         },
         content: {
-            challenge: 'Create an aesthetically pleasing, ultra-compact wearable circuit board capable of driving addressable LEDs without generating excess heat against the skin.',
-            approach: 'Designed a 4-layer custom PCB using Altium Designer. Carefully routed power planes to dissipate heat and isolated the microcontroller signals from switching noise. Hand-soldered 0402 SMD components under a microscope.',
-            impact: 'Achieved a beautiful 25mm diameter flower-shaped board. The firmware intelligently cycles deep-sleep modes, extending the coin cell battery life from 4 hours to 3 weeks of continuous passive operation.'
+            challenge: 'Develop a gantry-based robotic cell that converts user media into automated LEGO builds, requiring precise part feeding, motion control, and toolpath generation.',
+            approach: 'Led mechanical architecture using SolidWorks and FEA. Programmed ROBOTC homing, placement, recovery, and sensor checks. Built a full-stack React/Three.js web slicer for automated EV3 export.',
+            impact: 'Achieved 9.5 s/brick cycle time and 92% placement accuracy over 100+ builds. Reduced dispenser part count by 30%, cut changeover by 25%, and improved end-effector stiffness by 15% for stable high-speed operation.'
         },
         media: {
-            what: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop',
-            how: 'https://images.unsplash.com/photo-1603732551658-5fabbafa84f3?q=80&w=2070&auto=format&fit=crop',
-            results: 'https://images.unsplash.com/photo-1555664424-778a1e5e1b48?q=80&w=2070&auto=format&fit=crop'
+            what: '/portfolio-assets/pdf_img_p3_1.png',
+            how: '/portfolio-assets/pdf_img_p3_2.png',
+            results: '/portfolio-assets/pdf_img_p3_4.png'
         }
     },
     {
         _id: '4',
-        title: 'Spatial Dashboard',
-        slug: { current: 'spatial-dashboard' },
-        date: '2022-11-05',
-        category: 'SOFTWARE ARCHITECTURE',
+        title: 'Material Flow Dashboard',
+        slug: { current: 'material-flow-dashboard' },
+        date: '',
+        category: 'S&C ELECTRIC | AME',
         specs: [
-            { label: 'FPS', value: '60' },
-            { label: 'Load', value: '<1s' },
-            { label: 'Engagement', value: '+45%' }
+            { label: 'Lookup Time', value: '-70%' },
+            { label: 'Updates', value: '-60%' },
+            { label: 'Scale', value: '100+ Parts' }
         ],
         description: [
             {
                 _type: 'block',
-                children: [{ _type: 'span', text: 'A futuristic analytics dashboard optimized for VR environments.' }],
+                children: [{ _type: 'span', text: 'Line-side tracker for hardware inventory, shortages, and reorder status.' }],
             },
         ],
         mainImage: {
-            asset: { url: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop' },
-            alt: 'Cyberpunk dashboard interface',
+            asset: { url: '/portfolio-assets/pdf_img_p1_8.png' },
+            alt: 'Warehouse Inventory',
         },
-        tags: ['Next.js', 'Three.js', 'WebXR'],
+        tags: ['Excel VBA', 'Inventory', 'Kanban'],
         links: {
-            demo: 'https://example.com',
+            demo: '#',
         },
         content: {
-            challenge: 'Designing an intuitive analytics dashboard that works seamlessly in both 2D browsers and immersive VR environments without sacrificing data density.',
-            approach: 'Built a custom WebGL rendering engine using Three.js mapped to React state, allowing real-time spatial organization of data cards.',
-            impact: 'Achieved 60fps across mobile and VR headsets, increasing user engagement time by 45% compared to flat dashboards.'
+            challenge: 'Manual tracking issues caused part-search delays, unclear stock levels, and missed replenishment signals across the production floor.',
+            approach: 'Developed Excel VBA workflows for inbound, outbound, live inventory, and part lookup using structured tables. Built dashboard views for inventory health, warning items, and reorder triggers.',
+            impact: 'Reduced part lookup time by ~70% (from 10 min to <3 min). Improved shortage visibility across 100+ hardware transactions by flagging critical levels before production impact.'
         },
         media: {
-            what: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop',
-            how: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=2070&auto=format&fit=crop', // Code image
-            results: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop' // Earth abstraction
+            what: '/portfolio-assets/pdf_img_p1_8.png',
+            how: '/portfolio-assets/pdf_img_p1_5.png',
+            results: '/portfolio-assets/pdf_img_p1_6.png'
         }
     },
     {
         _id: '5',
-        title: 'Neon Ecommerce',
-        slug: { current: 'neon-ecommerce' },
-        date: '2022-06-12',
-        category: 'FREELANCE',
+        title: '3-Axis Assembly Workbench',
+        slug: { current: '3-axis-assembly-workbench' },
+        date: '',
+        category: 'S&C ELECTRIC | AME',
         specs: [
-            { label: 'Throughput', value: '3k/s' },
-            { label: 'Return rate', value: '-18%' },
-            { label: 'Stack', value: 'Headless' }
+            { label: 'Workflow', value: '-30%' },
+            { label: 'Type', value: 'Welded Frame' },
+            { label: 'Docs', value: 'Fabrication Ready' }
         ],
         description: [
             {
                 _type: 'block',
-                children: [{ _type: 'span', text: 'An immersive shopping experience with 3D product previews.' }],
+                children: [{ _type: 'span', text: 'Custom assembly workbench replacing cart-based workflows for rollerdeck production.' }],
             },
         ],
         mainImage: {
-            asset: { url: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop' },
-            alt: 'Neon abstract shapes',
+            asset: { url: '/portfolio-assets/pdf_img_p2_1.png' },
+            alt: 'Workbench Tools',
         },
-        tags: ['React', 'Shopify', 'WebGL'],
+        tags: ['SolidWorks', 'DFMA', 'Sheet Metal'],
         links: {
-            demo: 'https://example.com',
+            demo: '#',
         },
         content: {
-            challenge: 'Traditional e-commerce platforms struggle to convey the physical presence and scale of premium hardware products.',
-            approach: 'Integrated a headless Shopify backend with a custom React front-end featuring interactive 3D model viewers and real-time lighting calculations.',
-            impact: 'Reduced product return rates by 18% and increased average session duration by presenting products interactively.'
+            challenge: 'Existing cart-based workflows were inefficient for rollerdeck-floor production, lacking dedicated operator access, storage, and tool organization.',
+            approach: 'Built SolidWorks CAD, BOMs, sheet-metal drawings, and assembly documentation. Iterated around floor-space limits, Atlas Copco arm reach, hardware bins, and operator feedback.',
+            impact: 'Advanced design from concept to welded sheet-metal frame. Reduced assembler workflow by ~30% by consolidating tools, hardware, and workholding into one dedicated station.'
         },
         media: {
-            what: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop',
-            how: 'https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=2000&auto=format&fit=crop',
-            results: 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?q=80&w=2070&auto=format&fit=crop'
+            what: '/portfolio-assets/pdf_img_p2_1.png',
+            how: '/portfolio-assets/pdf_img_p2_2.png',
+            results: '/portfolio-assets/pdf_img_p2_5.png'
         }
     },
     {
         _id: '6',
-        title: 'AI Architect',
-        slug: { current: 'ai-architect' },
-        date: '2021-11-20',
-        category: 'ACADEMIC RESEARCH',
+        title: 'Trace It! Interactive Targeting',
+        slug: { current: 'trace-it-interactive-targeting' },
+        date: '',
+        category: 'ENGINEERING PROJECT',
         specs: [
-            { label: 'Speed', value: '3x' },
-            { label: 'Dataset', value: '40k imgs' },
-            { label: 'Model', value: 'GAN' }
+            { label: 'Accuracy', value: '95%' },
+            { label: 'Tracking', value: '8 cm/s' },
+            { label: 'Control', value: 'Closed-Loop' }
         ],
         description: [
             {
                 _type: 'block',
-                children: [{ _type: 'span', text: 'Generative design tool for architectural visualization.' }],
+                children: [{ _type: 'span', text: 'Belt-driven motion platform with closed-loop stepper control and IR sensing.' }],
             },
         ],
         mainImage: {
-            asset: { url: 'https://images.unsplash.com/photo-1633613286991-611fe299c4be?q=80&w=2070&auto=format&fit=crop' },
-            alt: 'AI generated architecture',
+            asset: { url: '/portfolio-assets/pdf_img_p3_5.png' },
+            alt: 'Electronics and sensors',
         },
-        tags: ['Python', 'TensorFlow', 'React'],
+        tags: ['Arduino', 'C++', 'CNC', 'SolidWorks'],
         links: {
-            github: 'https://github.com',
+            demo: '#',
         },
         content: {
-            challenge: 'Architects spend countless hours generating initial massing models and conceptual iterations before narrowing down a design.',
-            approach: 'Trained a custom generative adversarial network (GAN) on historical blueprints and integrated it into a rapid React prototyping interface.',
-            impact: 'Accelerated the conceptual design phase by 3x, allowing firms to pitch more variations to clients in a fraction of the time.'
+            challenge: 'Design an interactive targeting platform capable of highly accurate and stable tracking under variable environmental conditions.',
+            approach: 'Engineered a belt-driven motion platform utilizing closed-loop stepper control and IR sensing. Applied DFM and tolerance analysis, utilizing CNC machining and additive manufacturing for structural components.',
+            impact: 'Achieved 95% detection accuracy and stable tracking at 8 cm/s under variable lighting. Improved overall system reliability and simplified the assembly process for repeatable builds.'
         },
         media: {
-            what: 'https://images.unsplash.com/photo-1633613286991-611fe299c4be?q=80&w=2070&auto=format&fit=crop',
-            how: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=2070&auto=format&fit=crop',
-            results: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop'
+            what: '/portfolio-assets/pdf_img_p3_5.png',
+            how: '/portfolio-assets/pdf_img_p3_6.png',
+            results: '/portfolio-assets/pdf_img_p3_7.png'
         }
+    }
+];
+
+export const mockExperiences: Experience[] = [
+    {
+        _id: 'exp-snc',
+        slug: { current: 'snc-electric' },
+        company: 'S&C Electric',
+        role: 'Manufacturing Engineering Intern',
+        date: 'Jan 2026 - Apr 2026',
+        description: 'Engineered line-side manufacturing fixtures reducing cycle time by ~30%. Built Power BI dashboards from Azure data to cut safety review time by ~64%. Developed VBA inventory trackers and implemented Kanban systems to reduce material downtime.',
+        thumbnail: '',
+        projectIds: ['1', '4', '5'] // 'Manufacturing Review Dashboards', 'Material Flow Dashboard', '3-Axis Assembly Workbench'
+    },
+    {
+        _id: 'exp-paragon',
+        slug: { current: 'paragon-systems' },
+        company: 'Paragon Systems',
+        role: 'Mechanical Engineer Intern',
+        date: 'May 2025 - Aug 2025',
+        description: 'Executed high-cycle vibration and IP validation testing. Designed modular test fixtures in SolidWorks, increasing throughput by 20%. Automated test-log post-processing using Python to reduce reporting cycle time from hours to 15 minutes.',
+        thumbnail: '',
+        projectIds: ['2'] // 'Dust Collection Systems'
+    },
+    {
+        _id: 'exp-guerrilla',
+        slug: { current: 'guerrilla-gear' },
+        company: 'Guerrilla Gear',
+        role: 'Product Design & Manufacturing Lead',
+        date: 'Mar 2025 - Dec 2025',
+        description: 'Led DFM/DFAM for a modular weight-stack attachment. Sourced machine shops and additive vendors, reducing per-unit cost by 13%. Transitioned V1 assemblies to thermoplastics, scaling fulfillment and supporting six-figure revenue growth.',
+        thumbnail: '',
+        projectIds: [] // No explicit projects mapped yet in mock data, but structure holds.
+    },
+    {
+        _id: 'exp-independent',
+        slug: { current: 'independent-projects' },
+        company: 'Independent Projects',
+        role: 'Mechatronics & Design',
+        date: '2024 - Present',
+        description: 'Independent engineering ventures focusing on robotics, advanced kinematics, and full-stack integration.',
+        thumbnail: '',
+        projectIds: ['3', '6'] // 'Brick It! LEGO 3D Printer', 'Trace It! Interactive Targeting'
     }
 ];

@@ -1,0 +1,51 @@
+import { defineType, defineField } from 'sanity';
+
+export const experience = defineType({
+    name: 'experience',
+    title: 'Experience / Recent Work',
+    type: 'document',
+    fields: [
+        defineField({
+            name: 'company',
+            title: 'Company Name',
+            type: 'string',
+            validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+            name: 'slug',
+            title: 'Slug',
+            type: 'slug',
+            options: { source: 'company', maxLength: 96 },
+            validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+            name: 'role',
+            title: 'Role / Position',
+            type: 'string',
+            validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+            name: 'date',
+            title: 'Date Range',
+            type: 'string',
+            description: 'E.g., Jan 2026 - Apr 2026',
+        }),
+        defineField({
+            name: 'description',
+            title: 'Description',
+            type: 'text',
+        }),
+        defineField({
+            name: 'thumbnail',
+            title: 'Thumbnail Image',
+            type: 'image',
+            options: { hotspot: true },
+        }),
+        defineField({
+            name: 'projects',
+            title: 'Associated Projects',
+            type: 'array',
+            of: [{ type: 'reference', to: { type: 'project' } }],
+        }),
+    ],
+});

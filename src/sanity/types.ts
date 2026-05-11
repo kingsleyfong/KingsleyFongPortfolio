@@ -28,3 +28,15 @@ export interface Project {
         results: string;
     };
 }
+
+export interface Experience {
+    _id: string;
+    slug: { current: string };
+    company: string;
+    role: string;
+    date: string;
+    description: string;
+    thumbnail?: string; // Thumbnail image path
+    // We map to the full project objects rather than just IDs for easier rendering
+    projectIds: string[];
+}

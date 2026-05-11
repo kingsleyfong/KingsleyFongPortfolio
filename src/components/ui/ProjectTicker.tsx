@@ -38,25 +38,25 @@ export function ProjectTicker({ projects, onSelect }: ProjectTickerProps) {
                                 {/* The Card */}
                                 <div
                                     onClick={() => onSelect(originalIndex)}
-                                    className="relative w-[300px] h-[200px] md:w-[400px] md:h-[260px] rounded-[2rem] overflow-hidden cursor-pointer transition-all duration-500 hover:scale-105 hover:z-50 group/card border border-white/10 bg-white/5 shadow-2xl"
+                                    className="relative w-[300px] h-[200px] md:w-[400px] md:h-[260px] rounded-[1.5rem] overflow-hidden cursor-pointer transition-all duration-500 hover:scale-[1.02] bg-foreground/5 border border-border group/card"
                                 >
                                     <Image
                                         src={project.mainImage?.asset?.url || '/placeholder.png'}
                                         alt={project.title}
                                         fill
-                                        className="object-cover transition-all duration-700 ease-in-out group-hover/card:scale-110 opacity-70 group-hover/card:opacity-100"
+                                        className="object-cover transition-all duration-700 ease-in-out group-hover/card:scale-105 opacity-80 group-hover/card:opacity-100"
                                     />
 
                                     {/* Gradient Overlay */}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-80 group-hover/card:opacity-60 transition-opacity duration-500 pointer-events-none" />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent transition-opacity duration-500 pointer-events-none" />
 
                                     {/* Text Content */}
                                     <div className="absolute bottom-6 left-6 right-6 z-10 pointer-events-none transform translate-y-2 group-hover/card:translate-y-0 transition-transform duration-500">
-                                        <h4 className="text-xl md:text-2xl font-bold text-white leading-tight mb-2 drop-shadow-md line-clamp-2">
+                                        <h4 className="text-xl md:text-2xl font-bold text-foreground leading-tight mb-2 drop-shadow-md line-clamp-2">
                                             {project.title}
                                         </h4>
                                         <div className="flex items-center gap-3">
-                                            <span className="text-xs font-bold tracking-[0.2em] uppercase text-white/60 bg-black/40 px-3 py-1 rounded-full backdrop-blur-md border border-white/10">
+                                            <span className="text-xs font-bold tracking-[0.2em] uppercase text-muted bg-background/80 px-3 py-1 rounded-full backdrop-blur-md border border-border">
                                                 {project.category || 'PROJECT'}
                                             </span>
                                         </div>
@@ -66,18 +66,14 @@ export function ProjectTicker({ projects, onSelect }: ProjectTickerProps) {
                                 {/* Timeline Node */}
                                 <div className="flex flex-col items-center relative z-10 w-full mb-2">
                                     {/* The Dot */}
-                                    <div className="w-3 h-3 rounded-full bg-white/20 ring-4 ring-black relative flex items-center justify-center">
-                                        {isLatest && (
-                                            <>
-                                                <div className="absolute inset-0 rounded-full bg-white animate-ping opacity-75" />
-                                                <div className="absolute inset-0 rounded-full bg-white shadow-[0_0_12px_rgba(255,255,255,1)]" />
-                                            </>
-                                        )}
+                                    <div className={`w-3 h-3 rounded-full border-2 border-background relative flex items-center justify-center ${isLatest ? 'bg-foreground scale-125' : 'bg-muted/50'}`}>
                                     </div>
                                     {/* The Date */}
-                                    <div className="absolute top-6 whitespace-nowrap text-xs font-mono text-white/40 tracking-widest uppercase">
-                                        {formattedDate}
-                                    </div>
+                                    {project.date && (
+                                        <div className="absolute top-6 whitespace-nowrap text-xs font-mono text-muted tracking-widest uppercase">
+                                            {formattedDate}
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         );
