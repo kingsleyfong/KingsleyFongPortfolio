@@ -2,18 +2,17 @@ import { createClient } from 'next-sanity';
 import { mockProjects, mockExperiences } from '../data/mock';
 import { Project, Experience } from '../types';
 
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'eqlb03gf';
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production';
 const apiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2024-02-19';
 
-export const client = projectId
-  ? createClient({
-    projectId,
-    dataset,
-    apiVersion,
-    useCdn: false,
-  })
-  : null;
+export const client = createClient({
+  projectId,
+  dataset,
+  apiVersion,
+  useCdn: false,
+});
+
 
 export async function getProjects(): Promise<Project[]> {
   if (!client) {
