@@ -244,7 +244,7 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
                     <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-8 text-foreground">Selected Work</h2>
 
                     {/* The Infinite Scrolling Timeline */}
-                    <div className="w-[100vw] relative left-1/2 -translate-x-1/2 mb-16 [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
+                    <div className="w-[100vw] relative left-1/2 -translate-x-1/2 mb-4 [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
                         <ProjectTicker
                             projects={projects}
                             onSelect={(index) => {
@@ -262,6 +262,7 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
                     <div className="w-[100vw] relative left-1/2 -translate-x-1/2 mb-16 [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
                         <SkillsTicker />
                     </div>
+
                 </section>
 
 
