@@ -166,3 +166,14 @@ export async function getHero(): Promise<any> {
     return null;
   }
 }
+
+
+export async function getSettings(): Promise<any> {
+  if (!client) return null;
+  try {
+    return await client.fetch(`*[_type == "settings"][0]`);
+  } catch (error) {
+    return null;
+  }
+}
+

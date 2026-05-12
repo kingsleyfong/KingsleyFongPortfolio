@@ -15,9 +15,10 @@ interface HomeClientProps {
     initialProjects: ExtendedProject[];
     initialExperiences: Experience[];
     initialHero: any;
+    initialSettings?: any;
 }
 
-export default function HomeClient({ initialProjects, initialExperiences, initialHero }: HomeClientProps) {
+export default function HomeClient({ initialProjects, initialExperiences, initialHero, initialSettings }: HomeClientProps) {
     const { theme, setTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
     const [activeSectionId, setActiveSectionId] = useState('hero');
@@ -25,6 +26,7 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
     const [projects, setProjects] = useState<ExtendedProject[]>(initialProjects);
     const [experiences, setExperiences] = useState<Experience[]>(initialExperiences);
     const [hero, setHero] = useState<any>(initialHero);
+    const [settings, setSettings] = useState<any>(initialSettings);
 
     useEffect(() => {
         setMounted(true);
@@ -223,12 +225,15 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
 
                 {/* CONTACT SECTION */}
                 <section id="contact" className="w-full py-32 border-t border-border flex flex-col items-center">
-                    <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4 text-foreground text-center">Let's Connect.</h2>
-                    <p className="text-lg text-muted mb-12 text-center max-w-xl">
-                        I am currently seeking Spring & Summer 2026 internship opportunities. Feel free to reach out if you're looking for a driven Manufacturing/Mechanical Engineer.
+                    <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4 text-foreground text-center">
+                        {settings?.connectTitle || "Let's Connect."}
+                    </h2>
+                    <p className="text-lg text-muted mb-12 text-center max-w-xl font-light">
+                        {settings?.connectDescription || "I am currently seeking Fall 2027 internship opportunities. Feel free to reach out if you're looking for a driven Manufacturing/Mechanical Engineer."}
                     </p>
 
-                    <form action="mailto:hello@kingsleyfong.com" method="post" encType="text/plain" className="w-full max-w-2xl flex flex-col gap-6 bg-foreground/5 p-8 rounded-2xl border border-border">
+                    <form action={`mailto:${settings?.email || 'hello@kingsleyfong.com'}`} method="post" encType="text/plain" className="w-full max-w-2xl flex flex-col gap-6 bg-foreground/5 p-8 rounded-2xl border border-border backdrop-blur-sm shadow-sm transition-all hover:border-foreground/10">
+
                         <div className="flex flex-col md:flex-row gap-6">
                             <div className="flex flex-col gap-2 w-full">
                                 <label className="text-sm font-bold text-foreground uppercase tracking-wider">Name</label>

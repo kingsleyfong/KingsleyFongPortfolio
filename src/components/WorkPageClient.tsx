@@ -7,6 +7,8 @@ import { FEAMesh } from '@/components/ui/FEAMesh';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { Experience } from '@/sanity/types';
+import { urlFor } from '@/sanity/lib/image';
+
 
 interface WorkPageClientProps {
     experience: Experience;
@@ -69,7 +71,7 @@ export default function WorkPageClient({ experience, projects }: WorkPageClientP
 
             {/* ═══════ PROJECT SIDEBAR (desktop only) ═══════ */}
             {projects.length > 0 && (
-                <nav className="fixed left-8 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col gap-1 items-start max-h-[70vh] overflow-y-auto scrollbar-none w-[260px] pr-4">
+                <nav className="fixed left-6 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col gap-1 items-start max-h-[70vh] overflow-y-auto scrollbar-none w-[210px] pr-4">
                     {/* Back link */}
                     <Link
                         href="/#about"
@@ -132,7 +134,7 @@ export default function WorkPageClient({ experience, projects }: WorkPageClientP
 
             {/* ═══════ EXPERIENCE HEADER ═══════ */}
             <header className="w-full pt-32 pb-16 px-6 border-b border-border/50 relative z-10 backdrop-blur-sm">
-                <div className="max-w-[85rem] mx-auto lg:ml-64 flex flex-col lg:flex-row gap-12 items-center">
+                <div className="max-w-[85rem] mx-auto lg:ml-80 flex flex-col lg:flex-row gap-12 items-center">
                     <div className="flex-1">
                         <Link href="/#about" className="lg:hidden inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors mb-10 bg-background/50 px-4 py-2 rounded-full border border-border/50 backdrop-blur-md">
                             <ArrowLeft size={16} />
@@ -152,13 +154,13 @@ export default function WorkPageClient({ experience, projects }: WorkPageClientP
 
                     {/* Experience Thumbnail / Hero Image */}
                     {experience.thumbnail && (
-                        <div className="w-full lg:w-[450px] aspect-[4/3] relative rounded-[2.5rem] overflow-hidden border-8 border-foreground/5 shadow-[0_20px_50px_rgba(0,0,0,0.1)] group animate-fade-in">
+                        <div className="w-full lg:w-[380px] aspect-square relative rounded-[22%] overflow-hidden border-8 border-foreground/5 shadow-[0_20px_50px_rgba(0,0,0,0.1)] group animate-fade-in flex-shrink-0">
                             <img 
-                                src={(experience as any).thumbnail} 
+                                src={urlFor(experience.thumbnail).width(1000).height(1000).quality(100).url()} 
                                 alt={experience.company}
                                 className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent pointer-events-none" />
                         </div>
                     )}
                 </div>
@@ -166,7 +168,9 @@ export default function WorkPageClient({ experience, projects }: WorkPageClientP
 
             {/* ═══════ PROJECTS CONTENT ═══════ */}
             <section className="w-full pt-16 px-6 relative z-10">
-                <div className="max-w-5xl mx-auto lg:ml-64">
+                <div className="max-w-[85rem] mx-auto lg:ml-80">
+
+
                     <h3 className="text-2xl font-bold mb-12 tracking-tight">Key Contributions</h3>
 
                     {projects.length > 0 ? (

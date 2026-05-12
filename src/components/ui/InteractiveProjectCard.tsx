@@ -5,8 +5,9 @@ import { GlassCard } from './GlassCard';
 import Image from 'next/image';
 import { ExternalLink, Github } from 'lucide-react';
 import { Project } from '../../sanity/types';
-
 import { mockProjects } from '../../sanity/data/mock';
+import { urlFor } from '@/sanity/lib/image';
+
 
 export interface ExtendedProject extends Project {
     content?: {
@@ -23,27 +24,19 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
         impact: "Reduced overall mass by 22% while increasing structural integrity and fatigue resistance under core load."
     };
 
-    const extractUrl = (item: any) => {
-        if (typeof item === 'string') return item;
-        // Handle Sanity image object with dereferenced asset url
-        if (item?.asset?.url) return item.asset.url;
-        // Handle Sanity image reference object
-        if (item?.asset?._ref) {
-            // If we have a ref but no URL, it means the query didn't dereference it.
-            // We should ideally use urlFor() but let's at least not return broken.
-            return null;
-        }
-        return null;
+    const getImageUrl = (source: any, fallback: string) => {
+        if (!source) return fallback;
+        return urlFor(source).width(1200).quality(100).url();
     };
 
-    const mediaUrl = extractUrl(project.mainImage) || "/portfolio-assets/pdf_img_p1_2.png"; // Use a known valid mock image as last resort
     const mockFallback = mockProjects.find(p => p._id === project._id)?.media as any;
 
     const media = {
-        what: extractUrl(project.media?.what) || extractUrl(mockFallback?.what) || mediaUrl,
-        how: extractUrl(project.media?.how) || extractUrl(mockFallback?.how) || mediaUrl,
-        results: extractUrl(project.media?.results) || extractUrl(mockFallback?.results) || mediaUrl
+        what: getImageUrl(project.media?.what || project.mainImage, "/portfolio-assets/pdf_img_p1_2.png"),
+        how: getImageUrl(project.media?.how, "/portfolio-assets/pdf_img_p1_2.png"),
+        results: getImageUrl(project.media?.results, "/portfolio-assets/pdf_img_p1_2.png")
     };
+
 
     return (
         <section id={project.slug?.current || project._id} className="w-full min-h-[90dvh] flex items-center justify-center py-12 lg:py-20 relative pointer-events-auto border-t border-border mt-16 scroll-mt-24">

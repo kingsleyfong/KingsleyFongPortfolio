@@ -3,6 +3,8 @@
 import React, { useRef, useEffect, useCallback, useState } from 'react';
 import Image from 'next/image';
 import { ExtendedProject } from './InteractiveProjectCard';
+import { urlFor } from '@/sanity/lib/image';
+
 
 interface ProjectTickerProps {
     projects: ExtendedProject[];
@@ -200,13 +202,13 @@ export function ProjectTicker({ projects, onSelect }: ProjectTickerProps) {
                                     className="relative w-[300px] h-[200px] md:w-[400px] md:h-[260px] rounded-[1.5rem] overflow-hidden cursor-pointer transition-all duration-500 hover:scale-[1.02] bg-foreground/5 border border-border group/card"
                                 >
                                     <Image
-                                        src={project.mainImage?.asset?.url || '/portfolio-assets/pdf_img_p3_1.png'}
+                                        src={project.mainImage ? urlFor(project.mainImage).width(800).quality(100).url() : '/portfolio-assets/pdf_img_p3_1.png'}
                                         alt={project.title}
                                         fill
                                         draggable={false}
                                         className="object-cover transition-all duration-700 ease-in-out group-hover/card:scale-105 opacity-80 group-hover/card:opacity-100 pointer-events-none"
-                                        unoptimized={project.mainImage?.asset?.url?.startsWith('http')} 
                                     />
+
 
                                     {/* Gradient Overlay */}
                                     <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent transition-opacity duration-500 pointer-events-none" />
