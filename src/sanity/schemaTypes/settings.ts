@@ -21,8 +21,9 @@ export const settings = defineType({
             name: 'linkedinUrl',
             title: 'LinkedIn URL',
             type: 'url',
-            initialValue: 'https://linkedin.com/in/kingsleyfong',
+            initialValue: 'https://linkedin.com/in/kingsley-fong',
         }),
+
         defineField({
             name: 'email',
             title: 'Contact Email',

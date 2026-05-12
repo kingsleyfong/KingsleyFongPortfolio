@@ -127,11 +127,12 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
                     {/* Left: Profile Picture */}
                     <div className="w-56 h-56 md:w-72 md:h-72 shrink-0 animate-fade-in group/profile" style={{ animationDelay: '100ms', animationFillMode: 'both' }}>
                         <a 
-                            href="https://linkedin.com/in/kingsleyfong" 
+                            href="https://linkedin.com/in/kingsley-fong" 
                             target="_blank" 
                             rel="noopener noreferrer"
                             className="block w-full h-full p-2 rounded-[2rem] border border-border bg-foreground/5 backdrop-blur-sm flex items-center justify-center overflow-hidden shadow-sm transition-all duration-500 hover:scale-[1.03] hover:border-blue-500/30 hover:shadow-[0_0_30px_rgba(37,99,235,0.15)] group"
                         >
+
                             <img
                                 src="/kingsley.png"
                                 alt="Kingsley Fong Profile"
