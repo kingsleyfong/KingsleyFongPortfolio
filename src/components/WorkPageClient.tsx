@@ -98,7 +98,7 @@ export default function WorkPageClient({ experience, projects }: WorkPageClientP
                                 <button
                                     key={project._id}
                                     onClick={() => scrollToProject(id)}
-                                    className={`group relative flex items-center gap-3 px-3 py-3 focus:outline-none w-full text-left rounded-xl transition-all duration-300 z-10
+                                    className={`group relative flex items-center gap-4 px-6 py-3 focus:outline-none w-full text-left rounded-xl transition-all duration-300 z-10
                                         ${isActive 
                                             ? 'bg-foreground/[0.05] border border-foreground/10 shadow-sm backdrop-blur-md' 
                                             : 'hover:bg-foreground/[0.02] border border-transparent'
@@ -131,22 +131,36 @@ export default function WorkPageClient({ experience, projects }: WorkPageClientP
             )}
 
             {/* ═══════ EXPERIENCE HEADER ═══════ */}
-            <header className="w-full pt-28 pb-16 px-6 border-b border-border/50 relative z-10 backdrop-blur-sm">
-                <div className="max-w-5xl mx-auto lg:ml-64">
-                    <Link href="/#about" className="lg:hidden inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors mb-10 bg-background/50 px-4 py-2 rounded-full border border-border/50 backdrop-blur-md">
-                        <ArrowLeft size={16} />
-                        Back to Portfolio
-                    </Link>
+            <header className="w-full pt-32 pb-16 px-6 border-b border-border/50 relative z-10 backdrop-blur-sm">
+                <div className="max-w-[85rem] mx-auto lg:ml-64 flex flex-col lg:flex-row gap-12 items-center">
+                    <div className="flex-1">
+                        <Link href="/#about" className="lg:hidden inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors mb-10 bg-background/50 px-4 py-2 rounded-full border border-border/50 backdrop-blur-md">
+                            <ArrowLeft size={16} />
+                            Back to Portfolio
+                        </Link>
 
-                    <div className="space-y-3 mt-4 lg:mt-0">
-                        <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-foreground">{experience.company}</h1>
-                        <h2 className="text-xl md:text-2xl text-muted font-light">{experience.role}</h2>
-                        <div className="text-sm font-mono text-muted/60 uppercase tracking-wider">{experience.date}</div>
+                        <div className="space-y-3 mt-4 lg:mt-0">
+                            <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-foreground">{experience.company}</h1>
+                            <h2 className="text-xl md:text-2xl text-muted font-light">{experience.role}</h2>
+                            <div className="text-sm font-mono text-muted/60 uppercase tracking-wider">{experience.date}</div>
+                        </div>
+
+                        <p className="mt-8 text-lg leading-relaxed max-w-2xl text-foreground/80 font-light">
+                            {experience.description}
+                        </p>
                     </div>
 
-                    <p className="mt-6 text-lg leading-relaxed max-w-3xl text-foreground/80">
-                        {experience.description}
-                    </p>
+                    {/* Experience Thumbnail / Hero Image */}
+                    {experience.thumbnail && (
+                        <div className="w-full lg:w-[450px] aspect-[4/3] relative rounded-[2.5rem] overflow-hidden border-8 border-foreground/5 shadow-[0_20px_50px_rgba(0,0,0,0.1)] group animate-fade-in">
+                            <img 
+                                src={(experience as any).thumbnail} 
+                                alt={experience.company}
+                                className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
+                        </div>
+                    )}
                 </div>
             </header>
 
