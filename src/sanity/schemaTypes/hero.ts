@@ -32,8 +32,18 @@ export const heroType = {
             title: 'Description',
             type: 'text',
             description: 'The bio paragraph below the headline.',
+        },
+        {
+            name: 'resume',
+            title: 'Resume (PDF)',
+            type: 'file',
+            options: {
+                accept: '.pdf'
+            },
+            description: 'Upload your latest professional resume here.'
         }
     ],
+
     preview: {
         select: {
             title: 'headline',

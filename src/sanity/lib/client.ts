@@ -159,8 +159,10 @@ export async function getHero(): Promise<any> {
       description,
       profileImage{
         asset->{url}
-      }
+      },
+      "resumeUrl": resume.asset->url
     }`);
+
   } catch (error) {
     return null;
   }
