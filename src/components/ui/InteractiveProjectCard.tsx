@@ -142,7 +142,7 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
                     <div className="flex gap-3">
                         {project.links?.demo && (
                             <a href={project.links.demo} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 px-5 py-2.5 bg-foreground text-background rounded-full font-bold tracking-widest uppercase text-[10px] hover:opacity-90 transition-opacity">
-                                <ExternalLink size={14} /> Live Demo
+                                <ExternalLink size={14} /> Link
                             </a>
                         )}
                         {project.links?.github && (
