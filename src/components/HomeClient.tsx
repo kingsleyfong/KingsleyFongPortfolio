@@ -8,6 +8,7 @@ import { Experience } from '@/sanity/types';
 import { ExtendedProject, InteractiveProjectCard } from '@/components/ui/InteractiveProjectCard';
 import { ProjectTicker } from '@/components/ui/ProjectTicker';
 import { EasterEgg } from '@/components/ui/EasterEgg';
+import { SkillsTicker } from '@/components/ui/SkillsTicker';
 import { FEAMesh } from '@/components/ui/FEAMesh';
 import Link from 'next/link';
 
@@ -256,7 +257,13 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
                             }}
                         />
                     </div>
+
+                    {/* Skills Ticker Tape */}
+                    <div className="w-[100vw] relative left-1/2 -translate-x-1/2 mb-16 [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
+                        <SkillsTicker />
+                    </div>
                 </section>
+
 
                 {/* CONTACT SECTION */}
                 <section id="contact" className="w-full py-32 border-t border-border flex flex-col items-center">
