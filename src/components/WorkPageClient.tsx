@@ -134,8 +134,8 @@ export default function WorkPageClient({ experience, projects }: WorkPageClientP
 
             {/* ═══════ EXPERIENCE HEADER ═══════ */}
             <header className="w-full pt-32 pb-16 px-6 border-b border-border/50 relative z-10 backdrop-blur-sm">
-                <div className="max-w-[85rem] mx-auto lg:ml-80 flex flex-col lg:flex-row gap-12 items-center">
-                    <div className="flex-1">
+                <div className="max-w-[85rem] mx-auto lg:ml-80 flex flex-col lg:flex-row gap-8 items-center justify-start">
+                    <div className="max-w-2xl">
                         <Link href="/#about" className="lg:hidden inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors mb-10 bg-background/50 px-4 py-2 rounded-full border border-border/50 backdrop-blur-md">
                             <ArrowLeft size={16} />
                             Back to Portfolio
@@ -147,14 +147,14 @@ export default function WorkPageClient({ experience, projects }: WorkPageClientP
                             <div className="text-sm font-mono text-muted/60 uppercase tracking-wider">{experience.date}</div>
                         </div>
 
-                        <p className="mt-8 text-lg leading-relaxed max-w-2xl text-foreground/80 font-light">
+                        <p className="mt-8 text-lg leading-relaxed text-foreground/80 font-light">
                             {experience.description}
                         </p>
                     </div>
 
                     {/* Experience Thumbnail / Hero Image */}
                     {experience.thumbnail && (
-                        <div className="w-full lg:w-[380px] aspect-square relative rounded-[22%] overflow-hidden border-8 border-foreground/5 shadow-[0_20px_50px_rgba(0,0,0,0.1)] group animate-fade-in flex-shrink-0">
+                        <div className="w-full lg:w-[340px] aspect-square relative rounded-[22%] overflow-hidden border-8 border-foreground/5 shadow-[0_20px_50px_rgba(0,0,0,0.1)] group animate-fade-in flex-shrink-0 lg:ml-8">
                             <img 
                                 src={urlFor(experience.thumbnail).width(1000).height(1000).quality(100).url()} 
                                 alt={experience.company}
@@ -165,6 +165,7 @@ export default function WorkPageClient({ experience, projects }: WorkPageClientP
                     )}
                 </div>
             </header>
+
 
             {/* ═══════ PROJECTS CONTENT ═══════ */}
             <section className="w-full pt-16 px-6 relative z-10">
