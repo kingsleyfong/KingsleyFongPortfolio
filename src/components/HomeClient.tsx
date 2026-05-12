@@ -27,10 +27,44 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
     const [experiences, setExperiences] = useState<Experience[]>(initialExperiences);
     const [hero, setHero] = useState<any>(initialHero);
     const [settings, setSettings] = useState<any>(initialSettings);
+    const [isSending, setIsSending] = useState(false);
+    const [isSent, setIsSent] = useState(false);
+    const [sendError, setSendError] = useState<string | null>(null);
 
     useEffect(() => {
         setMounted(true);
     }, []);
+
+    const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setIsSending(true);
+        setSendError(null);
+
+        const formData = new FormData(e.currentTarget);
+        const data = {
+            name: formData.get('name'),
+            email: formData.get('email'),
+            message: formData.get('message'),
+        };
+
+        try {
+            const res = await fetch('/api/send', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+
+            if (!res.ok) throw new Error('Failed to send message');
+            
+            setIsSent(true);
+            (e.target as HTMLFormElement).reset();
+        } catch (err) {
+            setSendError('Failed to send. Please try again later.');
+        } finally {
+            setIsSending(false);
+        }
+    };
+
 
     const navItems = useMemo(() => {
         return [
@@ -233,26 +267,55 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
                         {settings?.connectDescription || "I am currently seeking Fall 2027 internship opportunities. Feel free to reach out if you're looking for a driven Manufacturing/Mechanical Engineer."}
                     </p>
 
-                    <form action={`mailto:${settings?.email || 'hello@kingsleyfong.com'}`} method="post" encType="text/plain" className="w-full max-w-2xl flex flex-col gap-6 bg-foreground/5 p-8 rounded-2xl border border-border backdrop-blur-sm shadow-sm transition-all hover:border-foreground/10">
+                    {isSent ? (
+                        <div className="w-full max-w-2xl bg-foreground/5 p-12 rounded-3xl border border-blue-500/30 backdrop-blur-md flex flex-col items-center gap-4 animate-fade-in text-center">
+                            <div className="w-16 h-16 bg-blue-500/10 rounded-full flex items-center justify-center mb-2">
+                                <div className="w-3 h-3 bg-blue-500 rounded-full shadow-[0_0_15px_rgba(59,130,246,0.5)]" />
+                            </div>
+                            <h3 className="text-2xl font-bold tracking-tight">Message Sent!</h3>
+                            <p className="text-muted font-light">Thanks for reaching out. I'll get back to you as soon as possible.</p>
+                            <button 
+                                onClick={() => setIsSent(false)}
+                                className="mt-4 px-8 py-3 rounded-full border border-border hover:bg-foreground/5 transition-colors text-xs font-bold uppercase tracking-widest"
+                            >
+                                Send Another
+                            </button>
+                        </div>
+                    ) : (
+                        <form onSubmit={handleFormSubmit} className="w-full max-w-2xl flex flex-col gap-6 bg-foreground/5 p-8 rounded-2xl border border-border backdrop-blur-sm shadow-sm transition-all hover:border-foreground/10">
+                            <div className="flex flex-col md:flex-row gap-6">
+                                <div className="flex flex-col gap-2 w-full">
+                                    <label className="text-sm font-bold text-foreground uppercase tracking-wider">Name</label>
+                                    <input type="text" name="name" className="p-4 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all" placeholder="Your Name" required />
+                                </div>
+                                <div className="flex flex-col gap-2 w-full">
+                                    <label className="text-sm font-bold text-foreground uppercase tracking-wider">Email</label>
+                                    <input type="email" name="email" className="p-4 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all" placeholder="your@email.com" required />
+                                </div>
+                            </div>
+                            <div className="flex flex-col gap-2 w-full">
+                                <label className="text-sm font-bold text-foreground uppercase tracking-wider">Message</label>
+                                <textarea name="message" rows={5} className="p-4 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all resize-none" placeholder="How can I help you?" required></textarea>
+                            </div>
 
-                        <div className="flex flex-col md:flex-row gap-6">
-                            <div className="flex flex-col gap-2 w-full">
-                                <label className="text-sm font-bold text-foreground uppercase tracking-wider">Name</label>
-                                <input type="text" name="name" className="p-4 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-foreground/20 transition-all" placeholder="Your Name" required />
-                            </div>
-                            <div className="flex flex-col gap-2 w-full">
-                                <label className="text-sm font-bold text-foreground uppercase tracking-wider">Email</label>
-                                <input type="email" name="email" className="p-4 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-foreground/20 transition-all" placeholder="your@email.com" required />
-                            </div>
-                        </div>
-                        <div className="flex flex-col gap-2 w-full">
-                            <label className="text-sm font-bold text-foreground uppercase tracking-wider">Message</label>
-                            <textarea name="message" rows={5} className="p-4 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-foreground/20 transition-all resize-none" placeholder="How can I help you?" required></textarea>
-                        </div>
-                        <button type="submit" className="mt-4 px-8 py-4 rounded-xl bg-foreground text-background font-bold uppercase tracking-widest hover:opacity-90 transition-opacity">
-                            Send Message
-                        </button>
-                    </form>
+                            {sendError && <p className="text-red-500 text-sm font-medium text-center">{sendError}</p>}
+
+                            <button 
+                                type="submit" 
+                                disabled={isSending}
+                                className={`mt-4 px-8 py-4 rounded-xl bg-foreground text-background font-bold uppercase tracking-widest transition-all
+                                    ${isSending ? 'opacity-50 cursor-not-allowed scale-[0.98]' : 'hover:scale-[1.01] active:scale-[0.99]'}
+                                `}
+                            >
+                                {isSending ? (
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-4 h-4 border-2 border-background/30 border-t-background rounded-full animate-spin" />
+                                        Sending...
+                                    </div>
+                                ) : 'Send Message'}
+                            </button>
+                        </form>
+                    )}
 
                     <div className="flex gap-8 mt-16">
                         <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="font-medium text-muted hover:text-foreground transition-colors">GitHub</a>
