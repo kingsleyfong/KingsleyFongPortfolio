@@ -327,9 +327,10 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
 
                     <div className="flex gap-8 mt-16">
                         <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="font-medium text-muted hover:text-foreground transition-colors">GitHub</a>
-                        <a href="https://linkedin.com/in/kingsleyfong" target="_blank" rel="noopener noreferrer" className="font-medium text-muted hover:text-foreground transition-colors">LinkedIn</a>
-                        <a href="/resume/resume.pdf" target="_blank" rel="noopener noreferrer" className="font-medium text-muted hover:text-foreground transition-colors">Resume</a>
+                        <a href="https://linkedin.com/in/kingsley-fong" target="_blank" rel="noopener noreferrer" className="font-medium text-muted hover:text-foreground transition-colors">LinkedIn</a>
+                        <a href={settings?.resumeUrl || "/resume/resume.pdf"} target="_blank" rel="noopener noreferrer" className="font-medium text-muted hover:text-foreground transition-colors">Resume</a>
                     </div>
+
                 </section>
 
                 {/* FOOTER */}

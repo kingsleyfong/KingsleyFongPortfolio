@@ -170,7 +170,11 @@ export async function getHero(): Promise<any> {
 export async function getSettings(): Promise<any> {
   if (!client) return null;
   try {
-    return await client.fetch(`*[_type == "settings"][0]`);
+    return await client.fetch(`*[_type == "settings"][0]{
+      ...,
+      "resumeUrl": resume.asset->url
+    }`);
+
   } catch (error) {
     return null;
   }

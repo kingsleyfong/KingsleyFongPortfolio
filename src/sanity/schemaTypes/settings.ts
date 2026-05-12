@@ -30,5 +30,14 @@ export const settings = defineType({
             type: 'string',
             initialValue: 'hello@kingsleyfong.com',
         }),
+        defineField({
+            name: 'resume',
+            title: 'Resume (PDF)',
+            type: 'file',
+            options: {
+                accept: '.pdf'
+            }
+        }),
     ],
 });
+
