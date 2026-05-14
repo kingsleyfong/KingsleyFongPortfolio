@@ -15,7 +15,7 @@ export function ProjectTicker({ projects, onSelect }: ProjectTickerProps) {
     const trackRef = useRef<HTMLDivElement>(null);
     const scrollX = useRef(0);
     const velocity = useRef(0);
-    const autoSpeed = useRef(0.5); // px per frame
+    const autoSpeed = useRef(0.55); // Increased for smoother, slightly faster drift
     const isUserInteracting = useRef(false);
     const resumeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
     const rafId = useRef<number>(0);
@@ -48,7 +48,7 @@ export function ProjectTicker({ projects, onSelect }: ProjectTickerProps) {
         } else {
             // Apply momentum/friction from user fling
             scrollX.current += velocity.current;
-            velocity.current *= 0.95; // friction
+            velocity.current *= 0.97; // reduced friction for 20% more 'swing'
             if (Math.abs(velocity.current) < 0.1) velocity.current = 0;
         }
 

@@ -48,7 +48,7 @@ export function SkillsTicker() {
     const trackRef = useRef<HTMLDivElement>(null);
     const scrollX = useRef(0);
     const velocity = useRef(0);
-    const autoSpeed = -0.4; // Reverse direction
+    const autoSpeed = -0.45; // Increased slightly for smoother movement
     const isUserInteracting = useRef(false);
     const resumeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
     const rafId = useRef<number>(0);
@@ -75,7 +75,7 @@ export function SkillsTicker() {
             scrollX.current += autoSpeed;
         } else {
             scrollX.current += velocity.current;
-            velocity.current *= 0.95; // friction
+            velocity.current *= 0.97; // reduced friction for 20% more 'swing'
             if (Math.abs(velocity.current) < 0.1) velocity.current = 0;
         }
 
