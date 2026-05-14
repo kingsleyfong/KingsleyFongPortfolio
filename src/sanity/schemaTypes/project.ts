@@ -58,10 +58,29 @@ export const project = defineType({
             ],
         }),
         defineField({
+            name: 'startDate',
+            title: 'Start Date',
+            type: 'date',
+            description: 'Used for sorting and chronological order.',
+            validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+            name: 'endDate',
+            title: 'End Date',
+            type: 'date',
+            description: 'Leave blank if ongoing.',
+        }),
+        defineField({
+            name: 'duration',
+            title: 'Duration / Time Frame',
+            type: 'string',
+            description: 'E.g., "3 Months", "Jan 2025 - Present"',
+        }),
+        defineField({
             name: 'year',
-            title: 'Year',
+            title: 'Year (Legacy)',
             type: 'number',
-            description: 'E.g., 2025. Used to sort projects chronologically.',
+            description: 'E.g., 2025.',
             validation: (Rule) => Rule.min(2000).max(2100).integer(),
         }),
         defineField({

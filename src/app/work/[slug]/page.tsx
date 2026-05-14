@@ -14,7 +14,7 @@ export default async function WorkExperiencePage({ params }: { params: Promise<{
         return notFound();
     }
 
-    const projects = await getProjectsByIds(experience.projectIds || []);
+    const projects = experience.projects || [];
 
     return (
         <WorkPageClient 

@@ -22,7 +22,7 @@ export async function getProjects(): Promise<Project[]> {
 
   try {
     const fetchedProjects = await client.fetch<Project[]>(
-      `*[_type == "project"] | order(year desc){
+      `*[_type == "project"] | order(startDate desc){
         _id,
         title,
         slug,
@@ -36,6 +36,9 @@ export async function getProjects(): Promise<Project[]> {
         tags,
         links,
         year,
+        startDate,
+        endDate,
+        duration,
         category,
         specs,
         content,
@@ -74,7 +77,30 @@ export async function getExperiences(): Promise<Experience[]> {
         date,
         description,
         "thumbnail": thumbnail.asset->url,
-        "projectIds": projects[]._ref
+        "projects": projects[]->{
+          _id,
+          title,
+          slug,
+          description,
+          mainImage{
+            asset->{url},
+            alt
+          },
+          tags,
+          links,
+          year,
+          startDate,
+          endDate,
+          duration,
+          category,
+          specs,
+          content,
+          media{
+            what{asset->{url}},
+            how{asset->{url}},
+            results{asset->{url}}
+          }
+        }
       }`
     );
     return fetchedExps.length > 0 ? fetchedExps : mockExperiences;
@@ -100,7 +126,30 @@ export async function getExperienceBySlug(slug: string): Promise<Experience | nu
         date,
         description,
         "thumbnail": thumbnail.asset->url,
-        "projectIds": projects[]._ref
+        "projects": projects[]->{
+          _id,
+          title,
+          slug,
+          description,
+          mainImage{
+            asset->{url},
+            alt
+          },
+          tags,
+          links,
+          year,
+          startDate,
+          endDate,
+          duration,
+          category,
+          specs,
+          content,
+          media{
+            what{asset->{url}},
+            how{asset->{url}},
+            results{asset->{url}}
+          }
+        }
       }`,
       { slug }
     );
@@ -133,6 +182,9 @@ export async function getProjectsByIds(ids: string[]): Promise<Project[]> {
         tags,
         links,
         year,
+        startDate,
+        endDate,
+        duration,
         category,
         specs,
         content,

@@ -92,9 +92,9 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
                             <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-blue-500 bg-blue-500/5 px-3 py-1 rounded-full border border-blue-500/10">
                                 {project.category || 'PROJECT'}
                             </span>
-                            {project.year && (
+                            {(project.duration || project.year) && (
                                 <span className="text-[10px] font-mono text-muted/60 tracking-wider uppercase">
-                                    {project.year}
+                                    {project.duration || project.year}
                                 </span>
                             )}
                         </div>

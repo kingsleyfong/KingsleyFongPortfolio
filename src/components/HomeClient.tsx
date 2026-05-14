@@ -38,14 +38,36 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
 
     const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        
+        // 1. Client-side Rate Limit Check
+        const now = Date.now();
+        const lastSent = localStorage.getItem('last_message_sent');
+        const sendCount = parseInt(localStorage.getItem('message_send_count') || '0');
+        
+        if (lastSent && now - parseInt(lastSent) < 60000 && sendCount >= 2) {
+            const waitTime = Math.ceil((60000 - (now - parseInt(lastSent))) / 1000);
+            setSendError(`Rate limit exceeded. Please wait ${waitTime}s before sending another message.`);
+            return;
+        }
+
         setIsSending(true);
         setSendError(null);
 
         const formData = new FormData(e.currentTarget);
+        
+        // 2. Honeypot check
+        if (formData.get('fax_number')) {
+            // Silently fail for bots
+            setIsSent(true);
+            setIsSending(false);
+            return;
+        }
+
         const data = {
             name: formData.get('name'),
             email: formData.get('email'),
             message: formData.get('message'),
+            hp: formData.get('fax_number'), // Pass honeypot to server for double-check
         };
 
         try {
@@ -55,12 +77,19 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
                 body: JSON.stringify(data),
             });
 
-            if (!res.ok) throw new Error('Failed to send message');
+            if (!res.ok) {
+                const errorData = await res.json();
+                throw new Error(errorData.error || 'Failed to send message');
+            }
+            
+            // 3. Update throttle state
+            localStorage.setItem('last_message_sent', now.toString());
+            localStorage.setItem('message_send_count', (sendCount + 1).toString());
             
             setIsSent(true);
             (e.target as HTMLFormElement).reset();
         } catch (err) {
-            setSendError('Failed to send. Please try again later.');
+            setSendError((err as Error).message === 'Failed to send message' ? 'Failed to send. Please try again later.' : (err as Error).message);
         } finally {
             setIsSending(false);
         }
@@ -294,16 +323,21 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
                             <div className="flex flex-col md:flex-row gap-6">
                                 <div className="flex flex-col gap-2 w-full">
                                     <label className="text-sm font-bold text-foreground uppercase tracking-wider">Name</label>
-                                    <input type="text" name="name" className="p-4 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all" placeholder="Your Name" required />
+                                    <input type="text" name="name" className="p-4 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all" placeholder="Your Name" required maxLength={100} />
                                 </div>
                                 <div className="flex flex-col gap-2 w-full">
                                     <label className="text-sm font-bold text-foreground uppercase tracking-wider">Email</label>
-                                    <input type="email" name="email" className="p-4 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all" placeholder="your@email.com" required />
+                                    <input type="email" name="email" className="p-4 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all" placeholder="your@email.com" required maxLength={100} />
                                 </div>
+                            </div>
+
+                            {/* Honeypot Field - Hidden from humans */}
+                            <div className="hidden" aria-hidden="true">
+                                <input type="text" name="fax_number" tabIndex={-1} autoComplete="off" />
                             </div>
                             <div className="flex flex-col gap-2 w-full">
                                 <label className="text-sm font-bold text-foreground uppercase tracking-wider">Message</label>
-                                <textarea name="message" rows={5} className="p-4 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all resize-none" placeholder="How can I help you?" required></textarea>
+                                <textarea name="message" rows={5} className="p-4 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all resize-none" placeholder="How can I help you?" required maxLength={2000}></textarea>
                             </div>
 
                             {sendError && <p className="text-red-500 text-sm font-medium text-center">{sendError}</p>}

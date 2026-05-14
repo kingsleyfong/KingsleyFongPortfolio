@@ -15,6 +15,9 @@ export interface Project {
         github?: string;
     };
     year?: number;
+    startDate?: string;
+    endDate?: string;
+    duration?: string;
     category?: string;
     specs?: { label: string; value: string }[];
     content?: {
@@ -38,5 +41,6 @@ export interface Experience {
     description: string;
     thumbnail?: string; // Thumbnail image path
     // We map to the full project objects rather than just IDs for easier rendering
-    projectIds: string[];
+    // We map to the full project objects rather than just IDs for easier rendering
+    projects: Project[];
 }

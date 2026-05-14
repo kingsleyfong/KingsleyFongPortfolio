@@ -5,6 +5,8 @@ export const mockProjects: Project[] = [
         _id: '1',
         title: 'Manufacturing Review Dashboards',
         slug: { current: 'manufacturing-review-dashboards' },
+        startDate: '2026-01-01',
+        duration: 'Jan 2026 - Apr 2026',
         year: 2026,
         category: 'S&C ELECTRIC | AME/MQE',
         specs: [
@@ -38,226 +40,92 @@ export const mockProjects: Project[] = [
         }
     },
     {
-        _id: '2',
-        title: 'Dust Collection Systems',
-        slug: { current: 'dust-collection-systems' },
+        _id: '7',
+        title: 'META Pin (Guerilla Gear V2)',
+        slug: { current: 'meta-pin-v2' },
+        startDate: '2025-09-01',
+        duration: 'Sep 2025 - Dec 2025',
         year: 2025,
-        category: 'PARAGON SYSTEMS | AME',
+        category: 'GUERRILLA GEAR | AME/MQE',
         specs: [
-            { label: 'Airflow', value: '+10.5%' },
-            { label: 'Reruns', value: '-22%' },
-            { label: 'Budget', value: '-76%' }
+            { label: 'Safety Factor', value: '2.5x FoS' },
+            { label: 'Material', value: '6061-T6 Al' },
+            { label: 'Fit', value: 'H7/g6' }
         ],
         description: [
             {
                 _type: 'block',
-                children: [{ _type: 'span', text: 'Centralized lab airflow system upgrade reducing particulate-related reruns.' }],
+                children: [{ _type: 'span', text: 'Precision-engineered all-metal upgrade with zero-fail commercial durability.' }],
             },
         ],
         mainImage: {
-            asset: { url: '/portfolio-assets/pdf_img_p2_6.png' },
-            alt: 'Manufacturing Facility Ducting',
+            asset: { url: '/portfolio-assets/pdf_img_p1_4.png' },
+            alt: 'Machined Metal Weight Pin',
         },
-        tags: ['HVAC', 'Fluid Dynamics', 'Project Management'],
+        tags: ['FEA', 'GD&T', 'CNC Machining', 'RCA', 'Metallurgy'],
         links: {
             demo: '#',
         },
         content: {
-            challenge: 'A scattered dust collection setup led to poor capture, limited station coverage, and inconsistent cleanup around material prep and fixture areas.',
-            approach: 'Mapped duct runs, measured velocity, calculated CFM, and verified airflow. Installed centralized ducting, blast gates, quick-connect drops, custom in-house brackets, and serviceable filter access points.',
-            impact: 'Increased point-of-use airflow by ~10.5% through controlled drops. Expanded coverage from 3 to 8 stations while reducing inefficient duct reruns by ~22%. Delivered the upgrade ~76% under budget.'
+            challenge: 'Transition from a consumer polymer tool to a "Zero-Fail" commercial-grade system. Goal: Increase FoS to 2.5x and eliminate fatigue failure modes identified in the V1 lifecycle under dynamic loading.',
+            approach: 'Transitioned to CNC-machined 6061-T6 Aluminum via Xometry. Utilized H7/g6 sliding fits and a concentric adapter sleeve system to ensure precision modularity. Coordinated the technical hand-off and QC inspection for all mission-critical dimensions.',
+            impact: 'Verified a 2.5x Factor of Safety for dynamic peak loads (450lb+). Reduced field failure rates to 0% by implementing strict technical sourcing and QC protocols, enabling six-figure product growth.'
         },
         media: {
-            what: '/portfolio-assets/pdf_img_p2_6.png',
-            how: '/portfolio-assets/pdf_img_p2_7.png',
-            results: '/portfolio-assets/pdf_img_p2_5.png'
-        }
-    },
-    {
-        _id: '3',
-        title: 'Brick It! LEGO 3D Printer',
-        slug: { current: 'brick-it-lego-3d-printer' },
-        year: 2025,
-        category: 'ENGINEERING PROJECT',
-        specs: [
-            { label: 'Speed', value: '9.5 s/brick' },
-            { label: 'Accuracy', value: '92%' },
-            { label: 'Deflection', value: '-15%' }
-        ],
-        description: [
-            {
-                _type: 'block',
-                children: [{ _type: 'span', text: 'Autonomous robotic cell converting user media into physical LEGO builds.' }],
-            },
-        ],
-        mainImage: {
-            asset: { url: '/portfolio-assets/pdf_img_p3_1.png' },
-            alt: 'LEGO Bricks',
-        },
-        tags: ['SolidWorks', 'Robotics', 'React', 'Three.js'],
-        links: {
-            demo: '#',
-        },
-        content: {
-            challenge: 'Develop a gantry-based robotic cell that converts user media into automated LEGO builds, requiring precise part feeding, motion control, and toolpath generation.',
-            approach: 'Led mechanical architecture using SolidWorks and FEA. Programmed ROBOTC homing, placement, recovery, and sensor checks. Built a full-stack React/Three.js web slicer for automated EV3 export.',
-            impact: 'Achieved 9.5 s/brick cycle time and 92% placement accuracy over 100+ builds. Reduced dispenser part count by 30%, cut changeover by 25%, and improved end-effector stiffness by 15% for stable high-speed operation.'
-        },
-        media: {
-            what: '/portfolio-assets/pdf_img_p3_1.png',
-            how: '/portfolio-assets/pdf_img_p3_2.png',
-            results: '/portfolio-assets/pdf_img_p3_4.png'
-        }
-    },
-    {
-        _id: '4',
-        title: 'Material Flow Dashboard',
-        slug: { current: 'material-flow-dashboard' },
-        year: 2026,
-        category: 'S&C ELECTRIC | AME',
-        specs: [
-            { label: 'Lookup Time', value: '-70%' },
-            { label: 'Updates', value: '-60%' },
-            { label: 'Scale', value: '100+ Parts' }
-        ],
-        description: [
-            {
-                _type: 'block',
-                children: [{ _type: 'span', text: 'Line-side tracker for hardware inventory, shortages, and reorder status.' }],
-            },
-        ],
-        mainImage: {
-            asset: { url: '/portfolio-assets/pdf_img_p1_8.png' },
-            alt: 'Warehouse Inventory',
-        },
-        tags: ['Excel VBA', 'Inventory', 'Kanban'],
-        links: {
-            demo: '#',
-        },
-        content: {
-            challenge: 'Manual tracking issues caused part-search delays, unclear stock levels, and missed replenishment signals across the production floor.',
-            approach: 'Developed Excel VBA workflows for inbound, outbound, live inventory, and part lookup using structured tables. Built dashboard views for inventory health, warning items, and reorder triggers.',
-            impact: 'Reduced part lookup time by ~70% (from 10 min to <3 min). Improved shortage visibility across 100+ hardware transactions by flagging critical levels before production impact.'
-        },
-        media: {
-            what: '/portfolio-assets/pdf_img_p1_8.png',
+            what: '/portfolio-assets/pdf_img_p1_4.png',
             how: '/portfolio-assets/pdf_img_p1_5.png',
             results: '/portfolio-assets/pdf_img_p1_6.png'
         }
     },
     {
-        _id: '5',
-        title: '3-Axis Assembly Workbench',
-        slug: { current: '3-axis-assembly-workbench' },
-        year: 2026,
-        category: 'S&C ELECTRIC | AME',
+        _id: '8',
+        title: 'Thermo Pin (Guerilla Gear V1)',
+        slug: { current: 'thermo-pin-v1' },
+        startDate: '2025-03-01',
+        duration: 'Mar 2025 - Aug 2025',
+        year: 2025,
+        category: 'GUERRILLA GEAR | PRODUCT DESIGN',
         specs: [
-            { label: 'Workflow', value: '-30%' },
-            { label: 'Type', value: 'Welded Frame' },
-            { label: 'Docs', value: 'Fabrication Ready' }
+            { label: 'Safety Factor', value: '2.0x FoS' },
+            { label: 'Sourcing', value: 'Slant 3D' },
+            { label: 'Modularity', value: '2-in-1' }
         ],
         description: [
             {
                 _type: 'block',
-                children: [{ _type: 'span', text: 'Custom assembly workbench replacing cart-based workflows for rollerdeck production.' }],
+                children: [{ _type: 'span', text: 'Market-first modular weight-loading pin solving for cross-machine compatibility.' }],
             },
         ],
         mainImage: {
-            asset: { url: '/portfolio-assets/pdf_img_p2_1.png' },
-            alt: 'Workbench Tools',
+            asset: { url: '/portfolio-assets/pdf_img_p1_4.png' },
+            alt: 'Thermoplastic Weight Pin',
         },
-        tags: ['SolidWorks', 'DFMA', 'Sheet Metal'],
+        tags: ['SolidWorks', 'DFAM', 'Additive Manufacturing', 'Product Launch'],
         links: {
             demo: '#',
         },
         content: {
-            challenge: 'Existing cart-based workflows were inefficient for rollerdeck-floor production, lacking dedicated operator access, storage, and tool organization.',
-            approach: 'Built SolidWorks CAD, BOMs, sheet-metal drawings, and assembly documentation. Iterated around floor-space limits, Atlas Copco arm reach, hardware bins, and operator feedback.',
-            impact: 'Advanced design from concept to welded sheet-metal frame. Reduced assembler workflow by ~30% by consolidating tools, hardware, and workholding into one dedicated station.'
+            challenge: 'Identify and solve a significant gap in the strength equipment market: the lack of a modular weight-loading pin. Existing solutions were monolithic/fixed-length, forcing users to carry multiple pins for varying machine clearances.',
+            approach: 'Engineered a "Base + Extender" system with a variable moment arm, telescoping from 4.5" to 7". Optimized Design for Additive Manufacturing (DFAM) print orientations for shear-force resistance. Sourced and coordinated with Slant 3D to utilize their distributed print farm, scaling to thousands of units.',
+            impact: 'Established a new product category and enabled six-figure product growth via agile thermoplastic production. Dynamic stress testing revealed elastic deformation limits, providing the baseline requirements for the V2 overhaul.'
         },
         media: {
-            what: '/portfolio-assets/pdf_img_p2_1.png',
-            how: '/portfolio-assets/pdf_img_p2_2.png',
-            results: '/portfolio-assets/pdf_img_p2_5.png'
-        }
-    },
-    {
-        _id: '6',
-        title: 'Trace It! Interactive Targeting',
-        slug: { current: 'trace-it-interactive-targeting' },
-        year: 2024,
-        category: 'ENGINEERING PROJECT',
-        specs: [
-            { label: 'Accuracy', value: '95%' },
-            { label: 'Tracking', value: '8 cm/s' },
-            { label: 'Control', value: 'Closed-Loop' }
-        ],
-        description: [
-            {
-                _type: 'block',
-                children: [{ _type: 'span', text: 'Belt-driven motion platform with closed-loop stepper control and IR sensing.' }],
-            },
-        ],
-        mainImage: {
-            asset: { url: '/portfolio-assets/pdf_img_p3_5.png' },
-            alt: 'Electronics and sensors',
-        },
-        tags: ['Arduino', 'C++', 'CNC', 'SolidWorks'],
-        links: {
-            demo: '#',
-        },
-        content: {
-            challenge: 'Design an interactive targeting platform capable of highly accurate and stable tracking under variable environmental conditions.',
-            approach: 'Engineered a belt-driven motion platform utilizing closed-loop stepper control and IR sensing. Applied DFM and tolerance analysis, utilizing CNC machining and additive manufacturing for structural components.',
-            impact: 'Achieved 95% detection accuracy and stable tracking at 8 cm/s under variable lighting. Improved overall system reliability and simplified the assembly process for repeatable builds.'
-        },
-        media: {
-            what: '/portfolio-assets/pdf_img_p3_5.png',
-            how: '/portfolio-assets/pdf_img_p3_6.png',
-            results: '/portfolio-assets/pdf_img_p3_7.png'
+            what: '/portfolio-assets/pdf_img_p1_4.png',
+            how: '/portfolio-assets/pdf_img_p1_5.png',
+            results: '/portfolio-assets/pdf_img_p1_6.png'
         }
     }
 ];
 
 export const mockExperiences: Experience[] = [
     {
-        _id: 'exp-snc',
-        slug: { current: 'snc-electric' },
-        company: 'S&C Electric',
-        role: 'Manufacturing Engineering Intern',
-        date: 'Jan 2026 - Apr 2026',
-        description: 'Engineered line-side manufacturing fixtures reducing cycle time by ~30%. Built Power BI dashboards from Azure data to cut safety review time by ~64%. Developed VBA inventory trackers and implemented Kanban systems to reduce material downtime.',
-        thumbnail: '',
-        projectIds: ['1', '4', '5'] // 'Manufacturing Review Dashboards', 'Material Flow Dashboard', '3-Axis Assembly Workbench'
-    },
-    {
-        _id: 'exp-paragon',
-        slug: { current: 'paragon-systems' },
-        company: 'Paragon Systems',
-        role: 'Mechanical Engineer Intern',
-        date: 'May 2025 - Aug 2025',
-        description: 'Executed high-cycle vibration and IP validation testing. Designed modular test fixtures in SolidWorks, increasing throughput by 20%. Automated test-log post-processing using Python to reduce reporting cycle time from hours to 15 minutes.',
-        thumbnail: '',
-        projectIds: ['2'] // 'Dust Collection Systems'
-    },
-    {
         _id: 'exp-guerrilla',
         slug: { current: 'guerrilla-gear' },
         company: 'Guerrilla Gear',
         role: 'Product Design & Manufacturing Lead',
         date: 'Mar 2025 - Dec 2025',
-        description: 'Led DFM/DFAM for a modular weight-stack attachment. Sourced machine shops and additive vendors, reducing per-unit cost by 13%. Transitioned V1 assemblies to thermoplastics, scaling fulfillment and supporting six-figure revenue growth.',
+        description: 'Led DFM/DFAM for a modular weight-stack system, achieving a 2.5x FoS via FEA and material optimization. Orchestrated a distributed manufacturing network reducing per-unit cost by 13%. Transitioned V1 thermoplastic innovation to V2 precision-machined variant, scaling fulfillment for six-figure revenue growth.',
         thumbnail: '',
-        projectIds: [] // No explicit projects mapped yet in mock data, but structure holds.
-    },
-    {
-        _id: 'exp-independent',
-        slug: { current: 'independent-projects' },
-        company: 'Independent Projects',
-        role: 'Mechatronics & Design',
-        date: '2024 - Present',
-        description: 'Independent engineering ventures focusing on robotics, advanced kinematics, and full-stack integration.',
-        thumbnail: '',
-        projectIds: ['3', '6'] // 'Brick It! LEGO 3D Printer', 'Trace It! Interactive Targeting'
+        projects: [mockProjects[2], mockProjects[1]] // V1 then V2
     }
 ];

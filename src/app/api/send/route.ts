@@ -10,7 +10,17 @@ export async function POST(request: Request) {
   }
 
   try {
-    const { name, email, message } = await request.json();
+    const { name, email, message, hp } = await request.json();
+
+    // 1. Honeypot check
+    if (hp) {
+      return NextResponse.json({ error: 'Bot detected' }, { status: 400 });
+    }
+
+    // 2. Length validation
+    if (!name || name.length > 100 || !message || message.length > 2000) {
+      return NextResponse.json({ error: 'Invalid input length' }, { status: 400 });
+    }
 
     const data = await resend.emails.send({
       from: 'Portfolio Contact <onboarding@resend.dev>',
