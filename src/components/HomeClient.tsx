@@ -279,7 +279,7 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
                             onSelect={(index) => {
                                 const projectId = projects[index]._id;
                                 const projectSlug = projects[index].slug?.current || projects[index].slug || projectId;
-                                const exp = experiences.find(e => e.projectIds?.includes(projectId) || (e as any).projects?.some((p: any) => p._ref === projectId));
+                                const exp = experiences.find(e => e.projects?.some(p => p._id === projectId));
                                 const expSlug = exp ? (exp.slug?.current || exp.slug) : 'independent-projects';
                                 const targetUrl = `/work/${expSlug}#${projectSlug}`;
                                 window.location.href = targetUrl;
