@@ -191,7 +191,10 @@ export function ProjectTicker({ projects, onSelect }: ProjectTickerProps) {
                     {tripled.map((project, index) => {
                         const originalIndex = index % projects.length;
 
-                        const formattedYear = project.year || '';
+                        const formattedDate = project.startDate 
+                            ? new Date(project.startDate + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
+                            : (project.year || '');
+
                         const isLatest = originalIndex === 0;
 
                         return (
@@ -230,9 +233,9 @@ export function ProjectTicker({ projects, onSelect }: ProjectTickerProps) {
                                 <div className="flex flex-col items-center relative z-10 w-full mb-2">
                                     <div className={`w-3 h-3 rounded-full border-2 border-background relative flex items-center justify-center ${isLatest ? 'bg-foreground scale-125' : 'bg-muted/50'}`}>
                                     </div>
-                                    {project.year && (
-                                        <div className="absolute top-6 whitespace-nowrap text-xs font-mono text-muted tracking-widest uppercase">
-                                            {formattedYear}
+                                    {formattedDate && (
+                                        <div className="absolute top-6 whitespace-nowrap text-[10px] font-mono text-muted/60 tracking-[0.2em] uppercase">
+                                            {formattedDate}
                                         </div>
                                     )}
                                 </div>

@@ -38,6 +38,13 @@ export const settings = defineType({
                 accept: '.pdf'
             }
         }),
+        defineField({
+            name: 'featuredProjects',
+            title: 'Featured Projects (Homepage Ticker Order)',
+            description: 'Drag and drop projects to set their order on the homepage. If empty, the site will default to chronological order.',
+            type: 'array',
+            of: [{ type: 'reference', to: { type: 'project' } }],
+        }),
     ],
 });
 

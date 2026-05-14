@@ -226,7 +226,31 @@ export async function getSettings(): Promise<any> {
   try {
     return await client.fetch(`*[_type == "settings"][0]{
       ...,
-      "resumeUrl": resume.asset->url
+      "resumeUrl": resume.asset->url,
+      "featuredProjects": featuredProjects[]->{
+        _id,
+        title,
+        slug,
+        description,
+        mainImage{
+          asset->{url},
+          alt
+        },
+        tags,
+        links,
+        year,
+        startDate,
+        endDate,
+        duration,
+        category,
+        specs,
+        content,
+        media{
+          what{asset->{url}},
+          how{asset->{url}},
+          results{asset->{url}}
+        }
+      }
     }`);
 
   } catch (error) {
