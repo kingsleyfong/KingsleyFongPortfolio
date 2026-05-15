@@ -34,9 +34,11 @@ export const mockProjects: Project[] = [
             impact: 'Reduced weekly production review time by ~64% (from ~51 min to <18 min) by replacing manual log searches. Cut manual filtering work by ~86% and improved open-action visibility across 100+ safety and hazard records.'
         },
         media: {
-            what: '/portfolio-assets/pdf_img_p1_4.png',
-            how: '/portfolio-assets/pdf_img_p1_5.png',
-            results: '/portfolio-assets/pdf_img_p1_6.png'
+            carousel: [
+                { type: 'image', image: '/portfolio-assets/pdf_img_p1_4.png', alt: 'Main View' }
+            ],
+            bottomLeftAnchor: { type: 'image', image: '/portfolio-assets/pdf_img_p1_5.png', alt: 'Technical Detail' },
+            bottomRightAnchor: { type: 'image', image: '/portfolio-assets/pdf_img_p1_6.png', alt: 'Results' }
         }
     },
     {
@@ -72,9 +74,11 @@ export const mockProjects: Project[] = [
             impact: 'Verified a 2.5x Factor of Safety for dynamic peak loads (450lb+). Reduced field failure rates to 0% by implementing strict technical sourcing and QC protocols, enabling six-figure product growth.'
         },
         media: {
-            what: '/portfolio-assets/pdf_img_p1_4.png',
-            how: '/portfolio-assets/pdf_img_p1_5.png',
-            results: '/portfolio-assets/pdf_img_p1_6.png'
+            carousel: [
+                { type: 'image', image: '/portfolio-assets/pdf_img_p1_4.png', alt: 'Main View' }
+            ],
+            bottomLeftAnchor: { type: 'image', image: '/portfolio-assets/pdf_img_p1_5.png', alt: 'Technical Detail' },
+            bottomRightAnchor: { type: 'image', image: '/portfolio-assets/pdf_img_p1_6.png', alt: 'Results' }
         }
     },
     {
@@ -110,9 +114,11 @@ export const mockProjects: Project[] = [
             impact: 'Established a new product category and enabled six-figure product growth via agile thermoplastic production. Dynamic stress testing revealed elastic deformation limits, providing the baseline requirements for the V2 overhaul.'
         },
         media: {
-            what: '/portfolio-assets/pdf_img_p1_4.png',
-            how: '/portfolio-assets/pdf_img_p1_5.png',
-            results: '/portfolio-assets/pdf_img_p1_6.png'
+            carousel: [
+                { type: 'image', image: '/portfolio-assets/pdf_img_p1_4.png', alt: 'Main View' }
+            ],
+            bottomLeftAnchor: { type: 'image', image: '/portfolio-assets/pdf_img_p1_5.png', alt: 'Technical Detail' },
+            bottomRightAnchor: { type: 'image', image: '/portfolio-assets/pdf_img_p1_6.png', alt: 'Results' }
         }
     }
 ];
