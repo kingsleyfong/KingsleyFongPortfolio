@@ -118,9 +118,14 @@ export const project = defineType({
             title: 'Media Windows',
             type: 'object',
             fields: [
-                { name: 'what', title: 'What Media', type: 'image', options: { hotspot: true }, description: 'Image for the "What" tab.' },
-                { name: 'how', title: 'How Media', type: 'image', options: { hotspot: true }, description: 'Image for the "How" tab.' },
-                { name: 'results', title: 'Results Media', type: 'image', options: { hotspot: true }, description: 'Image for the "Results" tab.' },
+                { name: 'what', title: 'What Media (Image)', type: 'image', options: { hotspot: true }, description: 'Image for the "What" tab.' },
+                { name: 'whatVideo', title: 'What Media (Video)', type: 'file', options: { accept: 'video/mp4' }, description: 'Optional MP4 video (Autoplays and loops).' },
+                
+                { name: 'how', title: 'How Media (Image)', type: 'image', options: { hotspot: true }, description: 'Image for the "How" tab.' },
+                { name: 'howVideo', title: 'How Media (Video)', type: 'file', options: { accept: 'video/mp4' }, description: 'Optional MP4 video (Autoplays and loops).' },
+                
+                { name: 'results', title: 'Results Media (Image)', type: 'image', options: { hotspot: true }, description: 'Image for the "Results" tab.' },
+                { name: 'resultsVideo', title: 'Results Media (Video)', type: 'file', options: { accept: 'video/mp4' }, description: 'Optional MP4 video (Autoplays and loops).' },
             ],
         }),
     ],

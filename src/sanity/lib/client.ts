@@ -44,8 +44,11 @@ export async function getProjects(): Promise<Project[]> {
         content,
         media{
           what{asset->{url}},
+          "whatVideo": whatVideo.asset->url,
           how{asset->{url}},
-          results{asset->{url}}
+          "howVideo": howVideo.asset->url,
+          results{asset->{url}},
+          "resultsVideo": resultsVideo.asset->url
         }
       }`
     );
@@ -190,8 +193,11 @@ export async function getProjectsByIds(ids: string[]): Promise<Project[]> {
         content,
         media{
           what{asset->{url}},
+          "whatVideo": whatVideo.asset->url,
           how{asset->{url}},
-          results{asset->{url}}
+          "howVideo": howVideo.asset->url,
+          results{asset->{url}},
+          "resultsVideo": resultsVideo.asset->url
         }
       }`,
       { ids }
@@ -247,8 +253,11 @@ export async function getSettings(): Promise<any> {
         content,
         media{
           what{asset->{url}},
+          "whatVideo": whatVideo.asset->url,
           how{asset->{url}},
-          results{asset->{url}}
+          "howVideo": howVideo.asset->url,
+          results{asset->{url}},
+          "resultsVideo": resultsVideo.asset->url
         }
       }
     }`);

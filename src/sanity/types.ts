@@ -26,9 +26,12 @@ export interface Project {
         impact: string;
     };
     media?: {
-        what?: string | { asset?: { url: string } };
-        how?: string | { asset?: { url: string } };
-        results?: string | { asset?: { url: string } };
+        what?: any;
+        whatVideo?: string;
+        how?: any;
+        howVideo?: string;
+        results?: any;
+        resultsVideo?: string;
     };
 }
 

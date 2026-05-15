@@ -32,9 +32,18 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
     const mockFallback = mockProjects.find(p => p._id === project._id)?.media as any;
 
     const media = {
-        what: getImageUrl(project.media?.what || project.mainImage, "/portfolio-assets/pdf_img_p1_2.png"),
-        how: getImageUrl(project.media?.how, "/portfolio-assets/pdf_img_p1_2.png"),
-        results: getImageUrl(project.media?.results, "/portfolio-assets/pdf_img_p1_2.png")
+        what: {
+            img: getImageUrl(project.media?.what || project.mainImage, "/portfolio-assets/pdf_img_p1_2.png"),
+            video: project.media?.whatVideo
+        },
+        how: {
+            img: getImageUrl(project.media?.how, "/portfolio-assets/pdf_img_p1_2.png"),
+            video: project.media?.howVideo
+        },
+        results: {
+            img: getImageUrl(project.media?.results, "/portfolio-assets/pdf_img_p1_2.png"),
+            video: project.media?.resultsVideo
+        }
     };
 
 
@@ -46,13 +55,24 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
                 <div className="w-full lg:w-[55%] flex flex-col gap-4">
                     {/* Main "What" Image */}
                     <div className="w-full aspect-[16/10] relative rounded-3xl overflow-hidden bg-foreground/5 border border-border/50 shadow-md group">
-                        <Image
-                            src={media.what}
-                            alt={`Main view of ${project.title}`}
-                            fill
-                            className="object-cover transition-transform duration-1000 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover:scale-105"
-                            priority
-                        />
+                        {media.what.video ? (
+                            <video
+                                src={media.what.video}
+                                autoPlay
+                                loop
+                                muted
+                                playsInline
+                                className="w-full h-full object-cover transition-transform duration-1000 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover:scale-105"
+                            />
+                        ) : (
+                            <Image
+                                src={media.what.img}
+                                alt={`Main view of ${project.title}`}
+                                fill
+                                className="object-cover transition-transform duration-1000 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover:scale-105"
+                                priority
+                            />
+                        )}
                         {/* Tags overlay */}
                         <div className="absolute top-6 left-6 flex flex-wrap gap-2 z-10">
                             {project.tags?.map((tag) => (
@@ -66,20 +86,42 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
                     {/* Secondary & Tertiary Grid */}
                     <div className="grid grid-cols-2 gap-4">
                         <div className="aspect-[4/3] relative rounded-2xl overflow-hidden bg-foreground/5 border border-border/50 shadow-sm group">
-                            <Image
-                                src={media.how}
-                                alt={`Process view of ${project.title}`}
-                                fill
-                                className="object-cover transition-transform duration-1000 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover:scale-110"
-                            />
+                            {media.how.video ? (
+                                <video
+                                    src={media.how.video}
+                                    autoPlay
+                                    loop
+                                    muted
+                                    playsInline
+                                    className="w-full h-full object-cover transition-transform duration-1000 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover:scale-110"
+                                />
+                            ) : (
+                                <Image
+                                    src={media.how.img}
+                                    alt={`Process view of ${project.title}`}
+                                    fill
+                                    className="object-cover transition-transform duration-1000 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover:scale-110"
+                                />
+                            )}
                         </div>
                         <div className="aspect-[4/3] relative rounded-2xl overflow-hidden bg-foreground/5 border border-border/50 shadow-sm group">
-                            <Image
-                                src={media.results}
-                                alt={`Results view of ${project.title}`}
-                                fill
-                                className="object-cover transition-transform duration-1000 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover:scale-110"
-                            />
+                            {media.results.video ? (
+                                <video
+                                    src={media.results.video}
+                                    autoPlay
+                                    loop
+                                    muted
+                                    playsInline
+                                    className="w-full h-full object-cover transition-transform duration-1000 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover:scale-110"
+                                />
+                            ) : (
+                                <Image
+                                    src={media.results.img}
+                                    alt={`Results view of ${project.title}`}
+                                    fill
+                                    className="object-cover transition-transform duration-1000 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover:scale-110"
+                                />
+                            )}
                         </div>
                     </div>
                 </div>
