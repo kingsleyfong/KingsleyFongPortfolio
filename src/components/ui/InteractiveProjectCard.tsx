@@ -347,11 +347,15 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[100] bg-background/95 backdrop-blur-3xl flex items-center justify-center p-4 md:p-16"
+                        className="fixed inset-0 z-[9999] bg-background/95 backdrop-blur-3xl flex items-center justify-center p-4 md:p-16"
                         onClick={() => setLightboxMedia(null)}
                     >
-                        <button className="absolute top-10 right-10 p-5 rounded-full bg-foreground/5 text-foreground/50 hover:bg-foreground/10 hover:text-foreground transition-all z-[110] border border-white/5">
-                            <X size={28} />
+                        {/* Apple-Sleek Close Button - Positioned to avoid headers */}
+                        <button 
+                            className="absolute top-12 right-12 p-5 rounded-full bg-foreground/5 text-foreground/50 hover:bg-foreground/10 hover:text-foreground transition-all z-[10000] border border-white/5 backdrop-blur-md shadow-2xl group"
+                            onClick={() => setLightboxMedia(null)}
+                        >
+                            <X size={32} className="group-hover:scale-110 transition-transform" />
                         </button>
                         
                         <motion.div 
@@ -359,7 +363,7 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
                             animate={{ scale: 1, opacity: 1, y: 0 }}
                             exit={{ scale: 0.95, opacity: 0, y: 30 }}
                             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                            className="relative w-full max-w-7xl aspect-video rounded-[2.5rem] overflow-hidden shadow-[0_0_150px_rgba(0,0,0,0.7)] border border-white/10"
+                            className="relative w-full max-w-7xl aspect-video rounded-[2.5rem] overflow-hidden shadow-[0_0_150px_rgba(0,0,0,0.7)] border border-white/10 bg-black"
                             onClick={(e) => e.stopPropagation()}
                         >
                             {lightboxMedia.type === 'video' ? (
@@ -367,31 +371,38 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
                                     src={lightboxMedia.src}
                                     autoPlay
                                     controls
-                                    className="w-full h-full object-contain bg-black"
+                                    className="w-full h-full object-contain"
                                 />
                             ) : lightboxMedia.type === 'pdf' ? (
-                                <div className="w-full h-full bg-black flex flex-col items-center justify-center">
+                                <div className="w-full h-full flex flex-col items-center justify-center relative">
                                     <iframe
                                         src={`${lightboxMedia.src}#toolbar=0`}
                                         className="w-full h-full border-none"
-                                        title="PDF Viewer"
+                                        title="PDF Viewer Case Study"
                                     />
-                                    <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-4">
+                                    
+                                    {/* Glassmorphism PDF Action Bar */}
+                                    <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-6 px-8 py-5 rounded-[2rem] bg-background/40 backdrop-blur-3xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.3)] animate-in fade-in slide-in-from-bottom-5">
+                                        <div className="flex flex-col">
+                                            <span className="text-[9px] font-black uppercase tracking-[0.2em] text-white/40">Technical Document</span>
+                                            <span className="text-xs font-bold text-white/80">Case Study Report</span>
+                                        </div>
+                                        <div className="w-px h-8 bg-white/10 mx-2" />
                                         <a 
                                             href={lightboxMedia.src} 
                                             target="_blank" 
-                                            className="px-8 py-3 rounded-full bg-white text-black font-bold text-[10px] uppercase tracking-widest flex items-center gap-3 hover:scale-105 transition-transform"
+                                            className="px-6 py-2.5 rounded-full bg-white text-black font-bold text-[10px] uppercase tracking-widest flex items-center gap-3 hover:scale-105 transition-transform"
                                         >
                                             <ExternalLink size={14} />
-                                            Open Full PDF
+                                            View Full
                                         </a>
                                         <a 
                                             href={lightboxMedia.src} 
                                             download 
-                                            className="px-8 py-3 rounded-full bg-white/10 backdrop-blur-md text-white font-bold text-[10px] uppercase tracking-widest flex items-center gap-3 hover:scale-105 transition-transform border border-white/20"
+                                            className="p-2.5 rounded-full bg-white/10 text-white hover:bg-white/20 transition-all border border-white/10"
+                                            title="Download Report"
                                         >
-                                            <Download size={14} />
-                                            Download
+                                            <Download size={16} />
                                         </a>
                                     </div>
                                 </div>
@@ -399,7 +410,7 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
                                 <img
                                     src={lightboxMedia.src}
                                     alt={lightboxMedia.alt || "Lightbox View"}
-                                    className="w-full h-full object-contain bg-black"
+                                    className="w-full h-full object-contain"
                                 />
                             )}
                         </motion.div>

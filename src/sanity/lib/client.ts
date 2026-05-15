@@ -13,6 +13,34 @@ export const client = createClient({
   useCdn: false,
 });
 
+const MEDIA_QUERY = `
+  media{
+    carousel[]{
+      type,
+      "image": image.asset->url,
+      "video": video.asset->url,
+      "pdf": pdf.asset->url,
+      "pdfThumbnail": pdfThumbnail.asset->url,
+      alt
+    },
+    bottomLeftAnchor{
+      type,
+      "image": image.asset->url,
+      "video": video.asset->url,
+      "pdf": pdf.asset->url,
+      "pdfThumbnail": pdfThumbnail.asset->url,
+      alt
+    },
+    bottomRightAnchor{
+      type,
+      "image": image.asset->url,
+      "video": video.asset->url,
+      "pdf": pdf.asset->url,
+      "pdfThumbnail": pdfThumbnail.asset->url,
+      alt
+    }
+  }
+`;
 
 export async function getProjects(): Promise<Project[]> {
   if (!client) {
@@ -42,26 +70,7 @@ export async function getProjects(): Promise<Project[]> {
         category,
         specs,
         content,
-        media{
-          carousel[]{
-            type,
-            "image": image.asset->url,
-            "video": video.asset->url,
-            alt
-          },
-          bottomLeftAnchor{
-            type,
-            "image": image.asset->url,
-            "video": video.asset->url,
-            alt
-          },
-          bottomRightAnchor{
-            type,
-            "image": image.asset->url,
-            "video": video.asset->url,
-            alt
-          }
-        }
+        ${MEDIA_QUERY}
       }`
     );
 
@@ -110,26 +119,7 @@ export async function getExperiences(): Promise<Experience[]> {
           category,
           specs,
           content,
-          media{
-            carousel[]{
-              type,
-              "image": image.asset->url,
-              "video": video.asset->url,
-              alt
-            },
-            bottomLeftAnchor{
-              type,
-              "image": image.asset->url,
-              "video": video.asset->url,
-              alt
-            },
-            bottomRightAnchor{
-              type,
-              "image": image.asset->url,
-              "video": video.asset->url,
-              alt
-            }
-          }
+          ${MEDIA_QUERY}
         }
       }`
     );
@@ -174,26 +164,7 @@ export async function getExperienceBySlug(slug: string): Promise<Experience | nu
           category,
           specs,
           content,
-          media{
-            carousel[]{
-              type,
-              "image": image.asset->url,
-              "video": video.asset->url,
-              alt
-            },
-            bottomLeftAnchor{
-              type,
-              "image": image.asset->url,
-              "video": video.asset->url,
-              alt
-            },
-            bottomRightAnchor{
-              type,
-              "image": image.asset->url,
-              "video": video.asset->url,
-              alt
-            }
-          }
+          ${MEDIA_QUERY}
         }
       }`,
       { slug }
@@ -233,26 +204,7 @@ export async function getProjectsByIds(ids: string[]): Promise<Project[]> {
         category,
         specs,
         content,
-        media{
-          carousel[]{
-            type,
-            "image": image.asset->url,
-            "video": video.asset->url,
-            alt
-          },
-          bottomLeftAnchor{
-            type,
-            "image": image.asset->url,
-            "video": video.asset->url,
-            alt
-          },
-          bottomRightAnchor{
-            type,
-            "image": image.asset->url,
-            "video": video.asset->url,
-            alt
-          }
-        }
+        ${MEDIA_QUERY}
       }`,
       { ids }
     );
@@ -305,26 +257,7 @@ export async function getSettings(): Promise<any> {
         category,
         specs,
         content,
-        media{
-          carousel[]{
-            type,
-            "image": image.asset->url,
-            "video": video.asset->url,
-            alt
-          },
-          bottomLeftAnchor{
-            type,
-            "image": image.asset->url,
-            "video": video.asset->url,
-            alt
-          },
-          bottomRightAnchor{
-            type,
-            "image": image.asset->url,
-            "video": video.asset->url,
-            alt
-          }
-        }
+        ${MEDIA_QUERY}
       }
     }`);
 
