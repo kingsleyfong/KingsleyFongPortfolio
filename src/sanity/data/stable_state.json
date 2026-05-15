@@ -1,0 +1,999 @@
+{
+  "timestamp": "2026-05-15T22:46:56.780Z",
+  "projects": [
+    {
+      "_id": "0548cd49-5841-4966-a321-e49e4b726a7a",
+      "_type": "project",
+      "category": "MECHATRONICS & HMI DESIGN",
+      "content": {
+        "approach": "Developed a custom magnetic sensing mechanism utilizing the MLX90393 3D magnetometer for high-precision, non-contact coordinate tracking. Engineered the kinematics using a balanced system of 3 compression and 3 extension springs to achieve tuned, return-to-center tension. Integrated a 25-key mechanical matrix and dual EC11 rotary encoders, optimized for low-latency command execution via RP2040 firmware.",
+        "challenge": "To bridge the ergonomic gap in complex 3D CAD workflows (Fusion 360/Blender) by engineering a dedicated Human-Machine Interface (HMI). The objective was to replace wear-prone mechanical joysticks with an open-source, high-reliability magnetic system capable of fluid 6-DoF navigation and macro orchestration.",
+        "impact": "Created a production-ready mechatronic tool that eliminates the 'Mouse-Keyboard fatigue' in high-throughput engineering workflows. Proven through field testing to increase CAD navigation efficiency by 40%."
+      },
+      "description": [
+        {
+          "_key": "d1",
+          "_type": "block",
+          "children": [
+            {
+              "_type": "span",
+              "text": "High-reliability HMI capable of fluid 6-DoF navigation and macro orchestration."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "media": {
+        "bottomLeftAnchor": {
+          "alt": "SpacePad Mechatronic Assembly",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-202173ec049ee4acb1eeab8867f94ef99d7c5b86-1086x1448-png"
+            }
+          },
+          "type": "image"
+        },
+        "bottomRightAnchor": {
+          "alt": "6-DoF Kinematics Demo",
+          "type": "video",
+          "video": {
+            "_type": "file",
+            "asset": {
+              "_ref": "file-e0a0297349d00444f013df5c065f9a7557ddfedf-mp4"
+            }
+          }
+        },
+        "carousel": [
+          {
+            "_key": "c1",
+            "alt": "Primary SpacePad Hero View",
+            "image": {
+              "_type": "image",
+              "asset": {
+                "_ref": "image-824d9e0c6ea23a0031a7038e8b10dad7be5dee8d-1448x1086-png"
+              }
+            },
+            "type": "image"
+          }
+        ]
+      },
+      "slug": {
+        "_type": "slug",
+        "current": "spacepad"
+      },
+      "specs": [
+        {
+          "_key": "s1",
+          "label": "Sensor",
+          "value": "MLX90393 3D Magnetometer"
+        },
+        {
+          "_key": "s2",
+          "label": "Kinematics",
+          "value": "6-DoF (Non-Contact)"
+        },
+        {
+          "_key": "s3",
+          "label": "Logic",
+          "value": "RP2040 (CircuitPython)"
+        }
+      ],
+      "startDate": "2025-03-01",
+      "title": "SpacePad: Magnetic 6-DoF Mechatronic System",
+      "year": 2025
+    },
+    {
+      "_id": "1",
+      "_type": "project",
+      "category": "S&C ELECTRIC | AME/MQE",
+      "content": {
+        "approach": "Built Power BI dashboards from Azure-linked TeamAssurance data tables, using Power Query and DAX measures and structured slicers. Transformed raw safety and hazard records into repeatable KPI views for overdue actions, ownership, backlog, and department-level trends.",
+        "challenge": "Converted scattered safety and hazard logs across production groups into visual KPI tools for weekly production and quality reviews. Focused on faster issue escalation, clearer ownership, and better visibility into operational risk.",
+        "impact": "Reduced weekly production review time by ~64% from ~51 min to <18 min by replacing manual log searches. Cut manual filtering work by ~86% through standardized data aggregation, slicers, and prebuilt drilldown tables. Improved open-action visibility across 100+ safety and hazard records."
+      },
+      "description": [
+        {
+          "_key": "d1",
+          "_type": "block",
+          "children": [
+            {
+              "_type": "span",
+              "text": "Power BI dashboards transforming raw safety & hazard records into repeatable KPI views."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "media": {
+        "bottomLeftAnchor": {
+          "alt": "Data Pipeline",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-15d321706926d2fafb0eb3ff20ae590a09d80424-625x625-png"
+            }
+          },
+          "type": "image"
+        },
+        "bottomRightAnchor": {
+          "alt": "KPI Trends",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-6dcfb6a2f45964416df848ee942eecb4f14c6292-1080x1080-jpg"
+            }
+          },
+          "type": "image"
+        },
+        "carousel": [
+          {
+            "_key": "c1",
+            "alt": "Main Dashboard View",
+            "image": {
+              "_type": "image",
+              "asset": {
+                "_ref": "image-d61122ae86cf0eb9a47c07c12e863dde1c89549c-1024x1024-webp"
+              }
+            },
+            "type": "image"
+          }
+        ]
+      },
+      "slug": {
+        "_type": "slug",
+        "current": "manufacturing-review-dashboards"
+      },
+      "specs": [
+        {
+          "_key": "s1",
+          "label": "Time Saved",
+          "value": "64%"
+        },
+        {
+          "_key": "s2",
+          "label": "Manual Work",
+          "value": "-86%"
+        },
+        {
+          "_key": "s3",
+          "label": "Data",
+          "value": "100+ logs"
+        }
+      ],
+      "startDate": "2026-01-01",
+      "title": "Manufacturing Review Dashboards",
+      "year": 2026
+    },
+    {
+      "_id": "2",
+      "_type": "project",
+      "category": "PARAGON SYSTEMS | AME",
+      "content": {
+        "approach": "Mapped duct runs, measured velocity, calculated CFM, and verified airflow before and after install. Installed ducting, blast gates, quick-connect drops, brackets, and serviceable filter access points.",
+        "challenge": "Upgraded a scattered dust collection setup into a centralized lab airflow system. Targeted poor capture, limited station coverage, and inconsistent cleanup around material prep and fixture areas.",
+        "impact": "Increased point-of-use airflow by ~10.5% through controlled drops and improved duct routing. Expanded coverage from 3 to 8 stations while reducing inefficient duct reruns by ~22%. Delivered the upgrade ~76% under allocated budget."
+      },
+      "description": [
+        {
+          "_key": "d1",
+          "_type": "block",
+          "children": [
+            {
+              "_type": "span",
+              "text": "Centralized lab airflow system upgrade reducing inefficient duct reruns."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "media": {
+        "bottomLeftAnchor": {
+          "alt": "Custom Brackets",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-56d3a915cfcc6244276c06b4a4bf02c5be72a1c8-1777x1339-png"
+            }
+          },
+          "type": "image"
+        },
+        "bottomRightAnchor": {
+          "alt": "Testing Data",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-665062599f1a1be4763f46b069326ed39d737033-4032x3024-jpg"
+            }
+          },
+          "type": "image"
+        },
+        "carousel": [
+          {
+            "_key": "c1",
+            "alt": "System Ducting",
+            "image": {
+              "_type": "image",
+              "asset": {
+                "_ref": "image-2e976a050b94e92d029e2fb32c2f9388994e1e8f-4032x3024-jpg"
+              }
+            },
+            "type": "image"
+          }
+        ]
+      },
+      "slug": {
+        "_type": "slug",
+        "current": "dust-collection-systems"
+      },
+      "specs": [
+        {
+          "_key": "s1",
+          "label": "Airflow",
+          "value": "+10.5%"
+        },
+        {
+          "_key": "s2",
+          "label": "Coverage",
+          "value": "3 to 8 stn"
+        },
+        {
+          "_key": "s3",
+          "label": "Budget",
+          "value": "-76%"
+        }
+      ],
+      "startDate": "2025-05-01",
+      "title": "Dust Collection Systems",
+      "year": 2025
+    },
+    {
+      "_id": "27d41afa-556f-4857-8260-7b3dec3dfaae",
+      "_type": "project",
+      "category": "GUERRILLA GEAR | AME/MQE",
+      "content": {
+        "approach": "Transitioned to CNC-machined 6061-T6 Aluminum via sourced partners in the Xometry network. Utilized H7/g6 sliding fits and a concentric adapter sleeve system to ensure precision modularity. Coordinated the technical hand-off and QC inspection for all mission-critical dimensions.",
+        "challenge": "Ground-up mechanical overhaul to a \"Zero-Fail\" commercial system with an interchangeable 8mm/10mm rod system.",
+        "impact": "Verified a 2.5x Factor of Safety for dynamic peak loads (450lb+). Reduced field failure rates to 0% while supporting six-figure product growth through technical reliability and interchangeable pin modularity."
+      },
+      "description": [
+        {
+          "_key": "d1",
+          "_type": "block",
+          "children": [
+            {
+              "_type": "span",
+              "text": "Precision-engineered all-metal upgrade with zero-fail commercial durability."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "media": {
+        "bottomLeftAnchor": {
+          "alt": "FEA Validation",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-15d321706926d2fafb0eb3ff20ae590a09d80424-625x625-png"
+            }
+          },
+          "type": "image"
+        },
+        "bottomRightAnchor": {
+          "alt": "Commercial Durability",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-6dcfb6a2f45964416df848ee942eecb4f14c6292-1080x1080-jpg"
+            }
+          },
+          "type": "image"
+        },
+        "carousel": [
+          {
+            "_key": "c1",
+            "alt": "V2 Precision Metal Variant",
+            "image": {
+              "_type": "image",
+              "asset": {
+                "_ref": "image-d61122ae86cf0eb9a47c07c12e863dde1c89549c-1024x1024-webp"
+              }
+            },
+            "type": "image"
+          }
+        ]
+      },
+      "slug": {
+        "_type": "slug",
+        "current": "meta-pin-v2"
+      },
+      "specs": [
+        {
+          "_key": "s1",
+          "label": "Safety Factor",
+          "value": "2.5x FoS"
+        },
+        {
+          "_key": "s2",
+          "label": "Manufacturing",
+          "value": "Xometry (CNC)"
+        },
+        {
+          "_key": "s3",
+          "label": "Fit",
+          "value": "H7/g6 Sliding Fit"
+        }
+      ],
+      "startDate": "2025-06-01",
+      "title": "META Pin (Guerilla Gear V2)",
+      "year": 2025
+    },
+    {
+      "_id": "3",
+      "_type": "project",
+      "category": "ENGINEERING PROJECT",
+      "content": {
+        "approach": "CAD in SolidWorks, using FEA and test builds to reduce placement error. Programmed ROBOTC homing, placement, recovery, and sensor checks, plus a fullstack React/Three.js web slicer.",
+        "challenge": "Led development of a gantry-based robotic cell that converts user media into automated LEGO builds. Built a prototype assembly system with part feeding, motion control, sensing, calibration, and toolpath generation.",
+        "impact": "Achieved 9.5 s/brick and 92% placement accuracy after calibration and repeated test builds. Reduced dispenser part count by ~30% and magazine changeover time by ~25%. Reduced end-effector deflection by ~15%, improving placement stability."
+      },
+      "description": [
+        {
+          "_key": "d1",
+          "_type": "block",
+          "children": [
+            {
+              "_type": "span",
+              "text": "Autonomous robotic cell converting user media into automated LEGO builds."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "media": {
+        "bottomLeftAnchor": {
+          "alt": "Slicer UI",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-56d3a915cfcc6244276c06b4a4bf02c5be72a1c8-1777x1339-png"
+            }
+          },
+          "type": "image"
+        },
+        "bottomRightAnchor": {
+          "alt": "Final Build",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-2e976a050b94e92d029e2fb32c2f9388994e1e8f-4032x3024-jpg"
+            }
+          },
+          "type": "image"
+        },
+        "carousel": [
+          {
+            "_key": "c1",
+            "alt": "Gantry System",
+            "image": {
+              "_type": "image",
+              "asset": {
+                "_ref": "image-665062599f1a1be4763f46b069326ed39d737033-4032x3024-jpg"
+              }
+            },
+            "type": "image"
+          }
+        ]
+      },
+      "slug": {
+        "_type": "slug",
+        "current": "brick-it-lego-3d-printer"
+      },
+      "specs": [
+        {
+          "_key": "s1",
+          "label": "Cycle Time",
+          "value": "9.5 s/brick"
+        },
+        {
+          "_key": "s2",
+          "label": "Accuracy",
+          "value": "92%"
+        },
+        {
+          "_key": "s3",
+          "label": "Part Count",
+          "value": "-30%"
+        }
+      ],
+      "startDate": "2025-01-01",
+      "title": "Brick It! LEGO 3D Printer",
+      "year": 2025
+    },
+    {
+      "_id": "4",
+      "_type": "project",
+      "category": "S&C ELECTRIC | AME",
+      "content": {
+        "approach": "Developed Excel VBA workflows for inbound, outbound, live inventory, and part lookup using structured tables and formulas. Built dashboard views for inventory health, critical parts, warning items, top shortages, and reorder triggers.",
+        "challenge": "Built a line-side tracker for hardware inventory, shortages, reorder status, and part lookup. Targeted manual tracking issues causing part-search delays, unclear stock levels, and missed replenishment signals.",
+        "impact": "Reduced part lookup and inventory review time by ~70%, from 10 min to under 3 min, by centralizing hardware records. Improved shortage visibility across 100+ hardware transactions. Cut manual update friction by ~60%."
+      },
+      "description": [
+        {
+          "_key": "d1",
+          "_type": "block",
+          "children": [
+            {
+              "_type": "span",
+              "text": "Line-side tracker for hardware inventory, shortages, and reorder status."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "media": {
+        "bottomLeftAnchor": {
+          "alt": "VBA Logic",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-15d321706926d2fafb0eb3ff20ae590a09d80424-625x625-png"
+            }
+          },
+          "type": "image"
+        },
+        "bottomRightAnchor": {
+          "alt": "Kanban Integration",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-d61122ae86cf0eb9a47c07c12e863dde1c89549c-1024x1024-webp"
+            }
+          },
+          "type": "image"
+        },
+        "carousel": [
+          {
+            "_key": "c1",
+            "alt": "Inventory Dashboard",
+            "image": {
+              "_type": "image",
+              "asset": {
+                "_ref": "image-6dcfb6a2f45964416df848ee942eecb4f14c6292-1080x1080-jpg"
+              }
+            },
+            "type": "image"
+          }
+        ]
+      },
+      "slug": {
+        "_type": "slug",
+        "current": "material-flow-dashboard"
+      },
+      "specs": [
+        {
+          "_key": "s1",
+          "label": "Lookup Time",
+          "value": "-70%"
+        },
+        {
+          "_key": "s2",
+          "label": "Update Time",
+          "value": "-60%"
+        },
+        {
+          "_key": "s3",
+          "label": "Visibility",
+          "value": "100+ parts"
+        }
+      ],
+      "startDate": "2026-02-01",
+      "title": "Material Flow Dashboard",
+      "year": 2026
+    },
+    {
+      "_id": "5",
+      "_type": "project",
+      "category": "S&C ELECTRIC | AME",
+      "content": {
+        "approach": "Built SolidWorks CAD, BOMs, sheet-metal drawings, and assembly documentation for fabrication. Iterated around floor-space limits, Atlas Copco arm reach, hardware bins, drawer storage, and operator feedback.",
+        "challenge": "Engineered an assembly workbench to replace cart-based workflows and support rollerdeck-floor production. Targeted operator access, hardware storage, tool organization, and mounted-arm integration.",
+        "impact": "Advanced design from concept to welded sheet-metal frame with fabrication-ready documentation. Improved line-side organization with integrated hardware storage, tool drawers, and dedicated arm support. Reduced assembler cycletime by ~30%."
+      },
+      "description": [
+        {
+          "_key": "d1",
+          "_type": "block",
+          "children": [
+            {
+              "_type": "span",
+              "text": "Custom assembly workbench replacing cart-based workflows for rollerdeck production."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "media": {
+        "bottomLeftAnchor": {
+          "alt": "Assembly Detail",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-56d3a915cfcc6244276c06b4a4bf02c5be72a1c8-1777x1339-png"
+            }
+          },
+          "type": "image"
+        },
+        "bottomRightAnchor": {
+          "alt": "Fabrication Drawings",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-2e976a050b94e92d029e2fb32c2f9388994e1e8f-4032x3024-jpg"
+            }
+          },
+          "type": "image"
+        },
+        "carousel": [
+          {
+            "_key": "c1",
+            "alt": "Workbench CAD",
+            "image": {
+              "_type": "image",
+              "asset": {
+                "_ref": "image-15d321706926d2fafb0eb3ff20ae590a09d80424-625x625-png"
+              }
+            },
+            "type": "image"
+          }
+        ]
+      },
+      "slug": {
+        "_type": "slug",
+        "current": "3-axis-assembly-workbench"
+      },
+      "specs": [
+        {
+          "_key": "s1",
+          "label": "Cycle Time",
+          "value": "-30%"
+        },
+        {
+          "_key": "s2",
+          "label": "Type",
+          "value": "Welded Frame"
+        },
+        {
+          "_key": "s3",
+          "label": "Design",
+          "value": "SolidWorks"
+        }
+      ],
+      "startDate": "2026-03-01",
+      "title": "3-Axis Assembly Workbench",
+      "year": 2026
+    },
+    {
+      "_id": "6",
+      "_type": "project",
+      "category": "S&C ELECTRIC | AME",
+      "content": {
+        "approach": "Created SolidWorks CAD, BOMs, manufacturing drawings, and procurement package for shop fabrication. Designed a welded-frame cart with roll supports, caster mobility, lift-table compatibility, and serviceable loading access.",
+        "challenge": "Redesigned a wooden shrink-wrap cart into a production-ready material handling system for packaging. Targeted safer roll handling, cleaner material flow, better mobility, and easier operator access.",
+        "impact": "Replaced an improvised wooden cart with a standardized fabrication-ready production fixture. Improved roll access and packaging workflow by reducing awkward handling. Reduced changeover, retrieval, and workflow time by ~11%."
+      },
+      "description": [
+        {
+          "_key": "d1",
+          "_type": "block",
+          "children": [
+            {
+              "_type": "span",
+              "text": "Production-ready material handling system for shrink-wrap packaging."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "media": {
+        "bottomLeftAnchor": {
+          "alt": "Design Features",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-665062599f1a1be4763f46b069326ed39d737033-4032x3024-jpg"
+            }
+          },
+          "type": "image"
+        },
+        "bottomRightAnchor": {
+          "alt": "Fabrication Package",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-2e976a050b94e92d029e2fb32c2f9388994e1e8f-4032x3024-jpg"
+            }
+          },
+          "type": "image"
+        },
+        "carousel": [
+          {
+            "_key": "c1",
+            "alt": "Final Cart Assembly",
+            "image": {
+              "_type": "image",
+              "asset": {
+                "_ref": "image-56d3a915cfcc6244276c06b4a4bf02c5be72a1c8-1777x1339-png"
+              }
+            },
+            "type": "image"
+          }
+        ]
+      },
+      "slug": {
+        "_type": "slug",
+        "current": "shrink-wrap-cart"
+      },
+      "specs": [
+        {
+          "_key": "s1",
+          "label": "Workflow",
+          "value": "-11%"
+        },
+        {
+          "_key": "s2",
+          "label": "Design",
+          "value": "Welded Frame"
+        },
+        {
+          "_key": "s3",
+          "label": "Access",
+          "value": "Serviceable"
+        }
+      ],
+      "startDate": "2026-04-01",
+      "title": "Shrink Wrap Cart",
+      "year": 2026
+    },
+    {
+      "_id": "7",
+      "_type": "project",
+      "category": "ENGINEERING PROJECT",
+      "content": {
+        "approach": "Engineered a belt-driven motion platform utilizing closed-loop stepper control and IR sensing. Applied DFM and tolerance analysis, utilizing CNC machining and additive manufacturing for structural components.",
+        "challenge": "Design an interactive targeting platform capable of highly accurate and stable tracking under variable environmental conditions.",
+        "impact": "Achieved 95% detection accuracy and stable tracking at 8 cm/s under variable lighting. Improved overall system reliability and simplified the assembly process for repeatable builds."
+      },
+      "description": [
+        {
+          "_key": "d1",
+          "_type": "block",
+          "children": [
+            {
+              "_type": "span",
+              "text": "Belt-driven motion platform with closed-loop stepper control and IR sensing."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "media": {
+        "bottomLeftAnchor": {
+          "alt": "Motion Platform",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-15d321706926d2fafb0eb3ff20ae590a09d80424-625x625-png"
+            }
+          },
+          "type": "image"
+        },
+        "bottomRightAnchor": {
+          "alt": "Tracking Results",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-d61122ae86cf0eb9a47c07c12e863dde1c89549c-1024x1024-webp"
+            }
+          },
+          "type": "image"
+        },
+        "carousel": [
+          {
+            "_key": "c1",
+            "alt": "Electronics and sensors",
+            "image": {
+              "_type": "image",
+              "asset": {
+                "_ref": "image-6dcfb6a2f45964416df848ee942eecb4f14c6292-1080x1080-jpg"
+              }
+            },
+            "type": "image"
+          }
+        ]
+      },
+      "slug": {
+        "_type": "slug",
+        "current": "trace-it-interactive-targeting"
+      },
+      "specs": [
+        {
+          "_key": "s1",
+          "label": "Accuracy",
+          "value": "95%"
+        },
+        {
+          "_key": "s2",
+          "label": "Tracking",
+          "value": "8 cm/s"
+        },
+        {
+          "_key": "s3",
+          "label": "Control",
+          "value": "Closed-Loop"
+        }
+      ],
+      "startDate": "2024-09-01",
+      "title": "Trace It! Interactive Targeting",
+      "year": 2024
+    },
+    {
+      "_id": "SrLtFAfCOsAY9E0ez2Kpc0",
+      "_type": "project",
+      "category": "GUERRILLA GEAR | PRODUCT DESIGN",
+      "content": {
+        "approach": "Engineered a modular \"Base + Extender\" architecture. Optimized Design for Additive Manufacturing (DFAM) print orientations for shear-force resistance. Sourced and coordinated with Slant 3D to utilize their distributed print farm, scaling to thousands of units.",
+        "challenge": "Identify and solve a gap for a modular weight-loading pin with zero upfront tooling cost. The goal was to validate product-market fit using agile manufacturing before committing to metal production.",
+        "impact": "Established a new product category and enabled six-figure product growth via agile thermoplastic production. Dynamic stress testing revealed elastic deformation limits, providing the baseline requirements for the V2 metal overhaul."
+      },
+      "description": [
+        {
+          "_key": "d1",
+          "_type": "block",
+          "children": [
+            {
+              "_type": "span",
+              "text": "Market-first modular weight-loading pin solving for cross-machine compatibility."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "media": {
+        "bottomLeftAnchor": {
+          "alt": "DFAM Optimization",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-0eac4fc84d7692c1f9de8daad2b525ed8573b950-1024x1024-png"
+            }
+          },
+          "type": "image"
+        },
+        "bottomRightAnchor": {
+          "alt": "Market Launch",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-8fd444e32abe9e2d9aa7d9001d9757e5b474b83f-1080x1080-jpg"
+            }
+          },
+          "type": "image"
+        },
+        "carousel": [
+          {
+            "_key": "c1",
+            "alt": "V1 Thermoplastic Variant",
+            "image": {
+              "_type": "image",
+              "asset": {
+                "_ref": "image-d61de7c372cbce791322d8a0bc761504a96415a1-1024x1024-png"
+              }
+            },
+            "type": "image"
+          }
+        ]
+      },
+      "slug": {
+        "_type": "slug",
+        "current": "thermo-pin-v1"
+      },
+      "specs": [
+        {
+          "_key": "s1",
+          "label": "Safety Factor",
+          "value": "2.0x FoS"
+        },
+        {
+          "_key": "s2",
+          "label": "Manufacturing",
+          "value": "Slant 3D (FDM)"
+        },
+        {
+          "_key": "s3",
+          "label": "Modularity",
+          "value": "2-in-1"
+        }
+      ],
+      "startDate": "2025-01-15",
+      "title": "Thermo Pin (Guerilla Gear V1)",
+      "year": 2025
+    }
+  ],
+  "experiences": [
+    {
+      "_id": "exp-guerrilla",
+      "_system": {
+        "base": {
+          "id": "exp-guerrilla",
+          "rev": "tJdWdBPlQWlQGdaKTz6NGi"
+        }
+      },
+      "_type": "experience",
+      "company": "Guerrilla Gear",
+      "date": "Mar 2025 - Dec 2025",
+      "description": "Led DFM/DFAM for a modular weight-stack system, achieving a 2.5x FoS via FEA and material optimization. Orchestrated a distributed manufacturing network reducing per-unit cost by 13%. Transitioned V1 thermoplastic innovation to V2 precision-machined variant, scaling fulfillment for six-figure revenue growth.",
+      "projects": [
+        {
+          "_key": "p1",
+          "_ref": "SrLtFAfCOsAY9E0ez2Kpc0",
+          "_type": "reference"
+        },
+        {
+          "_key": "p2",
+          "_ref": "27d41afa-556f-4857-8260-7b3dec3dfaae",
+          "_type": "reference"
+        }
+      ],
+      "role": "Product Design & Manufacturing Lead",
+      "slug": {
+        "_type": "slug",
+        "current": "guerrilla-gear"
+      },
+      "startDate": "2025-03-15",
+      "thumbnail": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-138eff07bc595b0bbb4f9479a4e32e133cd6cc0e-1183x1183-png",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_id": "exp-independent",
+      "_system": {
+        "base": {
+          "id": "exp-independent",
+          "rev": "tJdWdBPlQWlQGdaKTz6NcI"
+        }
+      },
+      "_type": "experience",
+      "company": "Independent Projects",
+      "date": "2024 - Present",
+      "description": "Independent engineering ventures focusing on robotics, advanced kinematics, and full-stack integration.",
+      "projects": [
+        {
+          "_key": "p1",
+          "_ref": "3",
+          "_type": "reference"
+        },
+        {
+          "_key": "p2",
+          "_ref": "7",
+          "_type": "reference"
+        },
+        {
+          "_key": "p3",
+          "_ref": "0548cd49-5841-4966-a321-e49e4b726a7a",
+          "_type": "reference"
+        }
+      ],
+      "role": "Mechatronics & Design",
+      "slug": {
+        "_type": "slug",
+        "current": "independent-projects"
+      },
+      "startDate": "2024-11-09",
+      "thumbnail": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-e55b8737250cf79aaba2d461c2038b6862464eab-1254x1254-png",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_id": "exp-paragon",
+      "_system": {
+        "base": {
+          "id": "exp-paragon",
+          "rev": "UdND4G08LbYoxek8M3P90r"
+        }
+      },
+      "_type": "experience",
+      "company": "Paragon Systems",
+      "date": "May 2025 - Aug 2025",
+      "description": "Executed high-cycle vibration and IP validation testing. Designed modular test fixtures in SolidWorks, increasing throughput by 20%. Automated test-log post-processing using Python to reduce reporting cycle time from hours to 15 minutes.",
+      "projects": [
+        {
+          "_key": "p1",
+          "_ref": "2",
+          "_type": "reference"
+        }
+      ],
+      "role": "Mechanical Engineer Intern",
+      "slug": {
+        "_type": "slug",
+        "current": "paragon-systems"
+      },
+      "startDate": "2025-05-05",
+      "thumbnail": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-6e1394b9b2bd936f001a189ab5d2775583a1aa3d-1254x1254-png",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_id": "exp-snc",
+      "_system": {
+        "base": {
+          "id": "exp-snc",
+          "rev": "UdND4G08LbYoxek8M3N16g"
+        }
+      },
+      "_type": "experience",
+      "company": "S&C Electric",
+      "date": "Jan 2026 - Apr 2026",
+      "description": "Engineered line-side manufacturing fixtures reducing cycle time by ~30%. Built Power BI dashboards from Azure data to cut safety review time by ~64%. Developed VBA inventory trackers and implemented Kanban systems to reduce material downtime.",
+      "projects": [
+        {
+          "_key": "p1",
+          "_ref": "1",
+          "_type": "reference"
+        },
+        {
+          "_key": "p2",
+          "_ref": "4",
+          "_type": "reference"
+        },
+        {
+          "_key": "p3",
+          "_ref": "5",
+          "_type": "reference"
+        },
+        {
+          "_key": "p4",
+          "_ref": "6",
+          "_type": "reference"
+        }
+      ],
+      "role": "Manufacturing Engineering Intern",
+      "slug": {
+        "_type": "slug",
+        "current": "snc-electric"
+      },
+      "startDate": "2026-01-12",
+      "thumbnail": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-f6d1dc124d91151650ad092f8861a0e33f23fe87-286x285-png",
+          "_type": "reference"
+        }
+      }
+    }
+  ]
+}

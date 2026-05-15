@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { ExternalLink, Github, ChevronLeft, ChevronRight, X, Maximize2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Project } from '../../sanity/types';
+import { urlFor } from '@/sanity/lib/image';
 
 export interface ExtendedProject extends Project {
     content?: {
@@ -46,10 +47,29 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
 
     const renderMedia = (item: any, className: string, isHero = false) => {
         if (!item) return null;
+        
+        // Handle Sanity structure vs local string path
         const isVideo = item.type === 'video';
-        const src = isVideo ? item.video : item.image;
+        let src = isVideo ? item.video : item.image;
 
-        if (!src) return null;
+        // If it's a Sanity asset object (not yet resolved by GROQ), we need to handle it.
+        // But our GROQ resolves it to a string. Mock data also uses strings.
+        // If it's still an object, we attempt to get the URL.
+        if (typeof src === 'object' && src !== null) {
+            if (isVideo) {
+                // If it's a file object from Sanity
+                src = (src as any).asset?.url || (src as any).url;
+            } else {
+                // If it's an image object from Sanity
+                try {
+                    src = urlFor(src).url();
+                } catch (e) {
+                    src = (src as any).asset?.url || (src as any).url;
+                }
+            }
+        }
+
+        if (!src || typeof src !== 'string') return null;
 
         if (isVideo) {
             return (
@@ -69,6 +89,7 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
                 src={src}
                 alt={item.alt || "Project Media"}
                 className={`${className} object-cover`}
+                loading={isHero ? "eager" : "lazy"}
             />
         );
     };

@@ -1,0 +1,94 @@
+
+{
+  "_createdAt": "2026-05-14T15:23:06Z",
+  "_id": "0548cd49-5841-4966-a321-e49e4b726a7a",
+  "_type": "project",
+  "category": "MECHATRONICS & HMI DESIGN",
+  "content": {
+    "approach": "Developed a custom magnetic sensing mechanism utilizing the MLX90393 3D magnetometer for high-precision, non-contact coordinate tracking. Engineered the kinematics using a balanced system of 3 compression and 3 extension springs to achieve tuned, return-to-center tension. Integrated a 25-key mechanical matrix and dual EC11 rotary encoders, optimized for low-latency command execution via RP2040 firmware.",
+    "challenge": "To bridge the ergonomic gap in complex 3D CAD workflows (Fusion 360/Blender) by engineering a dedicated Human-Machine Interface (HMI). The objective was to replace wear-prone mechanical joysticks with an open-source, high-reliability magnetic system capable of fluid 6-DoF navigation and macro orchestration.",
+    "impact": "Created a production-ready mechatronic tool that eliminates the 'Mouse-Keyboard fatigue' in high-throughput engineering workflows. The design utilized DFX (Design for Excellence) principles, featuring a modular handwired architecture and a snap-fit enclosure that simplifies maintenance and component replacement. Proven through field testing to increase CAD navigation efficiency by 40%."
+  },
+  "endDate": "2025-11-09",
+  "mainImage": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-e48d8ed4cc9f81b122558d030d0277020d1981fb-1448x1086-png",
+      "_type": "reference"
+    }
+  },
+  "media": {
+    "carousel": [
+      {
+        "_key": "hero-image",
+        "type": "image",
+        "image": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-824d9e0c6ea23a0031a7038e8b10dad7be5dee8d-1448x1086-png",
+            "_type": "reference"
+          }
+        },
+        "alt": "Primary SpacePad Hero View"
+      }
+    ],
+    "bottomLeftAnchor": {
+      "type": "image",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-202173ec049ee4acb1eeab8867f94ef99d7c5b86-1086x1448-png",
+          "_type": "reference"
+        }
+      },
+      "alt": "SpacePad Mechatronic Assembly"
+    },
+    "bottomRightAnchor": {
+      "type": "video",
+      "video": {
+        "_type": "file",
+        "asset": {
+          "_ref": "file-e0a0297349d00444f013df5c065f9a7557ddfedf-mp4",
+          "_type": "reference"
+        }
+      },
+      "alt": "6-DoF Kinematics Demo"
+    }
+  },
+  "slug": {
+    "_type": "slug",
+    "current": "spacepad"
+  },
+  "specs": [
+    {
+      "_key": "s1",
+      "label": "Sensor",
+      "value": "MLX90393 3D Magnetometer"
+    },
+    {
+      "_key": "s2",
+      "label": "Kinematics",
+      "value": "6-DoF (Non-Contact)"
+    },
+    {
+      "_key": "s3",
+      "label": "Logic",
+      "value": "RP2040 (CircuitPython)"
+    },
+    {
+      "_key": "s4",
+      "label": "Inputs",
+      "value": "25 MX Mechanical Keys"
+    }
+  ],
+  "startDate": "2025-10-28",
+  "tags": [
+    "6-DoF Sensing",
+    "Mechatronics",
+    "Hall Effect",
+    "DFM/DFA",
+    "Rapid Prototyping"
+  ],
+  "title": "SpacePad: Magnetic 6-DoF Mechatronic System",
+  "year": 2025
+}

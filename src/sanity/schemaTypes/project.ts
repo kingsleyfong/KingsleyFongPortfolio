@@ -23,7 +23,7 @@ export const project = defineType({
         }),
         defineField({
             name: 'description',
-            title: 'Description',
+            title: 'Description (Short Summary)',
             type: 'array',
             of: [{ type: 'block' }],
         }),
@@ -61,7 +61,7 @@ export const project = defineType({
             name: 'startDate',
             title: 'Start Date',
             type: 'date',
-            description: 'Used for sorting and chronological order.',
+            description: 'Used for sorting.',
             validation: (Rule) => Rule.required(),
         }),
         defineField({
@@ -71,23 +71,10 @@ export const project = defineType({
             description: 'Leave blank if ongoing.',
         }),
         defineField({
-            name: 'duration',
-            title: 'Duration / Time Frame',
-            type: 'string',
-            description: 'E.g., "3 Months", "Jan 2025 - Present"',
-        }),
-        defineField({
-            name: 'year',
-            title: 'Year (Legacy)',
-            type: 'number',
-            description: 'E.g., 2025.',
-            validation: (Rule) => Rule.min(2000).max(2100).integer(),
-        }),
-        defineField({
             name: 'category',
             title: 'Category',
             type: 'string',
-            description: 'E.g., DESIGN TEAM PROJECT, ACADEMIC PROJECT, FREELANCE',
+            description: 'E.g., S&C ELECTRIC | AME/MQE',
         }),
         defineField({
             name: 'specs',
@@ -97,31 +84,32 @@ export const project = defineType({
                 {
                     type: 'object',
                     fields: [
-                        { name: 'label', title: 'Label', type: 'string', description: 'E.g., PPM, range, capacity' },
-                        { name: 'value', title: 'Value', type: 'string', description: 'E.g., 180, 85°, 200kg' },
+                        { name: 'label', title: 'Label', type: 'string', description: 'E.g., Time Saved' },
+                        { name: 'value', title: 'Value', type: 'string', description: 'E.g., 64%' },
                     ]
                 }
             ]
         }),
         defineField({
             name: 'content',
-            title: 'Detailed Content',
+            title: 'Technical Narratives',
             type: 'object',
             fields: [
-                { name: 'challenge', title: 'The Challenge', type: 'text', description: 'Describe the context and problem.' },
-                { name: 'approach', title: 'The Approach', type: 'text', description: 'Describe how you solved it.' },
-                { name: 'impact', title: 'The Impact', type: 'text', description: 'Describe the final results and metrics.' },
+                { name: 'challenge', title: 'The Challenge', type: 'text' },
+                { name: 'approach', title: 'The Approach', type: 'text' },
+                { name: 'impact', title: 'The Impact', type: 'text' },
             ],
         }),
         defineField({
             name: 'media',
-            title: 'Media Showcase (Carousel + Anchors)',
+            title: 'Media Architecture (Carousel + Anchors)',
+            description: 'The "Apple-Sleek" media stage for the work page.',
             type: 'object',
             fields: [
                 {
                     name: 'carousel',
-                    title: 'Hero Stage (Auto-Scrolling Gallery)',
-                    description: 'The large top window. Drag and drop to reorder. 3-second crossfade auto-scroll.',
+                    title: 'Hero Carousel (16:10 Stage)',
+                    description: 'Large auto-scrolling gallery. Drag to reorder.',
                     type: 'array',
                     of: [
                         {
@@ -131,7 +119,7 @@ export const project = defineType({
                             fields: [
                                 {
                                     name: 'type',
-                                    title: 'Media Type',
+                                    title: 'Type',
                                     type: 'string',
                                     options: {
                                         list: [
@@ -159,8 +147,7 @@ export const project = defineType({
                                 {
                                     name: 'alt',
                                     title: 'Alt Text / Caption',
-                                    type: 'string',
-                                    description: 'E.g., "FEA Stress Analysis results"'
+                                    type: 'string'
                                 }
                             ]
                         }
@@ -168,12 +155,12 @@ export const project = defineType({
                 },
                 {
                     name: 'bottomLeftAnchor',
-                    title: 'Bottom Left Anchor',
+                    title: 'Bottom Left Anchor (4:3)',
                     type: 'object',
                     fields: [
                         {
                             name: 'type',
-                            title: 'Media Type',
+                            title: 'Type',
                             type: 'string',
                             options: {
                                 list: [
@@ -207,12 +194,12 @@ export const project = defineType({
                 },
                 {
                     name: 'bottomRightAnchor',
-                    title: 'Bottom Right Anchor',
+                    title: 'Bottom Right Anchor (4:3)',
                     type: 'object',
                     fields: [
                         {
                             name: 'type',
-                            title: 'Media Type',
+                            title: 'Type',
                             type: 'string',
                             options: {
                                 list: [
