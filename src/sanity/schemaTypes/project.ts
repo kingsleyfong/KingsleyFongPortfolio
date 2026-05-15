@@ -124,7 +124,8 @@ export const project = defineType({
                                     options: {
                                         list: [
                                             { title: 'Image', value: 'image' },
-                                            { title: 'Video', value: 'video' }
+                                            { title: 'Video', value: 'video' },
+                                            { title: 'PDF Report', value: 'pdf' }
                                         ],
                                         layout: 'radio'
                                     },
@@ -143,6 +144,21 @@ export const project = defineType({
                                     type: 'file',
                                     options: { accept: 'video/mp4' },
                                     hidden: ({ parent }) => parent?.type !== 'video'
+                                },
+                                {
+                                    name: 'pdf',
+                                    title: 'PDF File',
+                                    type: 'file',
+                                    options: { accept: '.pdf' },
+                                    hidden: ({ parent }) => parent?.type !== 'pdf'
+                                },
+                                {
+                                    name: 'pdfThumbnail',
+                                    title: 'PDF Preview Image',
+                                    type: 'image',
+                                    description: 'A sleek cover image or spread preview for the PDF.',
+                                    options: { hotspot: true },
+                                    hidden: ({ parent }) => parent?.type !== 'pdf'
                                 },
                                 {
                                     name: 'alt',
@@ -165,7 +181,8 @@ export const project = defineType({
                             options: {
                                 list: [
                                     { title: 'Image', value: 'image' },
-                                    { title: 'Video', value: 'video' }
+                                    { title: 'Video', value: 'video' },
+                                    { title: 'PDF', value: 'pdf' }
                                 ],
                                 layout: 'radio'
                             },
@@ -184,6 +201,20 @@ export const project = defineType({
                             type: 'file',
                             options: { accept: 'video/mp4' },
                             hidden: ({ parent }) => parent?.type !== 'video'
+                        },
+                        {
+                            name: 'pdf',
+                            title: 'PDF File',
+                            type: 'file',
+                            options: { accept: '.pdf' },
+                            hidden: ({ parent }) => parent?.type !== 'pdf'
+                        },
+                        {
+                            name: 'pdfThumbnail',
+                            title: 'PDF Preview Image',
+                            type: 'image',
+                            options: { hotspot: true },
+                            hidden: ({ parent }) => parent?.type !== 'pdf'
                         },
                         {
                             name: 'alt',
@@ -204,7 +235,8 @@ export const project = defineType({
                             options: {
                                 list: [
                                     { title: 'Image', value: 'image' },
-                                    { title: 'Video', value: 'video' }
+                                    { title: 'Video', value: 'video' },
+                                    { title: 'PDF', value: 'pdf' }
                                 ],
                                 layout: 'radio'
                             },
@@ -223,6 +255,20 @@ export const project = defineType({
                             type: 'file',
                             options: { accept: 'video/mp4' },
                             hidden: ({ parent }) => parent?.type !== 'video'
+                        },
+                        {
+                            name: 'pdf',
+                            title: 'PDF File',
+                            type: 'file',
+                            options: { accept: '.pdf' },
+                            hidden: ({ parent }) => parent?.type !== 'pdf'
+                        },
+                        {
+                            name: 'pdfThumbnail',
+                            title: 'PDF Preview Image',
+                            type: 'image',
+                            options: { hotspot: true },
+                            hidden: ({ parent }) => parent?.type !== 'pdf'
                         },
                         {
                             name: 'alt',

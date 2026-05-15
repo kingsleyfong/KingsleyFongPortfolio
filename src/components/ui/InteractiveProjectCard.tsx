@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
-import { ExternalLink, Github, ChevronLeft, ChevronRight, X, Maximize2 } from 'lucide-react';
+import { ExternalLink, Github, ChevronLeft, ChevronRight, X, Maximize2, FileText, Download } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Project } from '../../sanity/types';
 import { urlFor } from '@/sanity/lib/image';
@@ -18,7 +18,7 @@ export interface ExtendedProject extends Project {
 export function InteractiveProjectCard({ project }: { project: ExtendedProject }) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
-    const [lightboxMedia, setLightboxMedia] = useState<{ type: 'image' | 'video'; src: string; alt?: string } | null>(null);
+    const [lightboxMedia, setLightboxMedia] = useState<{ type: 'image' | 'video' | 'pdf'; src: string; alt?: string } | null>(null);
 
     const carousel = project.media?.carousel || [];
     const bottomLeft = project.media?.bottomLeftAnchor;
@@ -48,30 +48,32 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
     const renderMedia = (item: any, className: string, isHero = false) => {
         if (!item) return null;
         
-        // Handle Sanity structure vs local string path
-        const isVideo = item.type === 'video';
-        let src = isVideo ? item.video : item.image;
+        const type = item.type || 'image';
+        let src = '';
 
-        // If it's a Sanity asset object (not yet resolved by GROQ), we need to handle it.
-        // But our GROQ resolves it to a string. Mock data also uses strings.
-        // If it's still an object, we attempt to get the URL.
+        if (type === 'video') src = item.video;
+        else if (type === 'pdf') src = item.pdf;
+        else src = item.image;
+
+        // Resolve Sanity objects to URLs
         if (typeof src === 'object' && src !== null) {
-            if (isVideo) {
-                // If it's a file object from Sanity
+            if (type === 'video' || type === 'pdf') {
                 src = (src as any).asset?.url || (src as any).url;
             } else {
-                // If it's an image object from Sanity
-                try {
-                    src = urlFor(src).url();
-                } catch (e) {
-                    src = (src as any).asset?.url || (src as any).url;
-                }
+                try { src = urlFor(src).url(); } catch (e) { src = (src as any).asset?.url || (src as any).url; }
             }
         }
 
-        if (!src || typeof src !== 'string') return null;
+        if (!src || typeof src !== 'string') {
+            // Fallback for PDF if no file but has thumbnail
+            if (type === 'pdf' && item.pdfThumbnail) {
+                try { src = urlFor(item.pdfThumbnail).url(); } catch (e) { return null; }
+            } else {
+                return null;
+            }
+        }
 
-        if (isVideo) {
+        if (type === 'video') {
             return (
                 <video
                     src={src}
@@ -81,6 +83,29 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
                     playsInline
                     className={`${className} object-cover`}
                 />
+            );
+        }
+
+        if (type === 'pdf') {
+            const thumbUrl = item.pdfThumbnail ? urlFor(item.pdfThumbnail).url() : null;
+            return (
+                <div className={`${className} relative group/pdf overflow-hidden bg-background`}>
+                    {thumbUrl ? (
+                        <img src={thumbUrl} alt="PDF Preview" className="w-full h-full object-cover opacity-60 group-hover/pdf:opacity-40 transition-opacity duration-700" />
+                    ) : (
+                        <div className="w-full h-full flex flex-col items-center justify-center bg-foreground/[0.03]">
+                            <FileText size={48} className="text-foreground/10 mb-4" />
+                        </div>
+                    )}
+                    <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
+                        <div className="p-4 rounded-2xl bg-background/40 backdrop-blur-2xl border border-white/10 shadow-2xl scale-90 group-hover/pdf:scale-100 transition-all duration-500">
+                            <FileText size={32} className="text-foreground" />
+                        </div>
+                        <span className="mt-4 text-[10px] font-bold uppercase tracking-[0.2em] text-foreground/40 group-hover/pdf:text-foreground/60 transition-colors">
+                            Technical Report
+                        </span>
+                    </div>
+                </div>
             );
         }
 
@@ -109,9 +134,11 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
                         onClick={() => {
                             const current = carousel[currentIndex];
                             if (current) {
+                                let s = (current.type === 'video' ? current.video : (current.type === 'pdf' ? current.pdf : current.image)) || '';
+                                if (typeof s === 'object') s = (s as any).asset?.url || (s as any).url || '';
                                 setLightboxMedia({
-                                    type: current.type,
-                                    src: (current.type === 'video' ? current.video : current.image) || '',
+                                    type: current.type as any || 'image',
+                                    src: s as string,
                                     alt: current.alt
                                 });
                             }
@@ -177,9 +204,11 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
                             className="aspect-[4/3] relative rounded-2xl overflow-hidden bg-foreground/5 border border-border/50 shadow-lg group cursor-pointer"
                             onClick={() => {
                                 if (bottomLeft) {
+                                    let s = (bottomLeft.type === 'video' ? bottomLeft.video : (bottomLeft.type === 'pdf' ? bottomLeft.pdf : bottomLeft.image)) || '';
+                                    if (typeof s === 'object') s = (s as any).asset?.url || (s as any).url || '';
                                     setLightboxMedia({
-                                        type: bottomLeft.type,
-                                        src: (bottomLeft.type === 'video' ? bottomLeft.video : bottomLeft.image) || '',
+                                        type: bottomLeft.type as any || 'image',
+                                        src: s as string,
                                         alt: bottomLeft.alt
                                     });
                                 }
@@ -202,9 +231,11 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
                             className="aspect-[4/3] relative rounded-2xl overflow-hidden bg-foreground/5 border border-border/50 shadow-lg group cursor-pointer"
                             onClick={() => {
                                 if (bottomRight) {
+                                    let s = (bottomRight.type === 'video' ? bottomRight.video : (bottomRight.type === 'pdf' ? bottomRight.pdf : bottomRight.image)) || '';
+                                    if (typeof s === 'object') s = (s as any).asset?.url || (s as any).url || '';
                                     setLightboxMedia({
-                                        type: bottomRight.type,
-                                        src: (bottomRight.type === 'video' ? bottomRight.video : bottomRight.image) || '',
+                                        type: bottomRight.type as any || 'image',
+                                        src: s as string,
                                         alt: bottomRight.alt
                                     });
                                 }
@@ -338,6 +369,32 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
                                     controls
                                     className="w-full h-full object-contain bg-black"
                                 />
+                            ) : lightboxMedia.type === 'pdf' ? (
+                                <div className="w-full h-full bg-black flex flex-col items-center justify-center">
+                                    <iframe
+                                        src={`${lightboxMedia.src}#toolbar=0`}
+                                        className="w-full h-full border-none"
+                                        title="PDF Viewer"
+                                    />
+                                    <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-4">
+                                        <a 
+                                            href={lightboxMedia.src} 
+                                            target="_blank" 
+                                            className="px-8 py-3 rounded-full bg-white text-black font-bold text-[10px] uppercase tracking-widest flex items-center gap-3 hover:scale-105 transition-transform"
+                                        >
+                                            <ExternalLink size={14} />
+                                            Open Full PDF
+                                        </a>
+                                        <a 
+                                            href={lightboxMedia.src} 
+                                            download 
+                                            className="px-8 py-3 rounded-full bg-white/10 backdrop-blur-md text-white font-bold text-[10px] uppercase tracking-widest flex items-center gap-3 hover:scale-105 transition-transform border border-white/20"
+                                        >
+                                            <Download size={14} />
+                                            Download
+                                        </a>
+                                    </div>
+                                </div>
                             ) : (
                                 <img
                                     src={lightboxMedia.src}
