@@ -100,8 +100,11 @@ export async function getExperiences(): Promise<Experience[]> {
           content,
           media{
             what{asset->{url}},
+            "whatVideo": whatVideo.asset->url,
             how{asset->{url}},
-            results{asset->{url}}
+            "howVideo": howVideo.asset->url,
+            results{asset->{url}},
+            "resultsVideo": resultsVideo.asset->url
           }
         }
       }`
@@ -149,8 +152,11 @@ export async function getExperienceBySlug(slug: string): Promise<Experience | nu
           content,
           media{
             what{asset->{url}},
+            "whatVideo": whatVideo.asset->url,
             how{asset->{url}},
-            results{asset->{url}}
+            "howVideo": howVideo.asset->url,
+            results{asset->{url}},
+            "resultsVideo": resultsVideo.asset->url
           }
         }
       }`,
@@ -266,4 +272,3 @@ export async function getSettings(): Promise<any> {
     return null;
   }
 }
-
