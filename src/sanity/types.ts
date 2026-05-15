@@ -27,21 +27,27 @@ export interface Project {
     };
     media?: {
         carousel?: {
-            type: 'image' | 'video';
+            type: 'image' | 'video' | 'pdf';
             image?: string;
             video?: string;
+            pdf?: string;
+            pdfThumbnail?: string;
             alt?: string;
         }[];
         bottomLeftAnchor?: {
-            type: 'image' | 'video';
+            type: 'image' | 'video' | 'pdf';
             image?: string;
             video?: string;
+            pdf?: string;
+            pdfThumbnail?: string;
             alt?: string;
         };
         bottomRightAnchor?: {
-            type: 'image' | 'video';
+            type: 'image' | 'video' | 'pdf';
             image?: string;
             video?: string;
+            pdf?: string;
+            pdfThumbnail?: string;
             alt?: string;
         };
     };
@@ -55,7 +61,5 @@ export interface Experience {
     date: string;
     description: string;
     thumbnail?: string; // Thumbnail image path
-    // We map to the full project objects rather than just IDs for easier rendering
-    // We map to the full project objects rather than just IDs for easier rendering
     projects: Project[];
 }
