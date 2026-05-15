@@ -198,8 +198,8 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
                         >
 
                             <img
-                                src="/kingsley.png"
-                                alt="Kingsley Fong Profile"
+                                src={hero?.profileImage?.asset?.url || "/kingsley.png"}
+                                alt={hero?.profileImage?.alt || "Kingsley Fong Profile"}
                                 className="w-full h-full object-cover rounded-[1.5rem] transition-all duration-700 group-hover:scale-105 group-hover:brightness-110"
                             />
                         </a>
