@@ -115,17 +115,135 @@ export const project = defineType({
         }),
         defineField({
             name: 'media',
-            title: 'Media Windows',
+            title: 'Media Showcase (Carousel + Anchors)',
             type: 'object',
             fields: [
-                { name: 'what', title: 'What Media (Image)', type: 'image', options: { hotspot: true }, description: 'Image for the "What" tab.' },
-                { name: 'whatVideo', title: 'What Media (Video)', type: 'file', options: { accept: 'video/mp4' }, description: 'Optional MP4 video (Autoplays and loops).' },
-                
-                { name: 'how', title: 'How Media (Image)', type: 'image', options: { hotspot: true }, description: 'Image for the "How" tab.' },
-                { name: 'howVideo', title: 'How Media (Video)', type: 'file', options: { accept: 'video/mp4' }, description: 'Optional MP4 video (Autoplays and loops).' },
-                
-                { name: 'results', title: 'Results Media (Image)', type: 'image', options: { hotspot: true }, description: 'Image for the "Results" tab.' },
-                { name: 'resultsVideo', title: 'Results Media (Video)', type: 'file', options: { accept: 'video/mp4' }, description: 'Optional MP4 video (Autoplays and loops).' },
+                {
+                    name: 'carousel',
+                    title: 'Hero Stage (Auto-Scrolling Gallery)',
+                    description: 'The large top window. Drag and drop to reorder. 3-second crossfade auto-scroll.',
+                    type: 'array',
+                    of: [
+                        {
+                            type: 'object',
+                            name: 'mediaItem',
+                            title: 'Media Item',
+                            fields: [
+                                {
+                                    name: 'type',
+                                    title: 'Media Type',
+                                    type: 'string',
+                                    options: {
+                                        list: [
+                                            { title: 'Image', value: 'image' },
+                                            { title: 'Video', value: 'video' }
+                                        ],
+                                        layout: 'radio'
+                                    },
+                                    initialValue: 'image'
+                                },
+                                {
+                                    name: 'image',
+                                    title: 'Image',
+                                    type: 'image',
+                                    options: { hotspot: true },
+                                    hidden: ({ parent }) => parent?.type !== 'image'
+                                },
+                                {
+                                    name: 'video',
+                                    title: 'Video (MP4)',
+                                    type: 'file',
+                                    options: { accept: 'video/mp4' },
+                                    hidden: ({ parent }) => parent?.type !== 'video'
+                                },
+                                {
+                                    name: 'alt',
+                                    title: 'Alt Text / Caption',
+                                    type: 'string',
+                                    description: 'E.g., "FEA Stress Analysis results"'
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: 'bottomLeftAnchor',
+                    title: 'Bottom Left Anchor',
+                    type: 'object',
+                    fields: [
+                        {
+                            name: 'type',
+                            title: 'Media Type',
+                            type: 'string',
+                            options: {
+                                list: [
+                                    { title: 'Image', value: 'image' },
+                                    { title: 'Video', value: 'video' }
+                                ],
+                                layout: 'radio'
+                            },
+                            initialValue: 'image'
+                        },
+                        {
+                            name: 'image',
+                            title: 'Image',
+                            type: 'image',
+                            options: { hotspot: true },
+                            hidden: ({ parent }) => parent?.type !== 'image'
+                        },
+                        {
+                            name: 'video',
+                            title: 'Video (MP4)',
+                            type: 'file',
+                            options: { accept: 'video/mp4' },
+                            hidden: ({ parent }) => parent?.type !== 'video'
+                        },
+                        {
+                            name: 'alt',
+                            title: 'Alt Text',
+                            type: 'string'
+                        }
+                    ]
+                },
+                {
+                    name: 'bottomRightAnchor',
+                    title: 'Bottom Right Anchor',
+                    type: 'object',
+                    fields: [
+                        {
+                            name: 'type',
+                            title: 'Media Type',
+                            type: 'string',
+                            options: {
+                                list: [
+                                    { title: 'Image', value: 'image' },
+                                    { title: 'Video', value: 'video' }
+                                ],
+                                layout: 'radio'
+                            },
+                            initialValue: 'image'
+                        },
+                        {
+                            name: 'image',
+                            title: 'Image',
+                            type: 'image',
+                            options: { hotspot: true },
+                            hidden: ({ parent }) => parent?.type !== 'image'
+                        },
+                        {
+                            name: 'video',
+                            title: 'Video (MP4)',
+                            type: 'file',
+                            options: { accept: 'video/mp4' },
+                            hidden: ({ parent }) => parent?.type !== 'video'
+                        },
+                        {
+                            name: 'alt',
+                            title: 'Alt Text',
+                            type: 'string'
+                        }
+                    ]
+                }
             ],
         }),
     ],

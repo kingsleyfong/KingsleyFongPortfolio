@@ -1,0 +1,38 @@
+[
+  {
+    "patch": {
+      "id": "27d41afa-556f-4857-8260-7b3dec3dfaae",
+      "set": {
+        "title": "Thermo Pin (Guerilla Gear V1)",
+        "specs": [
+          { "_key": "spec1", "label": "Safety Factor", "value": "2.0x FoS" },
+          { "_key": "spec2", "label": "Material", "value": "Thermoplastic & Steel" },
+          { "_key": "spec3", "label": "Modularity", "value": "Separable Body" }
+        ],
+        "content": {
+          "challenge": "Identify and solve a significant gap in the strength equipment market: the lack of a modular weight-loading pin. Existing solutions were monolithic/fixed-length, forcing users to carry multiple pins for varying machine clearances and hole diameters (8mm vs 10mm).",
+          "approach": "Engineered a \"Base + Extender\" system that allowed for a variable moment arm. This was the first solution to offer a telescoping 4.5\" to 7\" form factor in a single package. Developed a quick-swap mechanical interface for 8mm and 10mm rods. Utilized Design for Additive Manufacturing (DFAM) to optimize print orientations, ensuring primary shear forces were perpendicular to layer lines.",
+          "impact": "Established a new product category in the \"adder weight\" niche, achieving six-figure revenue within 10 months. Dynamic stress testing under peak impulse revealed the elastic deformation limits of the polymer interface, providing the baseline requirements for the V2 overhaul."
+        }
+      }
+    }
+  },
+  {
+    "patch": {
+      "id": "SrLtFAfCOsAY9E0ez2Kpc0",
+      "set": {
+        "title": "META Pin (Guerilla Gear V2)",
+        "specs": [
+          { "_key": "spec1", "label": "Safety Factor", "value": "2.5x FoS" },
+          { "_key": "spec2", "label": "Material", "value": "6061-T6 Aluminum" },
+          { "_key": "spec3", "label": "Capacity", "value": "180lbs (4+ Plates)" }
+        ],
+        "content": {
+          "challenge": "Perform a ground-up mechanical overhaul to transition from a consumer-grade polymer tool to a \"Zero-Failure\" commercial-grade system. The goal was to increase the Factor of Safety (FoS) to 2.5x and eliminate all potential failure modes identified in the V1 lifecycle.",
+          "approach": "Transitioned to CNC-machined 6061-T6 Anodized Aluminum for the bodies and 4140 Case Hardened Alloy Steel for the pins. Conducted FEA to analyze Von Mises stress at the rod-to-body interface, filleting all sharp transitions to reduce stress risers. Optimized the magnetic circuit using N52 Neodymium magnets. Utilized an interference fit (H7/p6) for the rod-to-body press-fit.",
+          "impact": "Verified a 33% increase in rated capacity (to 180 lbs) with a validated 2.5x Factor of Safety for dynamic peak loads. Reduced field failure rates to 0% by shifting to CNC-machined components and implementing a PPAP-lite inspection protocol for all mission-critical dimensions."
+        }
+      }
+    }
+  }
+]

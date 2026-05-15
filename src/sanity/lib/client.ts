@@ -43,12 +43,24 @@ export async function getProjects(): Promise<Project[]> {
         specs,
         content,
         media{
-          what{asset->{url}},
-          "whatVideo": whatVideo.asset->url,
-          how{asset->{url}},
-          "howVideo": howVideo.asset->url,
-          results{asset->{url}},
-          "resultsVideo": resultsVideo.asset->url
+          carousel[]{
+            type,
+            "image": image.asset->url,
+            "video": video.asset->url,
+            alt
+          },
+          bottomLeftAnchor{
+            type,
+            "image": image.asset->url,
+            "video": video.asset->url,
+            alt
+          },
+          bottomRightAnchor{
+            type,
+            "image": image.asset->url,
+            "video": video.asset->url,
+            alt
+          }
         }
       }`
     );
@@ -99,12 +111,24 @@ export async function getExperiences(): Promise<Experience[]> {
           specs,
           content,
           media{
-            what{asset->{url}},
-            "whatVideo": whatVideo.asset->url,
-            how{asset->{url}},
-            "howVideo": howVideo.asset->url,
-            results{asset->{url}},
-            "resultsVideo": resultsVideo.asset->url
+            carousel[]{
+              type,
+              "image": image.asset->url,
+              "video": video.asset->url,
+              alt
+            },
+            bottomLeftAnchor{
+              type,
+              "image": image.asset->url,
+              "video": video.asset->url,
+              alt
+            },
+            bottomRightAnchor{
+              type,
+              "image": image.asset->url,
+              "video": video.asset->url,
+              alt
+            }
           }
         }
       }`
@@ -151,12 +175,24 @@ export async function getExperienceBySlug(slug: string): Promise<Experience | nu
           specs,
           content,
           media{
-            what{asset->{url}},
-            "whatVideo": whatVideo.asset->url,
-            how{asset->{url}},
-            "howVideo": howVideo.asset->url,
-            results{asset->{url}},
-            "resultsVideo": resultsVideo.asset->url
+            carousel[]{
+              type,
+              "image": image.asset->url,
+              "video": video.asset->url,
+              alt
+            },
+            bottomLeftAnchor{
+              type,
+              "image": image.asset->url,
+              "video": video.asset->url,
+              alt
+            },
+            bottomRightAnchor{
+              type,
+              "image": image.asset->url,
+              "video": video.asset->url,
+              alt
+            }
           }
         }
       }`,
@@ -198,12 +234,24 @@ export async function getProjectsByIds(ids: string[]): Promise<Project[]> {
         specs,
         content,
         media{
-          what{asset->{url}},
-          "whatVideo": whatVideo.asset->url,
-          how{asset->{url}},
-          "howVideo": howVideo.asset->url,
-          results{asset->{url}},
-          "resultsVideo": resultsVideo.asset->url
+          carousel[]{
+            type,
+            "image": image.asset->url,
+            "video": video.asset->url,
+            alt
+          },
+          bottomLeftAnchor{
+            type,
+            "image": image.asset->url,
+            "video": video.asset->url,
+            alt
+          },
+          bottomRightAnchor{
+            type,
+            "image": image.asset->url,
+            "video": video.asset->url,
+            alt
+          }
         }
       }`,
       { ids }
@@ -258,12 +306,24 @@ export async function getSettings(): Promise<any> {
         specs,
         content,
         media{
-          what{asset->{url}},
-          "whatVideo": whatVideo.asset->url,
-          how{asset->{url}},
-          "howVideo": howVideo.asset->url,
-          results{asset->{url}},
-          "resultsVideo": resultsVideo.asset->url
+          carousel[]{
+            type,
+            "image": image.asset->url,
+            "video": video.asset->url,
+            alt
+          },
+          bottomLeftAnchor{
+            type,
+            "image": image.asset->url,
+            "video": video.asset->url,
+            alt
+          },
+          bottomRightAnchor{
+            type,
+            "image": image.asset->url,
+            "video": video.asset->url,
+            alt
+          }
         }
       }
     }`);

@@ -26,12 +26,24 @@ export interface Project {
         impact: string;
     };
     media?: {
-        what?: any;
-        whatVideo?: string;
-        how?: any;
-        howVideo?: string;
-        results?: any;
-        resultsVideo?: string;
+        carousel?: {
+            type: 'image' | 'video';
+            image?: string;
+            video?: string;
+            alt?: string;
+        }[];
+        bottomLeftAnchor?: {
+            type: 'image' | 'video';
+            image?: string;
+            video?: string;
+            alt?: string;
+        };
+        bottomRightAnchor?: {
+            type: 'image' | 'video';
+            image?: string;
+            video?: string;
+            alt?: string;
+        };
     };
 }
 
