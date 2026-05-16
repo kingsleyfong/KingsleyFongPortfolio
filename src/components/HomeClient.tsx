@@ -187,9 +187,9 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
             <div className="relative z-10 w-full flex flex-col items-center max-w-5xl mx-auto px-6">
 
                 {/* HERO SECTION */}
-                <section id="hero" className="w-full min-h-[75vh] flex flex-col md:flex-row items-center justify-center pt-20 pb-8 gap-12">
+                <section id="hero" className="w-full min-h-fit flex flex-col md:flex-row items-center justify-center pt-24 pb-2 gap-12">
                     {/* Left: Profile Picture */}
-                    <div className="w-56 h-56 md:w-72 md:h-72 shrink-0 animate-fade-in group/profile" style={{ animationDelay: '100ms', animationFillMode: 'both' }}>
+                    <div className="w-48 h-48 md:w-48 md:h-48 shrink-0 animate-fade-in group/profile" style={{ animationDelay: '100ms', animationFillMode: 'both' }}>
                         <a 
                             href="https://linkedin.com/in/kingsley-fong" 
                             target="_blank" 
@@ -207,17 +207,17 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
 
                     {/* Right: Text Content */}
                     <div className="animate-fade-in text-center md:text-left flex-1" style={{ animationDelay: '200ms', animationFillMode: 'both' }}>
-                        <h1 className="text-5xl md:text-8xl font-black tracking-tighter mb-6 text-foreground">
+                        <h1 className="text-5xl md:text-6xl font-black tracking-tighter mb-4 text-foreground">
                             {hero?.headline || 'Kingsley Fong'}
                         </h1>
-                        <p className="text-xl md:text-3xl text-muted font-light leading-relaxed mx-auto md:mx-0 whitespace-normal md:whitespace-nowrap">
+                        <p className="text-xl md:text-xl text-muted font-light leading-relaxed mx-auto md:mx-0 whitespace-normal md:whitespace-nowrap">
                             Mechanical Engineering Student at University of Waterloo.
                         </p>
-                        <p className="text-lg md:text-xl text-muted/70 max-w-2xl font-light leading-relaxed mt-6 mx-auto md:mx-0">
+                        <p className="text-base md:text-lg text-muted/70 max-w-2xl font-light leading-relaxed mt-4 mx-auto md:mx-0">
                             {hero?.description || "I'm a mechanical engineer driven by a passion for eliminating inefficiencies and building highly scalable hardware systems. I love bridging the gap between rigorous validation and high-throughput manufacturing to solve hard, physical problems."}
                         </p>
 
-                        <div className="mt-12 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                        <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                             <button
                                 onClick={() => scrollToSection('about')}
                                 className="px-8 py-3 rounded-md bg-blue-600 text-white font-semibold hover:bg-blue-700 hover:shadow-[0_0_20px_rgba(37,99,235,0.4)] transition-all duration-300 text-sm tracking-wide"
@@ -235,8 +235,8 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
                 </section>
 
                 {/* PROJECTS SECTION */}
-                <section id="projects" className="w-full py-20 border-t border-border mt-12">
-                    <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-8 text-foreground">Selected Work</h2>
+                <section id="projects" className="w-full py-4 mt-0">
+                    <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-4 text-foreground">Selected Work</h2>
 
                     {/* The Infinite Scrolling Timeline */}
                     <div className="w-[100vw] relative left-1/2 -translate-x-1/2 mb-4 [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
@@ -254,7 +254,7 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
                     </div>
 
                     {/* Skills Ticker Tape */}
-                    <div className="w-[100vw] relative left-1/2 -translate-x-1/2 mb-16 [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
+                    <div className="w-[100vw] relative left-1/2 -translate-x-1/2 mb-4 [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
                         <SkillsTicker />
                     </div>
 
