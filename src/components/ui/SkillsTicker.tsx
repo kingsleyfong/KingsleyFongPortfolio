@@ -175,7 +175,7 @@ export function SkillsTicker() {
 
     return (
         <div 
-            className={`w-full overflow-hidden py-6 border-b border-border/30 bg-background/20 backdrop-blur-sm relative cursor-grab ${isGrabbing ? 'cursor-grabbing' : ''}`}
+            className={`w-full overflow-hidden py-3 border-b border-border/30 bg-background/20 backdrop-blur-sm relative cursor-grab ${isGrabbing ? 'cursor-grabbing' : ''}`}
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
@@ -187,10 +187,6 @@ export function SkillsTicker() {
             {/* Edge Fades */}
             <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
             <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
-
-            <div className="max-w-[85rem] mx-auto px-6 mb-4">
-                <h3 className="text-[10px] font-bold tracking-[0.3em] uppercase text-muted/60 pointer-events-none">Core Engineering Stack</h3>
-            </div>
 
             <div className="flex select-none">
                 <div

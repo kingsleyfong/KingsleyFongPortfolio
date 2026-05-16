@@ -236,10 +236,10 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
 
                 {/* PROJECTS SECTION */}
                 <section id="projects" className="w-full py-4 mt-0">
-                    <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-4 text-foreground">Selected Work</h2>
+                    <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-2 text-foreground">Selected Work</h2>
 
                     {/* The Infinite Scrolling Timeline */}
-                    <div className="w-[100vw] relative left-1/2 -translate-x-1/2 mb-4 [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
+                    <div className="w-[100vw] relative left-1/2 -translate-x-1/2 mb-2 [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
                         <ProjectTicker
                             projects={projects}
                             onSelect={(index) => {

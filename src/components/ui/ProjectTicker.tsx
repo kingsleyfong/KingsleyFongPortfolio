@@ -168,7 +168,7 @@ export function ProjectTicker({ projects, onSelect }: ProjectTickerProps) {
 
     return (
         <div
-            className={`w-full overflow-hidden relative flex flex-col pt-12 pb-24 z-40 select-none ${isGrabbing ? 'cursor-grabbing' : 'cursor-grab'}`}
+            className={`w-full overflow-hidden relative flex flex-col pt-0 pb-0 z-40 select-none ${isGrabbing ? 'cursor-grabbing' : 'cursor-grab'}`}
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
@@ -181,24 +181,15 @@ export function ProjectTicker({ projects, onSelect }: ProjectTickerProps) {
             {/* Track – positioned with transform, no CSS animation */}
             <div
                 ref={trackRef}
-                className="relative flex flex-col gap-16 will-change-transform"
+                className="relative flex flex-col will-change-transform"
                 style={{ transform: 'translate3d(0,0,0)' }}
             >
-                {/* Global Timeline Track */}
-                <div className="absolute bottom-[30px] left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none" />
-
                 <div className="flex gap-8">
                     {tripled.map((project, index) => {
                         const originalIndex = index % projects.length;
 
-                        const formattedDate = project.startDate 
-                            ? new Date(project.startDate + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
-                            : (project.year || '');
-
-                        const isLatest = originalIndex === 0;
-
                         return (
-                            <div key={`${project._id}-${index}`} className="flex flex-col gap-10 items-center shrink-0">
+                            <div key={`${project._id}-${index}`} className="flex flex-col items-center shrink-0">
                                 {/* The Card */}
                                 <div
                                     onClick={(e) => handleCardClick(originalIndex, e)}
@@ -227,17 +218,6 @@ export function ProjectTicker({ projects, onSelect }: ProjectTickerProps) {
                                             </span>
                                         </div>
                                     </div>
-                                </div>
-
-                                {/* Timeline Node */}
-                                <div className="flex flex-col items-center relative z-10 w-full mb-2">
-                                    <div className={`w-3 h-3 rounded-full border-2 border-background relative flex items-center justify-center ${isLatest ? 'bg-foreground scale-125' : 'bg-muted/50'}`}>
-                                    </div>
-                                    {formattedDate && (
-                                        <div className="absolute top-6 whitespace-nowrap text-[10px] font-mono text-muted/60 tracking-[0.2em] uppercase">
-                                            {formattedDate}
-                                        </div>
-                                    )}
                                 </div>
                             </div>
                         );
