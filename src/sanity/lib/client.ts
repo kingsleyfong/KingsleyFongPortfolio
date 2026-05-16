@@ -224,7 +224,8 @@ export async function getHero(): Promise<any> {
       profileImage{
         asset->{url}
       },
-      "resumeUrl": resume.asset->url
+      "resumeUrl": resume.asset->url,
+      "resumeImageUrl": resumeImage.asset->url
     }`);
 
   } catch (error) {

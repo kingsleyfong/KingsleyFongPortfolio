@@ -41,6 +41,15 @@ export const heroType = {
                 accept: '.pdf'
             },
             description: 'Upload your latest professional resume here.'
+        },
+        {
+            name: 'resumeImage',
+            title: 'Resume Preview Image',
+            type: 'image',
+            description: 'Upload a premium preview image of your resume for the homepage section.',
+            options: {
+                hotspot: true
+            }
         }
     ],
 

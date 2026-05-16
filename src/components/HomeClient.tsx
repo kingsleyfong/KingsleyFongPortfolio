@@ -134,6 +134,32 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
         return () => observer.disconnect();
     }, [navItems]);
 
+    useEffect(() => {
+        const scrollContainer = document.querySelector('main');
+        if (!scrollContainer) return;
+
+        const handleScroll = () => {
+            const scrollTop = scrollContainer.scrollTop;
+            const scrollHeight = scrollContainer.scrollHeight;
+            const clientHeight = scrollContainer.clientHeight;
+
+            // 1. Scrolled near the top -> force Intro active
+            if (scrollTop < 80) {
+                setActiveSectionId('hero');
+                return;
+            }
+
+            // 2. Scrolled near the bottom -> force Contact active
+            if (scrollTop + clientHeight >= scrollHeight - 30) {
+                setActiveSectionId('contact');
+                return;
+            }
+        };
+
+        scrollContainer.addEventListener('scroll', handleScroll, { passive: true });
+        return () => scrollContainer.removeEventListener('scroll', handleScroll);
+    }, []);
+
     const scrollToSection = (id: string) => {
         const element = document.getElementById(id);
         if (element) {
@@ -378,9 +404,9 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
                     >
                         {/* Left: Resume Preview Image */}
                         <div className="w-full md:w-1/2 aspect-[3/4] md:aspect-[8.5/11] rounded-2xl bg-foreground/5 border border-border overflow-hidden relative shrink-0 shadow-lg">
-                            {settings?.resumeImageUrl ? (
+                            {(settings?.resumeImageUrl || hero?.resumeImageUrl) ? (
                                 <img 
-                                    src={settings.resumeImageUrl} 
+                                    src={settings?.resumeImageUrl || hero?.resumeImageUrl} 
                                     alt="Resume Preview" 
                                     className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-700" 
                                 />
