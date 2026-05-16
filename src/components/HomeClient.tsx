@@ -352,7 +352,9 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
                                     <div>
                                         <h3 className="text-lg md:text-xl font-bold text-foreground tracking-tight mb-1 group-hover:text-blue-400 transition-colors">{project.title}</h3>
                                         <p className="text-xs text-muted/80 line-clamp-2 font-light leading-relaxed">
-                                            {project.description}
+                                            {typeof project.description === 'string'
+                                                ? project.description
+                                                : (project.description?.[0]?.children?.[0]?.text || "Advanced mechatronic exploration focused on high-precision sensing and structural optimization.")}
                                         </p>
                                     </div>
                                     <div className="flex items-center gap-2">
