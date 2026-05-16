@@ -99,8 +99,8 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
     const navItems = useMemo(() => {
         return [
             { id: 'hero', label: 'Intro' },
-            { id: 'about', label: 'Background' },
             { id: 'projects', label: 'Projects' },
+            { id: 'about', label: 'Background' },
             { id: 'contact', label: 'Contact' }
         ];
     }, []);
@@ -187,7 +187,7 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
             <div className="relative z-10 w-full flex flex-col items-center max-w-5xl mx-auto px-6">
 
                 {/* HERO SECTION */}
-                <section id="hero" className="w-full min-h-[90vh] flex flex-col md:flex-row items-center justify-center pt-32 pb-16 gap-12">
+                <section id="hero" className="w-full min-h-[75vh] flex flex-col md:flex-row items-center justify-center pt-20 pb-8 gap-12">
                     {/* Left: Profile Picture */}
                     <div className="w-56 h-56 md:w-72 md:h-72 shrink-0 animate-fade-in group/profile" style={{ animationDelay: '100ms', animationFillMode: 'both' }}>
                         <a 
@@ -219,10 +219,10 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
 
                         <div className="mt-12 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                             <button
-                                onClick={() => scrollToSection('projects')}
+                                onClick={() => scrollToSection('about')}
                                 className="px-8 py-3 rounded-md bg-blue-600 text-white font-semibold hover:bg-blue-700 hover:shadow-[0_0_20px_rgba(37,99,235,0.4)] transition-all duration-300 text-sm tracking-wide"
                             >
-                                View Engineering Work
+                                View the Most Recent Work
                             </button>
                             <a
                                 href="mailto:hello@kingsleyfong.com"
@@ -232,6 +232,32 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
                             </a>
                         </div>
                     </div>
+                </section>
+
+                {/* PROJECTS SECTION */}
+                <section id="projects" className="w-full py-20 border-t border-border mt-12">
+                    <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-8 text-foreground">Selected Work</h2>
+
+                    {/* The Infinite Scrolling Timeline */}
+                    <div className="w-[100vw] relative left-1/2 -translate-x-1/2 mb-4 [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
+                        <ProjectTicker
+                            projects={projects}
+                            onSelect={(index) => {
+                                const projectId = projects[index]._id;
+                                const projectSlug = projects[index].slug?.current || projects[index].slug || projectId;
+                                const exp = experiences.find(e => e.projects?.some(p => p._id === projectId));
+                                const expSlug = exp ? (exp.slug?.current || exp.slug) : 'independent-projects';
+                                const targetUrl = `/work/${expSlug}#${projectSlug}`;
+                                window.location.href = targetUrl;
+                            }}
+                        />
+                    </div>
+
+                    {/* Skills Ticker Tape */}
+                    <div className="w-[100vw] relative left-1/2 -translate-x-1/2 mb-16 [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
+                        <SkillsTicker />
+                    </div>
+
                 </section>
 
                 {/* RECENT WORK SECTION */}
@@ -266,32 +292,6 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
                             </Link>
                         ))}
                     </div>
-                </section>
-
-                {/* PROJECTS SECTION */}
-                <section id="projects" className="w-full py-32 border-t border-border mt-32">
-                    <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-8 text-foreground">Selected Work</h2>
-
-                    {/* The Infinite Scrolling Timeline */}
-                    <div className="w-[100vw] relative left-1/2 -translate-x-1/2 mb-4 [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
-                        <ProjectTicker
-                            projects={projects}
-                            onSelect={(index) => {
-                                const projectId = projects[index]._id;
-                                const projectSlug = projects[index].slug?.current || projects[index].slug || projectId;
-                                const exp = experiences.find(e => e.projects?.some(p => p._id === projectId));
-                                const expSlug = exp ? (exp.slug?.current || exp.slug) : 'independent-projects';
-                                const targetUrl = `/work/${expSlug}#${projectSlug}`;
-                                window.location.href = targetUrl;
-                            }}
-                        />
-                    </div>
-
-                    {/* Skills Ticker Tape */}
-                    <div className="w-[100vw] relative left-1/2 -translate-x-1/2 mb-16 [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
-                        <SkillsTicker />
-                    </div>
-
                 </section>
 
 
