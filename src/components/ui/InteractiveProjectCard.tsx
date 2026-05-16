@@ -7,6 +7,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Project } from '../../sanity/types';
 import { urlFor } from '@/sanity/lib/image';
 
+import { createPortal } from 'react-dom';
+
 export interface ExtendedProject extends Project {
     content?: {
         challenge: string;
@@ -18,34 +20,53 @@ export interface ExtendedProject extends Project {
 export function InteractiveProjectCard({ project }: { project: ExtendedProject }) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
-    const [lightboxMedia, setLightboxMedia] = useState<{ type: 'image' | 'video' | 'pdf'; src: string; alt?: string } | null>(null);
+    const [lightboxMedia, setLightboxMedia] = useState<{ 
+        type: 'image' | 'video' | 'pdf'; 
+        src: string; 
+        alt?: string;
+        index?: number; // Track index if it's from the carousel
+    } | null>(null);
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     const carousel = project.media?.carousel || [];
     const bottomLeft = project.media?.bottomLeftAnchor;
     const bottomRight = project.media?.bottomRightAnchor;
 
-    // Auto-scroll logic (3 seconds)
-    useEffect(() => {
-        if (carousel.length <= 1 || isPaused || lightboxMedia) return;
-
-        const interval = setInterval(() => {
-            setCurrentIndex((prev) => (prev + 1) % carousel.length);
-        }, 3000);
-
-        return () => clearInterval(interval);
-    }, [carousel.length, isPaused, lightboxMedia]);
-
-    const nextSlide = useCallback((e?: React.MouseEvent) => {
-        if (e) e.stopPropagation();
+    const nextSlide = useCallback(() => {
         setCurrentIndex((prev) => (prev + 1) % carousel.length);
     }, [carousel.length]);
 
-    const prevSlide = useCallback((e?: React.MouseEvent) => {
-        if (e) e.stopPropagation();
+    const prevSlide = useCallback(() => {
         setCurrentIndex((prev) => (prev - 1 + carousel.length) % carousel.length);
     }, [carousel.length]);
 
-    const renderMedia = (item: any, className: string, isHero = false) => {
+    // Carousel Sync Logic
+    useEffect(() => {
+        if (carousel.length <= 1 || isPaused || lightboxMedia) return;
+
+        const currentItem = carousel[currentIndex];
+        
+        // If it's an image or PDF, use a 3s timer
+        if (currentItem.type !== 'video') {
+            const interval = setInterval(() => {
+                nextSlide();
+            }, 3000);
+            return () => clearInterval(interval);
+        }
+        
+        // Videos are handled by the onEnded event in the video element itself
+        // But we keep a fallback timer of 30s just in case
+        const fallback = setTimeout(() => {
+            nextSlide();
+        }, 30000);
+        return () => clearTimeout(fallback);
+    }, [carousel.length, isPaused, lightboxMedia, currentIndex, nextSlide]);
+
+    const renderMedia = (item: any, className: string, isHero = false, onEnded?: () => void) => {
         if (!item) return null;
         
         const type = item.type || 'image';
@@ -65,7 +86,6 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
         }
 
         if (!src || typeof src !== 'string') {
-            // Fallback for PDF if no file but has thumbnail
             if (type === 'pdf' && item.pdfThumbnail) {
                 try { src = urlFor(item.pdfThumbnail).url(); } catch (e) { return null; }
             } else {
@@ -78,9 +98,13 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
                 <video
                     src={src}
                     autoPlay
-                    loop
+                    loop={!isHero} // Only loop if not the hero (anchors loop, hero syncs)
                     muted
                     playsInline
+                    preload="auto"
+                    onEnded={onEnded}
+                    onContextMenu={(e) => e.preventDefault()}
+                    controlsList="nodownload"
                     className={`${className} object-cover`}
                 />
             );
@@ -119,6 +143,25 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
         );
     };
 
+    const handleLightboxNav = (direction: 'next' | 'prev') => {
+        if (!lightboxMedia || lightboxMedia.index === undefined) return;
+        
+        const nextIdx = direction === 'next' 
+            ? (lightboxMedia.index + 1) % carousel.length 
+            : (lightboxMedia.index - 1 + carousel.length) % carousel.length;
+        
+        const item = carousel[nextIdx];
+        let s = (item.type === 'video' ? item.video : (item.type === 'pdf' ? item.pdf : item.image)) || '';
+        if (typeof s === 'object') s = (s as any).asset?.url || (s as any).url || '';
+        
+        setLightboxMedia({
+            type: item.type as any || 'image',
+            src: s as string,
+            alt: item.alt,
+            index: nextIdx
+        });
+    };
+
     return (
         <section id={project.slug?.current || project._id} className="w-full min-h-[85vh] flex items-center justify-center py-6 lg:py-10 relative pointer-events-auto border-t border-border mt-12 scroll-mt-24">
             <div className="w-full max-w-[85rem] mx-auto px-6 md:px-12 flex flex-col lg:flex-row gap-8 lg:gap-12 items-center z-10">
@@ -139,7 +182,8 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
                                 setLightboxMedia({
                                     type: current.type as any || 'image',
                                     src: s as string,
-                                    alt: current.alt
+                                    alt: current.alt,
+                                    index: currentIndex
                                 });
                             }
                         }}
@@ -154,7 +198,7 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
                                 className="absolute inset-0"
                             >
                                 {carousel.length > 0 ? (
-                                    renderMedia(carousel[currentIndex], "w-full h-full", true)
+                                    renderMedia(carousel[currentIndex], "w-full h-full", true, nextSlide)
                                 ) : (
                                     <div className="w-full h-full flex items-center justify-center text-muted/20 text-xs font-bold uppercase tracking-widest">
                                         No Hero Media
@@ -167,13 +211,13 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
                         {carousel.length > 1 && (
                             <>
                                 <button 
-                                    onClick={prevSlide}
+                                    onClick={(e) => { e.stopPropagation(); prevSlide(); }}
                                     className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-background/20 backdrop-blur-xl border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-all duration-500 hover:bg-background/40 z-20"
                                 >
                                     <ChevronLeft size={18} />
                                 </button>
                                 <button 
-                                    onClick={nextSlide}
+                                    onClick={(e) => { e.stopPropagation(); nextSlide(); }}
                                     className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-background/20 backdrop-blur-xl border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-all duration-500 hover:bg-background/40 z-20"
                                 >
                                     <ChevronRight size={18} />
@@ -339,84 +383,108 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
                     </div>
                 </div>
             </div>
-                       
+
             {/* LIGHTBOX PORTAL */}
-            <AnimatePresence>
-                {lightboxMedia && (
-                    <motion.div 
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[9999] bg-background/95 backdrop-blur-3xl flex items-center justify-center p-4 md:p-16"
-                        onClick={() => setLightboxMedia(null)}
-                    >
-                        {/* Apple-Sleek Close Button - Positioned to avoid headers */}
-                        <button 
-                            className="absolute top-12 right-12 p-5 rounded-full bg-foreground/5 text-foreground/50 hover:bg-foreground/10 hover:text-foreground transition-all z-[10000] border border-white/5 backdrop-blur-md shadow-2xl group"
+            {mounted && createPortal(
+                <AnimatePresence>
+                    {lightboxMedia && (
+                        <motion.div 
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="fixed inset-0 z-[10000] bg-background/95 backdrop-blur-3xl flex items-center justify-center p-4 md:p-16"
                             onClick={() => setLightboxMedia(null)}
                         >
-                            <X size={32} className="group-hover:scale-110 transition-transform" />
-                        </button>
-                        
-                        <motion.div 
-                            initial={{ scale: 0.95, opacity: 0, y: 30 }}
-                            animate={{ scale: 1, opacity: 1, y: 0 }}
-                            exit={{ scale: 0.95, opacity: 0, y: 30 }}
-                            transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                            className="relative w-full max-w-7xl aspect-video rounded-[2.5rem] overflow-hidden shadow-[0_0_150px_rgba(0,0,0,0.7)] border border-white/10 bg-black"
-                            onClick={(e) => e.stopPropagation()}
-                        >
-                            {lightboxMedia.type === 'video' ? (
-                                <video
-                                    src={lightboxMedia.src}
-                                    autoPlay
-                                    controls
-                                    className="w-full h-full object-contain"
-                                />
-                            ) : lightboxMedia.type === 'pdf' ? (
-                                <div className="w-full h-full flex flex-col items-center justify-center relative">
-                                    <iframe
-                                        src={`${lightboxMedia.src}#toolbar=0`}
-                                        className="w-full h-full border-none"
-                                        title="PDF Viewer Case Study"
-                                    />
-                                    
-                                    {/* Glassmorphism PDF Action Bar */}
-                                    <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-6 px-8 py-5 rounded-[2rem] bg-background/40 backdrop-blur-3xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.3)] animate-in fade-in slide-in-from-bottom-5">
-                                        <div className="flex flex-col">
-                                            <span className="text-[9px] font-black uppercase tracking-[0.2em] text-white/40">Technical Document</span>
-                                            <span className="text-xs font-bold text-white/80">Case Study Report</span>
-                                        </div>
-                                        <div className="w-px h-8 bg-white/10 mx-2" />
-                                        <a 
-                                            href={lightboxMedia.src} 
-                                            target="_blank" 
-                                            className="px-6 py-2.5 rounded-full bg-white text-black font-bold text-[10px] uppercase tracking-widest flex items-center gap-3 hover:scale-105 transition-transform"
-                                        >
-                                            <ExternalLink size={14} />
-                                            View Full
-                                        </a>
-                                        <a 
-                                            href={lightboxMedia.src} 
-                                            download 
-                                            className="p-2.5 rounded-full bg-white/10 text-white hover:bg-white/20 transition-all border border-white/10"
-                                            title="Download Report"
-                                        >
-                                            <Download size={16} />
-                                        </a>
-                                    </div>
-                                </div>
-                            ) : (
-                                <img
-                                    src={lightboxMedia.src}
-                                    alt={lightboxMedia.alt || "Lightbox View"}
-                                    className="w-full h-full object-contain"
-                                />
+                            {/* Sleek Minimal Close Button */}
+                            <button 
+                                className="absolute top-8 right-8 md:top-12 md:right-12 p-4 rounded-full bg-foreground/10 text-foreground/40 hover:bg-foreground hover:text-background transition-all z-[10001] border border-white/5 backdrop-blur-md shadow-2xl group"
+                                onClick={(e) => { e.stopPropagation(); setLightboxMedia(null); }}
+                            >
+                                <X size={24} className="group-hover:scale-110 transition-transform" />
+                            </button>
+
+                            {/* Lightbox Navigation */}
+                            {lightboxMedia.index !== undefined && carousel.length > 1 && (
+                                <>
+                                    <button 
+                                        className="absolute left-6 md:left-12 top-1/2 -translate-y-1/2 p-4 rounded-full bg-foreground/5 text-foreground/40 hover:bg-foreground hover:text-background transition-all z-[10001] border border-white/5 backdrop-blur-md shadow-2xl"
+                                        onClick={(e) => { e.stopPropagation(); handleLightboxNav('prev'); }}
+                                    >
+                                        <ChevronLeft size={24} />
+                                    </button>
+                                    <button 
+                                        className="absolute right-6 md:right-12 top-1/2 -translate-y-1/2 p-4 rounded-full bg-foreground/5 text-foreground/40 hover:bg-foreground hover:text-background transition-all z-[10001] border border-white/5 backdrop-blur-md shadow-2xl"
+                                        onClick={(e) => { e.stopPropagation(); handleLightboxNav('next'); }}
+                                    >
+                                        <ChevronRight size={24} />
+                                    </button>
+                                </>
                             )}
+                            
+                            <motion.div 
+                                initial={{ scale: 0.95, opacity: 0, y: 30 }}
+                                animate={{ scale: 1, opacity: 1, y: 0 }}
+                                exit={{ scale: 0.95, opacity: 0, y: 30 }}
+                                transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                                className="relative w-full max-w-7xl aspect-video rounded-[2.5rem] overflow-hidden shadow-[0_0_150px_rgba(0,0,0,0.7)] border border-white/10 bg-black"
+                                onClick={(e) => e.stopPropagation()}
+                            >
+                                {lightboxMedia.type === 'video' ? (
+                                    <video
+                                        src={lightboxMedia.src}
+                                        autoPlay
+                                        controls
+                                        preload="auto"
+                                        onContextMenu={(e) => e.preventDefault()}
+                                        controlsList="nodownload"
+                                        className="w-full h-full object-contain"
+                                    />
+                                ) : lightboxMedia.type === 'pdf' ? (
+                                    <div className="w-full h-full flex flex-col items-center justify-center relative">
+                                        <iframe
+                                            src={`${lightboxMedia.src}#toolbar=0`}
+                                            className="w-full h-full border-none"
+                                            title="PDF Viewer Case Study"
+                                        />
+                                        
+                                        {/* Glassmorphism PDF Action Bar */}
+                                        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-6 px-8 py-5 rounded-[2rem] bg-background/40 backdrop-blur-3xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.3)] animate-in fade-in slide-in-from-bottom-5">
+                                            <div className="flex flex-col">
+                                                <span className="text-[9px] font-black uppercase tracking-[0.2em] text-white/40">Technical Document</span>
+                                                <span className="text-xs font-bold text-white/80">Case Study Report</span>
+                                            </div>
+                                            <div className="w-px h-8 bg-white/10 mx-2" />
+                                            <a 
+                                                href={lightboxMedia.src} 
+                                                target="_blank" 
+                                                className="px-6 py-2.5 rounded-full bg-white text-black font-bold text-[10px] uppercase tracking-widest flex items-center gap-3 hover:scale-105 transition-transform"
+                                            >
+                                                <ExternalLink size={14} />
+                                                View Full
+                                            </a>
+                                            <a 
+                                                href={lightboxMedia.src} 
+                                                download 
+                                                className="p-2.5 rounded-full bg-white/10 text-white hover:bg-white/20 transition-all border border-white/10"
+                                                title="Download Report"
+                                            >
+                                                <Download size={16} />
+                                            </a>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <img
+                                        src={lightboxMedia.src}
+                                        alt={lightboxMedia.alt || "Lightbox View"}
+                                        className="w-full h-full object-contain"
+                                    />
+                                )}
+                            </motion.div>
                         </motion.div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+                    )}
+                </AnimatePresence>,
+                document.body
+            )}
         </section>
     );
 }
