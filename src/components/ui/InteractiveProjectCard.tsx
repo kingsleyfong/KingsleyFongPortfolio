@@ -392,12 +392,12 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            className="fixed inset-0 z-[10000] bg-background/95 backdrop-blur-3xl flex items-center justify-center p-4 md:p-16"
+                            className="fixed inset-0 z-[10000] bg-[#050505]/98 flex items-center justify-center p-4 md:p-12 will-change-transform"
                             onClick={() => setLightboxMedia(null)}
                         >
                             {/* Sleek Minimal Close Button */}
                             <button 
-                                className="absolute top-8 right-8 md:top-12 md:right-12 p-4 rounded-full bg-foreground/10 text-foreground/40 hover:bg-foreground hover:text-background transition-all z-[10001] border border-white/5 backdrop-blur-md shadow-2xl group"
+                                className="absolute top-8 right-8 md:top-10 md:right-10 p-4 rounded-full bg-white/5 text-white/40 hover:bg-white hover:text-black transition-all z-[10002] border border-white/5 backdrop-blur-md shadow-2xl group"
                                 onClick={(e) => { e.stopPropagation(); setLightboxMedia(null); }}
                             >
                                 <X size={24} className="group-hover:scale-110 transition-transform" />
@@ -407,48 +407,54 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
                             {lightboxMedia.index !== undefined && carousel.length > 1 && (
                                 <>
                                     <button 
-                                        className="absolute left-6 md:left-12 top-1/2 -translate-y-1/2 p-4 rounded-full bg-foreground/5 text-foreground/40 hover:bg-foreground hover:text-background transition-all z-[10001] border border-white/5 backdrop-blur-md shadow-2xl"
+                                        className="absolute left-4 md:left-10 top-1/2 -translate-y-1/2 p-4 rounded-full bg-white/5 text-white/40 hover:bg-white hover:text-black transition-all z-[10001] border border-white/5 backdrop-blur-md shadow-2xl"
                                         onClick={(e) => { e.stopPropagation(); handleLightboxNav('prev'); }}
                                     >
-                                        <ChevronLeft size={24} />
+                                        <ChevronLeft size={28} />
                                     </button>
                                     <button 
-                                        className="absolute right-6 md:right-12 top-1/2 -translate-y-1/2 p-4 rounded-full bg-foreground/5 text-foreground/40 hover:bg-foreground hover:text-background transition-all z-[10001] border border-white/5 backdrop-blur-md shadow-2xl"
+                                        className="absolute right-4 md:right-10 top-1/2 -translate-y-1/2 p-4 rounded-full bg-white/5 text-white/40 hover:bg-white hover:text-black transition-all z-[10001] border border-white/5 backdrop-blur-md shadow-2xl"
                                         onClick={(e) => { e.stopPropagation(); handleLightboxNav('next'); }}
                                     >
-                                        <ChevronRight size={24} />
+                                        <ChevronRight size={28} />
                                     </button>
                                 </>
                             )}
                             
                             <motion.div 
-                                initial={{ scale: 0.95, opacity: 0, y: 30 }}
-                                animate={{ scale: 1, opacity: 1, y: 0 }}
-                                exit={{ scale: 0.95, opacity: 0, y: 30 }}
-                                transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                                className="relative w-full max-w-7xl aspect-video rounded-[2.5rem] overflow-hidden shadow-[0_0_150px_rgba(0,0,0,0.7)] border border-white/10 bg-black"
+                                initial={{ scale: 0.98, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                exit={{ scale: 0.98, opacity: 0 }}
+                                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                                className="relative w-full max-w-[90vw] h-full max-h-[85vh] rounded-3xl overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.8)] border border-white/5 bg-black transform-gpu translate-z-0"
                                 onClick={(e) => e.stopPropagation()}
                             >
                                 {lightboxMedia.type === 'video' ? (
-                                    <video
-                                        src={lightboxMedia.src}
-                                        autoPlay
-                                        controls
-                                        preload="auto"
-                                        onContextMenu={(e) => e.preventDefault()}
-                                        controlsList="nodownload"
-                                        className="w-full h-full object-contain"
-                                    />
+                                    <div className="w-full h-full relative group/player">
+                                        <video
+                                            src={lightboxMedia.src}
+                                            autoPlay
+                                            controls
+                                            playsInline
+                                            preload="auto"
+                                            onContextMenu={(e) => e.preventDefault()}
+                                            controlsList="nodownload noplaybackrate"
+                                            disablePictureInPicture
+                                            className="w-full h-full object-contain transform-gpu"
+                                        />
+                                        {/* Minimalist Overlay to hide browser UI artifacts if any */}
+                                        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/60 to-transparent pointer-events-none opacity-0 group-hover/player:opacity-100 transition-opacity duration-500" />
+                                    </div>
                                 ) : lightboxMedia.type === 'pdf' ? (
                                     <div className="w-full h-full flex flex-col items-center justify-center relative">
                                         <iframe
-                                            src={`${lightboxMedia.src}#toolbar=0`}
+                                            src={`${lightboxMedia.src}#toolbar=0&view=FitH`}
                                             className="w-full h-full border-none"
                                             title="PDF Viewer Case Study"
                                         />
                                         
                                         {/* Glassmorphism PDF Action Bar */}
-                                        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-6 px-8 py-5 rounded-[2rem] bg-background/40 backdrop-blur-3xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.3)] animate-in fade-in slide-in-from-bottom-5">
+                                        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-6 px-8 py-5 rounded-[2rem] bg-white/10 backdrop-blur-3xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.3)] animate-in fade-in slide-in-from-bottom-5">
                                             <div className="flex flex-col">
                                                 <span className="text-[9px] font-black uppercase tracking-[0.2em] text-white/40">Technical Document</span>
                                                 <span className="text-xs font-bold text-white/80">Case Study Report</span>
@@ -476,7 +482,7 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
                                     <img
                                         src={lightboxMedia.src}
                                         alt={lightboxMedia.alt || "Lightbox View"}
-                                        className="w-full h-full object-contain"
+                                        className="w-full h-full object-contain will-change-transform"
                                     />
                                 )}
                             </motion.div>
