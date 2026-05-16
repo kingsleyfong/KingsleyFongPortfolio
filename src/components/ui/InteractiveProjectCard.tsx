@@ -36,6 +36,13 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
     const bottomLeft = project.media?.bottomLeftAnchor;
     const bottomRight = project.media?.bottomRightAnchor;
 
+    // Unified Media Array for Lightbox
+    const allMedia = [
+        ...carousel,
+        ...(bottomLeft ? [bottomLeft] : []),
+        ...(bottomRight ? [bottomRight] : [])
+    ];
+
     const nextSlide = useCallback(() => {
         setCurrentIndex((prev) => (prev + 1) % carousel.length);
     }, [carousel.length]);
@@ -147,10 +154,10 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
         if (!lightboxMedia || lightboxMedia.index === undefined) return;
         
         const nextIdx = direction === 'next' 
-            ? (lightboxMedia.index + 1) % carousel.length 
-            : (lightboxMedia.index - 1 + carousel.length) % carousel.length;
+            ? (lightboxMedia.index + 1) % allMedia.length 
+            : (lightboxMedia.index - 1 + allMedia.length) % allMedia.length;
         
-        const item = carousel[nextIdx];
+        const item = allMedia[nextIdx];
         let s = (item.type === 'video' ? item.video : (item.type === 'pdf' ? item.pdf : item.image)) || '';
         if (typeof s === 'object') s = (s as any).asset?.url || (s as any).url || '';
         
@@ -253,7 +260,8 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
                                     setLightboxMedia({
                                         type: bottomLeft.type as any || 'image',
                                         src: s as string,
-                                        alt: bottomLeft.alt
+                                        alt: bottomLeft.alt,
+                                        index: carousel.length // First anchor after carousel
                                     });
                                 }
                             }}
@@ -280,7 +288,8 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
                                     setLightboxMedia({
                                         type: bottomRight.type as any || 'image',
                                         src: s as string,
-                                        alt: bottomRight.alt
+                                        alt: bottomRight.alt,
+                                        index: carousel.length + (bottomLeft ? 1 : 0) // Final anchor
                                     });
                                 }
                             }}
@@ -404,7 +413,7 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
                             </button>
 
                             {/* Lightbox Navigation */}
-                            {lightboxMedia.index !== undefined && carousel.length > 1 && (
+                            {lightboxMedia.index !== undefined && allMedia.length > 1 && (
                                 <>
                                     <button 
                                         className="absolute left-4 md:left-10 top-1/2 -translate-y-1/2 p-4 rounded-full bg-white/5 text-white/40 hover:bg-white hover:text-black transition-all z-[10001] border border-white/5 backdrop-blur-md shadow-2xl"
