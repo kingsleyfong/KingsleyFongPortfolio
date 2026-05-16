@@ -39,6 +39,15 @@ export const settings = defineType({
             }
         }),
         defineField({
+            name: 'resumeImage',
+            title: 'Resume Preview Image',
+            description: 'Preview image of your resume for the homepage section',
+            type: 'image',
+            options: {
+                hotspot: true
+            }
+        }),
+        defineField({
             name: 'featuredProjects',
             title: 'Featured Projects (Homepage Ticker Order)',
             description: 'Drag and drop projects to set their order on the homepage. If empty, the site will default to chronological order.',

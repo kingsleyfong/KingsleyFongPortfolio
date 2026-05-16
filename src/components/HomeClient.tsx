@@ -10,6 +10,7 @@ import { ProjectTicker } from '@/components/ui/ProjectTicker';
 import { EasterEgg } from '@/components/ui/EasterEgg';
 import { SkillsTicker } from '@/components/ui/SkillsTicker';
 import { FEAMesh } from '@/components/ui/FEAMesh';
+import { urlFor } from '@/sanity/lib/image';
 import Link from 'next/link';
 
 interface HomeClientProps {
@@ -99,8 +100,9 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
     const navItems = useMemo(() => {
         return [
             { id: 'hero', label: 'Intro' },
-            { id: 'projects', label: 'Projects' },
             { id: 'about', label: 'Background' },
+            { id: 'projects', label: 'Projects' },
+            { id: 'resume', label: 'Resume' },
             { id: 'contact', label: 'Contact' }
         ];
     }, []);
@@ -189,7 +191,7 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
                 {/* HERO SECTION */}
                 <section id="hero" className="w-full min-h-fit flex flex-col md:flex-row items-center justify-center pt-24 pb-2 gap-12">
                     {/* Left: Profile Picture */}
-                    <div className="w-48 h-48 md:w-48 md:h-48 shrink-0 animate-fade-in group/profile" style={{ animationDelay: '100ms', animationFillMode: 'both' }}>
+                    <div className="w-64 h-64 md:w-64 md:h-64 shrink-0 animate-fade-in group/profile" style={{ animationDelay: '100ms', animationFillMode: 'both' }}>
                         <a 
                             href="https://linkedin.com/in/kingsley-fong" 
                             target="_blank" 
@@ -216,28 +218,48 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
                         <p className="text-base md:text-lg text-muted/70 max-w-2xl font-light leading-relaxed mt-4 mx-auto md:mx-0">
                             {hero?.description || "I'm a mechanical engineer driven by a passion for eliminating inefficiencies and building highly scalable hardware systems. I love bridging the gap between rigorous validation and high-throughput manufacturing to solve hard, physical problems."}
                         </p>
+                        <p className="text-sm md:text-base text-blue-400 font-semibold tracking-wide mt-3 mx-auto md:mx-0">
+                            I am looking for 2026 fall co-op/internships, please feel free to reach out!
+                        </p>
 
-                        <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                        <div className="mt-8 flex flex-col sm:flex-row gap-4 items-center justify-center md:justify-start">
                             <button
                                 onClick={() => scrollToSection('about')}
-                                className="px-8 py-3 rounded-md bg-blue-600 text-white font-semibold hover:bg-blue-700 hover:shadow-[0_0_20px_rgba(37,99,235,0.4)] transition-all duration-300 text-sm tracking-wide"
+                                className="px-8 py-3 rounded-md bg-blue-600 text-white font-semibold hover:bg-blue-700 hover:shadow-[0_0_20px_rgba(37,99,235,0.4)] transition-all duration-300 text-sm tracking-wide w-full sm:w-auto"
                             >
                                 View the Most Recent Work
                             </button>
                             <a
                                 href="mailto:hello@kingsleyfong.com"
-                                className="px-8 py-3 rounded-md border border-border bg-background/50 text-foreground font-medium hover:bg-blue-500/10 hover:border-blue-500/30 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 text-sm tracking-wide backdrop-blur-md"
+                                className="px-8 py-3 rounded-md border border-border bg-background/50 text-foreground font-medium hover:bg-blue-500/10 hover:border-blue-500/30 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 text-sm tracking-wide backdrop-blur-md w-full sm:w-auto text-center"
                             >
                                 Contact Me
+                            </a>
+                            <a
+                                href={settings?.resumeUrl || hero?.resumeUrl || "/resume/resume.pdf"}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="px-8 py-3 rounded-md border border-border bg-zinc-900 text-zinc-100 hover:bg-zinc-800 hover:border-foreground/30 transition-all duration-300 text-sm font-semibold tracking-wide w-full sm:w-auto text-center"
+                            >
+                                Resume
+                            </a>
+                            <a
+                                href={settings?.linkedinUrl || "https://linkedin.com/in/kingsley-fong"}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-11 h-11 rounded-md border border-border bg-zinc-900 text-zinc-100 hover:bg-zinc-800 hover:border-foreground/30 transition-all duration-300 flex items-center justify-center shrink-0 w-full sm:w-11 text-center"
+                                aria-label="LinkedIn"
+                            >
+                                <svg className="w-5 h-5 fill-current mx-auto" viewBox="0 0 24 24">
+                                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                                </svg>
                             </a>
                         </div>
                     </div>
                 </section>
 
-                {/* PROJECTS SECTION */}
-                <section id="projects" className="w-full py-4 mt-0">
-                    <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-2 text-foreground">Selected Work</h2>
-
+                {/* FLOATING TICKERS SECTION (UNLABELED) */}
+                <section className="w-full py-4 mt-0">
                     {/* The Infinite Scrolling Timeline */}
                     <div className="w-[100vw] relative left-1/2 -translate-x-1/2 mb-2 [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
                         <ProjectTicker
@@ -257,7 +279,6 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
                     <div className="w-[100vw] relative left-1/2 -translate-x-1/2 mb-4 [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
                         <SkillsTicker />
                     </div>
-
                 </section>
 
                 {/* RECENT WORK SECTION */}
@@ -292,6 +313,98 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
                             </Link>
                         ))}
                     </div>
+                </section>
+
+                {/* PROJECTS TILE GRID SECTION */}
+                <section id="projects" className="w-full py-20 border-t border-border flex flex-col justify-center">
+                    <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-12 text-foreground">Selected Work</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
+                        {projects.map((project) => (
+                            <div 
+                                key={project._id}
+                                onClick={() => {
+                                    const projectId = project._id;
+                                    const projectSlug = project.slug?.current || project.slug || projectId;
+                                    const exp = experiences.find(e => e.projects?.some(p => p._id === projectId));
+                                    const expSlug = exp ? (exp.slug?.current || exp.slug) : 'independent-projects';
+                                    const targetUrl = `/work/${expSlug}#${projectSlug}`;
+                                    window.location.href = targetUrl;
+                                }}
+                                className="group cursor-pointer relative flex flex-col rounded-2xl border border-border/50 bg-background/30 backdrop-blur-md hover:bg-foreground/5 hover:border-foreground/20 overflow-hidden transition-all duration-500 hover:scale-[1.02] shadow-sm"
+                            >
+                                {/* Image Frame */}
+                                <div className="w-full aspect-[4/3] bg-foreground/5 border-b border-border overflow-hidden relative shrink-0">
+                                    {project.mainImage ? (
+                                        <img 
+                                            src={urlFor(project.mainImage).width(800).quality(100).url()} 
+                                            alt={`${project.title} thumbnail`} 
+                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                                        />
+                                    ) : (
+                                        <div className="absolute inset-0 flex items-center justify-center text-muted/30 font-mono text-[10px] text-center p-2">
+                                            IMAGE
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* Card Info */}
+                                <div className="p-5 flex-1 flex flex-col justify-between gap-4">
+                                    <div>
+                                        <h3 className="text-lg md:text-xl font-bold text-foreground tracking-tight mb-1 group-hover:text-blue-400 transition-colors">{project.title}</h3>
+                                        <p className="text-xs text-muted/80 line-clamp-2 font-light leading-relaxed">
+                                            {project.description}
+                                        </p>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-[10px] font-bold tracking-[0.15em] uppercase text-muted bg-background/80 px-3 py-1 rounded-full border border-border/50">
+                                            {project.category || 'PROJECT'}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+
+                {/* RESUME SECTION */}
+                <section id="resume" className="w-full py-20 border-t border-border flex flex-col justify-center min-h-[60vh]">
+                    <a 
+                        href={settings?.resumeUrl || hero?.resumeUrl || "/resume/resume.pdf"}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group w-full max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-12 p-6 md:p-8 rounded-3xl border border-border/50 bg-background/30 backdrop-blur-md hover:bg-foreground/5 hover:border-foreground/20 hover:scale-[1.01] transition-all duration-500 shadow-sm"
+                    >
+                        {/* Left: Resume Preview Image */}
+                        <div className="w-full md:w-1/2 aspect-[3/4] md:aspect-[8.5/11] rounded-2xl bg-foreground/5 border border-border overflow-hidden relative shrink-0 shadow-lg">
+                            {settings?.resumeImageUrl ? (
+                                <img 
+                                    src={settings.resumeImageUrl} 
+                                    alt="Resume Preview" 
+                                    className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-700" 
+                                />
+                            ) : (
+                                <div className="absolute inset-0 flex flex-col items-center justify-center p-8 bg-zinc-900/50">
+                                    <svg className="w-16 h-16 text-muted/40 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
+                                    <span className="text-sm font-bold tracking-[0.2em] text-muted/60 uppercase">Kingsley Fong</span>
+                                    <span className="text-[10px] font-mono text-muted/40 uppercase mt-1">Mechanical Engineering Resume</span>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Right: Text Content */}
+                        <div className="flex-1 flex flex-col items-start gap-4">
+                            <h2 className="text-4xl md:text-6xl font-black tracking-tight text-foreground">Resume</h2>
+                            <p className="text-lg md:text-xl text-muted font-light leading-relaxed">
+                                Feel free to contact me! With both my hands-on and design experiences, I am confident I can be a valuable member of your team!
+                            </p>
+                            <div className="flex items-center gap-2 text-blue-500 font-semibold text-base mt-2 group-hover:text-blue-400 transition-colors">
+                                <span>Open Resume</span>
+                                <ArrowRight size={18} className="translate-x-0 group-hover:translate-x-1 transition-transform" />
+                            </div>
+                        </div>
+                    </a>
                 </section>
 
 

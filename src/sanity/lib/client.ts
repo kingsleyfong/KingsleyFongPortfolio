@@ -239,6 +239,7 @@ export async function getSettings(): Promise<any> {
     return await client.fetch(`*[_type == "settings"][0]{
       ...,
       "resumeUrl": resume.asset->url,
+      "resumeImageUrl": resumeImage.asset->url,
       "featuredProjects": featuredProjects[]->{
         _id,
         title,
