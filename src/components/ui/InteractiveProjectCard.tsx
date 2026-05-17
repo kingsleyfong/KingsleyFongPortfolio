@@ -10,7 +10,7 @@ import { urlFor } from '@/sanity/lib/image';
 import { createPortal } from 'react-dom';
 
 // Helper to extract YouTube ID and build embedded player URL
-const getYoutubeEmbedUrl = (url: string, mute = true): string => {
+const getYoutubeEmbedUrl = (url: string, autoplay = false, mute = true): string => {
     if (!url) return '';
     let videoId = '';
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
@@ -27,7 +27,7 @@ const getYoutubeEmbedUrl = (url: string, mute = true): string => {
         }
     }
     if (videoId) {
-        return `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=${mute ? 1 : 0}&loop=1&playlist=${videoId}&controls=1&playsinline=1&rel=0&showinfo=0&modestbranding=1`;
+        return `https://www.youtube.com/embed/${videoId}?autoplay=${autoplay ? 1 : 0}&mute=${mute ? 1 : 0}&loop=1&playlist=${videoId}&controls=1&playsinline=1&rel=0&showinfo=0&modestbranding=1`;
     }
     return url;
 };
@@ -43,6 +43,7 @@ export interface ExtendedProject extends Project {
 export function InteractiveProjectCard({ project }: { project: ExtendedProject }) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
+    const [isVideoPlaying, setIsVideoPlaying] = useState(false);
     const [lightboxMedia, setLightboxMedia] = useState<{ 
         type: 'image' | 'video' | 'youtube' | 'pdf'; 
         src: string; 
@@ -66,11 +67,33 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
         ...(bottomRight ? [bottomRight] : [])
     ];
 
+    // Detect when user clicks on a YouTube iframe to pause carousel scrolling
+    useEffect(() => {
+        const handleBlur = () => {
+            if (document.activeElement && document.activeElement.tagName === 'IFRAME') {
+                const currentItem = carousel[currentIndex];
+                if (currentItem && (currentItem.type as any) === 'youtube') {
+                    setIsPaused(true);
+                    setIsVideoPlaying(true);
+                }
+            }
+        };
+
+        window.addEventListener('blur', handleBlur);
+        return () => {
+            window.removeEventListener('blur', handleBlur);
+        };
+    }, [carousel, currentIndex]);
+
     const nextSlide = useCallback(() => {
+        setIsVideoPlaying(false);
+        setIsPaused(false);
         setCurrentIndex((prev) => (prev + 1) % carousel.length);
     }, [carousel.length]);
 
     const prevSlide = useCallback(() => {
+        setIsVideoPlaying(false);
+        setIsPaused(false);
         setCurrentIndex((prev) => (prev - 1 + carousel.length) % carousel.length);
     }, [carousel.length]);
 
@@ -117,7 +140,7 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
         }
 
         if (type === 'youtube') {
-            const embedUrl = getYoutubeEmbedUrl(src || item.youtubeUrl, true);
+            const embedUrl = getYoutubeEmbedUrl(src || item.youtubeUrl, false, true);
             return (
                 <div className={`${className} relative overflow-hidden bg-black w-full h-full`}>
                     <iframe
@@ -219,7 +242,11 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
                     <div 
                         className="w-full aspect-[16/10] relative rounded-2xl overflow-hidden bg-foreground/5 border border-border/50 shadow-2xl group cursor-pointer"
                         onMouseEnter={() => setIsPaused(true)}
-                        onMouseLeave={() => setIsPaused(false)}
+                        onMouseLeave={() => {
+                            if (!isVideoPlaying) {
+                                setIsPaused(false);
+                            }
+                        }}
                         onClick={() => {
                             const current = carousel[currentIndex];
                             if (current) {
@@ -480,7 +507,7 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
                                 {lightboxMedia.type === 'youtube' ? (
                                     <div className="w-full h-full relative">
                                         <iframe
-                                            src={getYoutubeEmbedUrl(lightboxMedia.src, false)}
+                                            src={getYoutubeEmbedUrl(lightboxMedia.src, true, false)}
                                             className="w-full h-full border-none pointer-events-auto"
                                             title={lightboxMedia.alt || "YouTube Video Viewer"}
                                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
