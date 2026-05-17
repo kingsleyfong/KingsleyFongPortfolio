@@ -9,6 +9,29 @@ import { urlFor } from '@/sanity/lib/image';
 
 import { createPortal } from 'react-dom';
 
+// Helper to extract YouTube ID and build embedded player URL
+const getYoutubeEmbedUrl = (url: string, mute = true): string => {
+    if (!url) return '';
+    let videoId = '';
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const match = url.match(regExp);
+    if (match && match[2].length === 11) {
+        videoId = match[2];
+    } else {
+        if (url.includes('v=')) {
+            videoId = url.split('v=')[1]?.split('&')[0];
+        } else if (url.includes('youtu.be/')) {
+            videoId = url.split('youtu.be/')[1]?.split('?')[0];
+        } else if (url.includes('embed/')) {
+            videoId = url.split('embed/')[1]?.split('?')[0];
+        }
+    }
+    if (videoId) {
+        return `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=${mute ? 1 : 0}&loop=1&playlist=${videoId}&controls=1&playsinline=1&rel=0&showinfo=0&modestbranding=1`;
+    }
+    return url;
+};
+
 export interface ExtendedProject extends Project {
     content?: {
         challenge: string;
@@ -21,7 +44,7 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
     const [lightboxMedia, setLightboxMedia] = useState<{ 
-        type: 'image' | 'video' | 'pdf'; 
+        type: 'image' | 'video' | 'youtube' | 'pdf'; 
         src: string; 
         alt?: string;
         index?: number; // Track index if it's from the carousel
@@ -80,6 +103,7 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
         let src = '';
 
         if (type === 'video') src = item.video;
+        else if (type === 'youtube') src = item.youtubeUrl;
         else if (type === 'pdf') src = item.pdf;
         else src = item.image;
 
@@ -87,9 +111,24 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
         if (typeof src === 'object' && src !== null) {
             if (type === 'video' || type === 'pdf') {
                 src = (src as any).asset?.url || (src as any).url;
-            } else {
+            } else if (type !== 'youtube') {
                 try { src = urlFor(src).url(); } catch (e) { src = (src as any).asset?.url || (src as any).url; }
             }
+        }
+
+        if (type === 'youtube') {
+            const embedUrl = getYoutubeEmbedUrl(src || item.youtubeUrl, true);
+            return (
+                <div className={`${className} relative overflow-hidden bg-black w-full h-full`}>
+                    <iframe
+                        src={embedUrl}
+                        className="absolute inset-0 w-full h-full border-none pointer-events-auto"
+                        title={item.alt || "YouTube Video Preview"}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                    />
+                </div>
+            );
         }
 
         if (!src || typeof src !== 'string') {
@@ -158,7 +197,7 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
             : (lightboxMedia.index - 1 + allMedia.length) % allMedia.length;
         
         const item = allMedia[nextIdx];
-        let s = (item.type === 'video' ? item.video : (item.type === 'pdf' ? item.pdf : item.image)) || '';
+        let s = ((item.type as any) === 'video' ? item.video : ((item.type as any) === 'youtube' ? (item as any).youtubeUrl : ((item.type as any) === 'pdf' ? item.pdf : item.image))) || '';
         if (typeof s === 'object') s = (s as any).asset?.url || (s as any).url || '';
         
         setLightboxMedia({
@@ -184,7 +223,7 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
                         onClick={() => {
                             const current = carousel[currentIndex];
                             if (current) {
-                                let s = (current.type === 'video' ? current.video : (current.type === 'pdf' ? current.pdf : current.image)) || '';
+                                let s = ((current.type as any) === 'video' ? current.video : ((current.type as any) === 'youtube' ? (current as any).youtubeUrl : ((current.type as any) === 'pdf' ? current.pdf : current.image))) || '';
                                 if (typeof s === 'object') s = (s as any).asset?.url || (s as any).url || '';
                                 setLightboxMedia({
                                     type: current.type as any || 'image',
@@ -255,7 +294,7 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
                             className="aspect-[4/3] relative rounded-xl overflow-hidden bg-foreground/5 border border-border/50 shadow-lg group cursor-pointer"
                             onClick={() => {
                                 if (bottomLeft) {
-                                    let s = (bottomLeft.type === 'video' ? bottomLeft.video : (bottomLeft.type === 'pdf' ? bottomLeft.pdf : bottomLeft.image)) || '';
+                                    let s = ((bottomLeft.type as any) === 'video' ? bottomLeft.video : ((bottomLeft.type as any) === 'youtube' ? (bottomLeft as any).youtubeUrl : ((bottomLeft.type as any) === 'pdf' ? bottomLeft.pdf : bottomLeft.image))) || '';
                                     if (typeof s === 'object') s = (s as any).asset?.url || (s as any).url || '';
                                     setLightboxMedia({
                                         type: bottomLeft.type as any || 'image',
@@ -283,7 +322,7 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
                             className="aspect-[4/3] relative rounded-xl overflow-hidden bg-foreground/5 border border-border/50 shadow-lg group cursor-pointer"
                             onClick={() => {
                                 if (bottomRight) {
-                                    let s = (bottomRight.type === 'video' ? bottomRight.video : (bottomRight.type === 'pdf' ? bottomRight.pdf : bottomRight.image)) || '';
+                                    let s = ((bottomRight.type as any) === 'video' ? bottomRight.video : ((bottomRight.type as any) === 'youtube' ? (bottomRight as any).youtubeUrl : ((bottomRight.type as any) === 'pdf' ? bottomRight.pdf : bottomRight.image))) || '';
                                     if (typeof s === 'object') s = (s as any).asset?.url || (s as any).url || '';
                                     setLightboxMedia({
                                         type: bottomRight.type as any || 'image',
@@ -438,7 +477,17 @@ export function InteractiveProjectCard({ project }: { project: ExtendedProject }
                                 className="relative w-full max-w-[90vw] h-full max-h-[85vh] rounded-3xl overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.8)] border border-white/5 bg-black transform-gpu translate-z-0"
                                 onClick={(e) => e.stopPropagation()}
                             >
-                                {lightboxMedia.type === 'video' ? (
+                                {lightboxMedia.type === 'youtube' ? (
+                                    <div className="w-full h-full relative">
+                                        <iframe
+                                            src={getYoutubeEmbedUrl(lightboxMedia.src, false)}
+                                            className="w-full h-full border-none pointer-events-auto"
+                                            title={lightboxMedia.alt || "YouTube Video Viewer"}
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowFullScreen
+                                        />
+                                    </div>
+                                ) : lightboxMedia.type === 'video' ? (
                                     <div className="w-full h-full relative group/player">
                                         <video
                                             src={lightboxMedia.src}

@@ -19,6 +19,7 @@ const MEDIA_QUERY = `
       type,
       "image": image.asset->url,
       "video": video.asset->url,
+      "youtubeUrl": youtubeUrl,
       "pdf": pdf.asset->url,
       "pdfThumbnail": pdfThumbnail.asset->url,
       alt
@@ -27,6 +28,7 @@ const MEDIA_QUERY = `
       type,
       "image": image.asset->url,
       "video": video.asset->url,
+      "youtubeUrl": youtubeUrl,
       "pdf": pdf.asset->url,
       "pdfThumbnail": pdfThumbnail.asset->url,
       alt
@@ -35,6 +37,7 @@ const MEDIA_QUERY = `
       type,
       "image": image.asset->url,
       "video": video.asset->url,
+      "youtubeUrl": youtubeUrl,
       "pdf": pdf.asset->url,
       "pdfThumbnail": pdfThumbnail.asset->url,
       alt

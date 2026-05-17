@@ -125,6 +125,7 @@ export const project = defineType({
                                         list: [
                                             { title: 'Image', value: 'image' },
                                             { title: 'Video', value: 'video' },
+                                            { title: 'YouTube Video', value: 'youtube' },
                                             { title: 'PDF Report', value: 'pdf' }
                                         ],
                                         layout: 'radio'
@@ -144,6 +145,13 @@ export const project = defineType({
                                     type: 'file',
                                     options: { accept: 'video/mp4' },
                                     hidden: ({ parent }) => parent?.type !== 'video'
+                                },
+                                {
+                                    name: 'youtubeUrl',
+                                    title: 'YouTube Video URL',
+                                    description: 'e.g. https://www.youtube.com/watch?v=dQw4w9WgXcQ or https://youtu.be/dQw4w9WgXcQ',
+                                    type: 'url',
+                                    hidden: ({ parent }) => parent?.type !== 'youtube'
                                 },
                                 {
                                     name: 'pdf',
@@ -182,6 +190,7 @@ export const project = defineType({
                                 list: [
                                     { title: 'Image', value: 'image' },
                                     { title: 'Video', value: 'video' },
+                                    { title: 'YouTube Video', value: 'youtube' },
                                     { title: 'PDF', value: 'pdf' }
                                 ],
                                 layout: 'radio'
@@ -201,6 +210,13 @@ export const project = defineType({
                             type: 'file',
                             options: { accept: 'video/mp4' },
                             hidden: ({ parent }) => parent?.type !== 'video'
+                        },
+                        {
+                            name: 'youtubeUrl',
+                            title: 'YouTube Video URL',
+                            description: 'e.g. https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+                            type: 'url',
+                            hidden: ({ parent }) => parent?.type !== 'youtube'
                         },
                         {
                             name: 'pdf',
@@ -236,6 +252,7 @@ export const project = defineType({
                                 list: [
                                     { title: 'Image', value: 'image' },
                                     { title: 'Video', value: 'video' },
+                                    { title: 'YouTube Video', value: 'youtube' },
                                     { title: 'PDF', value: 'pdf' }
                                 ],
                                 layout: 'radio'
@@ -255,6 +272,13 @@ export const project = defineType({
                             type: 'file',
                             options: { accept: 'video/mp4' },
                             hidden: ({ parent }) => parent?.type !== 'video'
+                        },
+                        {
+                            name: 'youtubeUrl',
+                            title: 'YouTube Video URL',
+                            description: 'e.g. https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+                            type: 'url',
+                            hidden: ({ parent }) => parent?.type !== 'youtube'
                         },
                         {
                             name: 'pdf',
