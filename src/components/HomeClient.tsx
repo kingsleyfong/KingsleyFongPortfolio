@@ -162,10 +162,37 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
 
     const scrollToSection = (id: string) => {
         const element = document.getElementById(id);
-        if (element) {
+        const container = document.querySelector('main');
+        if (element && container) {
+            const targetScrollTop = element.getBoundingClientRect().top + container.scrollTop - container.getBoundingClientRect().top - 80;
+            container.scrollTo({
+                top: targetScrollTop,
+                behavior: 'smooth'
+            });
+        } else if (element) {
             element.scrollIntoView({ behavior: 'smooth' });
         }
     };
+
+    // Smooth scroll when mounting with a URL hash (e.g. from another page)
+    useEffect(() => {
+        const handleHashChange = () => {
+            const hash = window.location.hash;
+            if (hash) {
+                const id = hash.replace('#', '');
+                setTimeout(() => {
+                    scrollToSection(id);
+                }, 200);
+            }
+        };
+
+        if (mounted) {
+            handleHashChange();
+        }
+
+        window.addEventListener('hashchange', handleHashChange);
+        return () => window.removeEventListener('hashchange', handleHashChange);
+    }, [mounted]);
 
     return (
         <main className="h-[100dvh] overflow-y-auto overflow-x-hidden relative w-full bg-background tracking-tight text-foreground transition-colors duration-300">
@@ -260,14 +287,6 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
                                 className="px-8 py-3 rounded-md border border-border bg-background/50 text-foreground font-medium hover:bg-blue-500/10 hover:border-blue-500/30 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 text-sm tracking-wide backdrop-blur-md w-full sm:w-auto text-center"
                             >
                                 Contact Me
-                            </a>
-                            <a
-                                href={settings?.resumeUrl || hero?.resumeUrl || "/resume/resume.pdf"}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="px-8 py-3 rounded-md border border-border bg-zinc-900 text-zinc-100 hover:bg-zinc-800 hover:border-foreground/30 transition-all duration-300 text-sm font-semibold tracking-wide w-full sm:w-auto text-center"
-                            >
-                                Resume
                             </a>
                             <a
                                 href={settings?.linkedinUrl || "https://linkedin.com/in/kingsley-fong"}
