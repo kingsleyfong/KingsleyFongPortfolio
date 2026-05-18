@@ -23,6 +23,12 @@ export const settings = defineType({
             type: 'url',
             initialValue: 'https://linkedin.com/in/kingsley-fong',
         }),
+        defineField({
+            name: 'githubUrl',
+            title: 'GitHub URL',
+            type: 'url',
+            initialValue: 'https://github.com/KingsleyFong',
+        }),
 
         defineField({
             name: 'email',

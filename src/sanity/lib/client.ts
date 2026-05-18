@@ -228,7 +228,12 @@ export async function getHero(): Promise<any> {
         asset->{url}
       },
       "resumeUrl": resume.asset->url,
-      "resumeImageUrl": resumeImage.asset->url
+      "resumeImageUrl": resumeImage.asset->url,
+      skills[]{
+        name,
+        builtInIcon,
+        "customIconUrl": customIcon.asset->url
+      }
     }`);
 
   } catch (error) {

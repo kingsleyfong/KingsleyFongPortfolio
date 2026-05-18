@@ -50,6 +50,33 @@ export const heroType = {
             options: {
                 hotspot: true
             }
+        },
+        {
+            name: 'skills',
+            title: 'Skills Ticker Tape',
+            type: 'array',
+            description: 'Add, remove, or edit skills for the ticker tape.',
+            of: [
+                {
+                    type: 'object',
+                    fields: [
+                        { name: 'name', type: 'string', title: 'Skill Name', validation: (Rule: any) => Rule.required() },
+                        { 
+                            name: 'builtInIcon', 
+                            type: 'string', 
+                            title: 'Built-in Icon Identifier',
+                            description: 'Used for the default icons (e.g. SolidWorks, AutoCAD). Leave blank if uploading a custom icon.'
+                        },
+                        { 
+                            name: 'customIcon', 
+                            type: 'image', 
+                            title: 'Custom Icon (Upload)', 
+                            description: 'Upload a custom image to override the built-in icon.',
+                            options: { hotspot: true }
+                        }
+                    ]
+                }
+            ]
         }
     ],
 

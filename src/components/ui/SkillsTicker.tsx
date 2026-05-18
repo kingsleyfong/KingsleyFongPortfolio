@@ -26,25 +26,37 @@ interface Skill {
     icon: React.ReactNode;
 }
 
-const skills: Skill[] = [
-    { name: 'SolidWorks', icon: <SiDassaultsystemes className="text-[#00548B]" /> },
-    { name: 'Fusion 360', icon: <SiAutodesk className="text-[#FF7D21]" /> },
-    { name: 'AutoCAD', icon: <SiAutodesk className="text-[#E01C24]" /> },
-    { name: 'GD&T', icon: <Ruler className="text-blue-400" size={16} /> },
-    { name: 'DFMA', icon: <Cpu className="text-purple-400" size={16} /> },
-    { name: 'FEA', icon: <Grid3X3 className="text-emerald-400" size={16} /> },
-    { name: 'CFD', icon: <Wind className="text-cyan-400" size={16} /> },
-    { name: 'CNC Machining', icon: <Wrench className="text-slate-400" size={16} /> },
-    { name: 'Injection Molding', icon: <Layers className="text-orange-400" size={16} /> },
-    { name: '3D Printing', icon: <Printer className="text-pink-400" size={16} /> },
-    { name: 'Python', icon: <SiPython className="text-[#3776AB]" /> },
-    { name: 'Power BI', icon: <BarChart3 className="text-[#F2C811]" size={16} /> },
-    { name: 'Lean Manufacturing', icon: <Zap className="text-yellow-400" size={16} /> },
-    { name: 'Rapid Prototyping', icon: <Box className="text-indigo-400" size={16} /> },
-    { name: 'Optimization', icon: <Binary className="text-teal-400" size={16} /> },
-];
+export interface SanitySkill {
+    name: string;
+    builtInIcon?: string;
+    customIconUrl?: string;
+}
 
-export function SkillsTicker() {
+const BuiltInIconMap: Record<string, React.ReactNode> = {
+    'SolidWorks': <SiDassaultsystemes className="text-[#00548B]" />,
+    'Fusion 360': <SiAutodesk className="text-[#FF7D21]" />,
+    'AutoCAD': <SiAutodesk className="text-[#E01C24]" />,
+    'GD&T': <Ruler className="text-blue-400" size={16} />,
+    'DFMA': <Cpu className="text-purple-400" size={16} />,
+    'FEA': <Grid3X3 className="text-emerald-400" size={16} />,
+    'CFD': <Wind className="text-cyan-400" size={16} />,
+    'CNC Machining': <Wrench className="text-slate-400" size={16} />,
+    'Injection Molding': <Layers className="text-orange-400" size={16} />,
+    '3D Printing': <Printer className="text-pink-400" size={16} />,
+    'Python': <SiPython className="text-[#3776AB]" />,
+    'Power BI': <BarChart3 className="text-[#F2C811]" size={16} />,
+    'Lean Manufacturing': <Zap className="text-yellow-400" size={16} />,
+    'Rapid Prototyping': <Box className="text-indigo-400" size={16} />,
+    'Optimization': <Binary className="text-teal-400" size={16} />,
+};
+
+const defaultSkills: Skill[] = Object.entries(BuiltInIconMap).map(([name, icon]) => ({ name, icon }));
+
+interface SkillsTickerProps {
+    skills?: SanitySkill[];
+}
+
+export function SkillsTicker({ skills: sanitySkills }: SkillsTickerProps) {
     const trackRef = useRef<HTMLDivElement>(null);
     const scrollX = useRef(0);
     const velocity = useRef(0);
@@ -59,8 +71,22 @@ export function SkillsTicker() {
     const lastDragTime = useRef(0);
     const [isGrabbing, setIsGrabbing] = useState(false);
 
+    const activeSkills = React.useMemo(() => {
+        if (!sanitySkills || sanitySkills.length === 0) return defaultSkills;
+        return sanitySkills.map(s => {
+            let icon: React.ReactNode = null;
+            if (s.customIconUrl) {
+                icon = <img src={s.customIconUrl} alt={s.name} className="w-4 h-4 object-contain" />;
+            } else {
+                const iconKey = s.builtInIcon || s.name;
+                icon = BuiltInIconMap[iconKey] || <Box className="text-foreground/50" size={16} />;
+            }
+            return { name: s.name, icon };
+        });
+    }, [sanitySkills]);
+
     // Triple the array for seamless wrapping
-    const tripled = [...skills, ...skills, ...skills];
+    const tripled = [...activeSkills, ...activeSkills, ...activeSkills];
 
     const getHalfWidth = useCallback(() => {
         if (!trackRef.current) return 1;

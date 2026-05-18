@@ -322,7 +322,7 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
 
                     {/* Skills Ticker Tape */}
                     <div className="w-[100vw] relative left-1/2 -translate-x-1/2 mb-4 [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
-                        <SkillsTicker />
+                        <SkillsTicker skills={hero?.skills} />
                     </div>
                 </section>
 
@@ -520,8 +520,8 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
                     )}
 
                     <div className="flex gap-8 mt-16">
-                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="font-medium text-muted hover:text-foreground transition-colors">GitHub</a>
-                        <a href="https://linkedin.com/in/kingsley-fong" target="_blank" rel="noopener noreferrer" className="font-medium text-muted hover:text-foreground transition-colors">LinkedIn</a>
+                        <a href={settings?.githubUrl || "https://github.com/KingsleyFong"} target="_blank" rel="noopener noreferrer" className="font-medium text-muted hover:text-foreground transition-colors">GitHub</a>
+                        <a href={settings?.linkedinUrl || "https://linkedin.com/in/kingsley-fong"} target="_blank" rel="noopener noreferrer" className="font-medium text-muted hover:text-foreground transition-colors">LinkedIn</a>
                         <a href={hero?.resumeUrl || settings?.resumeUrl || "/resume/resume.pdf"} target="_blank" rel="noopener noreferrer" className="font-medium text-muted hover:text-foreground transition-colors">Resume</a>
                     </div>
 
