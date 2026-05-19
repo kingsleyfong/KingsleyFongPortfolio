@@ -9,10 +9,11 @@ import { urlFor } from '@/sanity/lib/image';
 interface ProjectTickerProps {
     projects: ExtendedProject[];
     onSelect: (index: number) => void;
+    onSpinStateChange?: (activeSpinIndex: number | null, isExpanding: boolean) => void;
 }
 
 export const ProjectTicker = React.forwardRef<{ spin: () => void }, ProjectTickerProps>(
-    function ProjectTicker({ projects, onSelect }, ref) {
+    function ProjectTicker({ projects, onSelect, onSpinStateChange }, ref) {
         const trackRef = useRef<HTMLDivElement>(null);
         const scrollX = useRef(0);
         const velocity = useRef(0);
@@ -29,6 +30,10 @@ export const ProjectTicker = React.forwardRef<{ spin: () => void }, ProjectTicke
         const isSpinning = useRef(false);
         const [activeSpinIndex, setActiveSpinIndex] = useState<number | null>(null);
         const [isExpanding, setIsExpanding] = useState(false);
+
+        useEffect(() => {
+            onSpinStateChange?.(activeSpinIndex, isExpanding);
+        }, [activeSpinIndex, isExpanding, onSpinStateChange]);
 
         React.useImperativeHandle(ref, () => ({
             spin: () => {
@@ -325,63 +330,6 @@ export const ProjectTicker = React.forwardRef<{ spin: () => void }, ProjectTicke
                     })}
                 </div>
             </div>
-
-            {/* Custom keyframes for Apple App Store expanding portal card zoom */}
-            <style>{`
-                @keyframes expandToFullscreen {
-                    0% {
-                        transform: scale(1);
-                        border-radius: 1.5rem;
-                        opacity: 1;
-                        filter: blur(0px);
-                    }
-                    35% {
-                        opacity: 1;
-                    }
-                    100% {
-                        transform: scale(3.5);
-                        border-radius: 0px;
-                        opacity: 0;
-                        filter: blur(2px);
-                    }
-                }
-                @keyframes fadeInBackdrop {
-                    0% {
-                        opacity: 0;
-                        backdrop-filter: blur(0px);
-                    }
-                    100% {
-                        opacity: 1;
-                        backdrop-filter: blur(12px);
-                    }
-                }
-                .animate-expand-card {
-                    animation: expandToFullscreen 650ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-                }
-                .animate-fade-in-backdrop {
-                    animation: fadeInBackdrop 650ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-                }
-            `}</style>
-
-            {/* Absolute/Fixed fullscreen portal overlay (outside overflow-hidden) */}
-            {activeSpinIndex !== null && isExpanding && (
-                <div className="fixed inset-0 z-[9999] pointer-events-none flex items-center justify-center">
-                    {/* Dark sleek blurred backdrop */}
-                    <div className="absolute inset-0 bg-background/80 animate-fade-in-backdrop" />
-                    
-                    {/* The full screen expanding element */}
-                    <div className="relative w-[300px] h-[200px] md:w-[400px] md:h-[260px] overflow-hidden border border-blue-500/50 shadow-[0_0_100px_rgba(37,99,235,0.8)] animate-expand-card">
-                        <Image
-                            src={projects[activeSpinIndex].mainImage ? urlFor(projects[activeSpinIndex].mainImage).width(1200).quality(100).url() : '/portfolio-assets/pdf_img_p3_1.png'}
-                            alt={projects[activeSpinIndex].title}
-                            fill
-                            draggable={false}
-                            className="object-cover"
-                        />
-                        <div className="absolute inset-0 bg-blue-600/10 mix-blend-overlay" />
-                    </div>
-                </div>
-            )}
         </div>
     );
 });
