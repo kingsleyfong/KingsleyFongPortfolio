@@ -153,16 +153,35 @@ export default function WorkPageClient({ experience, projects }: WorkPageClientP
                     </div>
 
                     {/* Experience Thumbnail / Hero Image */}
-                    {experience.thumbnail && (
-                        <div className="w-full lg:w-[340px] aspect-square relative rounded-[22%] overflow-hidden border-8 border-foreground/5 shadow-[0_20px_50px_rgba(0,0,0,0.1)] group animate-fade-in flex-shrink-0 lg:ml-8">
+                    {experience.thumbnail && (() => {
+                        const hasLink = !!experience.link;
+                        const content = (
                             <img 
                                 src={urlFor(experience.thumbnail).width(1000).height(1000).quality(100).url()} 
                                 alt={experience.company}
-                                className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                                className={`w-full h-full object-cover transition-transform duration-1000 ${
+                                    hasLink ? 'group-hover:scale-110' : 'scale-100'
+                                }`}
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent pointer-events-none" />
-                        </div>
-                    )}
+                        );
+
+                        return hasLink ? (
+                            <a 
+                                href={experience.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-full lg:w-[340px] aspect-square relative rounded-[22%] overflow-hidden border-8 border-foreground/5 shadow-[0_20px_50px_rgba(0,0,0,0.1)] group animate-fade-in flex-shrink-0 lg:ml-8 cursor-pointer block"
+                            >
+                                {content}
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent pointer-events-none" />
+                            </a>
+                        ) : (
+                            <div className="w-full lg:w-[340px] aspect-square relative rounded-[22%] overflow-hidden border-8 border-foreground/5 shadow-[0_20px_50px_rgba(0,0,0,0.1)] group animate-fade-in flex-shrink-0 lg:ml-8">
+                                {content}
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent pointer-events-none" />
+                            </div>
+                        );
+                    })()}
                 </div>
             </header>
 

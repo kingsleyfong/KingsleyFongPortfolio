@@ -103,6 +103,7 @@ export async function getExperiences(): Promise<Experience[]> {
         role,
         date,
         description,
+        link,
         "thumbnail": thumbnail.asset->url,
         "projects": projects[]->{
           _id,
@@ -148,6 +149,7 @@ export async function getExperienceBySlug(slug: string): Promise<Experience | nu
         role,
         date,
         description,
+        link,
         "thumbnail": thumbnail.asset->url,
         "projects": projects[]->{
           _id,

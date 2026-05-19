@@ -60,6 +60,7 @@ export interface Experience {
     role: string;
     date: string;
     description: string;
+    link?: string;
     thumbnail?: string; // Thumbnail image path
     projects: Project[];
 }

@@ -49,6 +49,12 @@ export const experience = defineType({
             options: { hotspot: true },
         }),
         defineField({
+            name: 'link',
+            title: 'Experience Website Link',
+            type: 'url',
+            description: 'Link to company or professional details. If empty, the header logo won\'t scale on hover.',
+        }),
+        defineField({
             name: 'projects',
             title: 'Associated Projects',
             type: 'array',
