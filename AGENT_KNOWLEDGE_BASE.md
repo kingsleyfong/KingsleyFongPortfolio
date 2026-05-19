@@ -8,6 +8,7 @@ This document is the absolute source-of-truth for the **Antigravity Agentic Deve
 
 | Version | Date / Timestamp | Author | Type | Description |
 | :--- | :--- | :--- | :--- | :--- |
+| **v8.2.1-stable**| 2026-05-19T03:37 EST | Antigravity v12.1 | `Security Audit`| Passed comprehensive Next.js edge caching and Sanity GROQ payload security audit. Validated 0ms leakage of hidden metadata and strict read-only Sanity client permissions. Git tagged `v8.2.1-stable`. |
 | **v8.2.1** | 2026-05-19T03:21 EST | Antigravity v12.1 | `Fix & CMS` | Cascade-filtered out projects from `getProjects()` and `getProjectsByIds()` if they are associated with hidden experiences, keeping the homepage ticker tape and project section completely clean. |
 | **v8.2.0** | 2026-05-19T03:17 EST | Antigravity v12.1 | `Feature & CMS` | Added `hidden` boolean schema to experience document, filtered out hidden experiences/projects in queries, and successfully deployed updates to sanity cloud studio (`sanity deploy`). |
 | **v8.1.0** | 2026-05-19T03:10 EST | Antigravity v12.1 | `Performance & CMS` | Prefetched route/image payload in background during spin (0ms SPA latency). Successfully pushed experience website `link` URL schema addition to Sanity cloud studio (`sanity deploy`). |
