@@ -334,17 +334,22 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
                                 const targetUrl = `/work/${expSlug}#${projectSlug}`;
                                 router.push(targetUrl);
                             }}
-                            onSpinStateChange={(index, expanding) => {
+                            onSpinStart={(index) => {
                                 setSpinIndex(index);
-                                setIsExpanding(expanding);
-                                if (index !== null) {
-                                    const projectId = projects[index]._id;
-                                    const projectSlug = projects[index].slug?.current || projects[index].slug || projectId;
-                                    const exp = experiences.find(e => e.projects?.some(p => p._id === projectId));
-                                    const expSlug = exp ? (exp.slug?.current || exp.slug) : 'independent-projects';
-                                    const targetUrl = `/work/${expSlug}#${projectSlug}`;
-                                    router.prefetch(targetUrl);
+                                const projectId = projects[index]._id;
+                                const projectSlug = projects[index].slug?.current || projects[index].slug || projectId;
+                                const exp = experiences.find(e => e.projects?.some(p => p._id === projectId));
+                                const expSlug = exp ? (exp.slug?.current || exp.slug) : 'independent-projects';
+                                const targetUrl = `/work/${expSlug}#${projectSlug}`;
+                                router.prefetch(targetUrl);
+                            }}
+                            onSpinStateChange={(index, expanding) => {
+                                if (index === null) {
+                                    setSpinIndex(null);
+                                } else {
+                                    setSpinIndex(index);
                                 }
+                                setIsExpanding(expanding);
                             }}
                         />
                     </div>

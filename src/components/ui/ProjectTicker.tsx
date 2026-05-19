@@ -10,10 +10,11 @@ interface ProjectTickerProps {
     projects: ExtendedProject[];
     onSelect: (index: number) => void;
     onSpinStateChange?: (activeSpinIndex: number | null, isExpanding: boolean) => void;
+    onSpinStart?: (targetIndex: number) => void;
 }
 
 export const ProjectTicker = React.forwardRef<{ spin: () => void }, ProjectTickerProps>(
-    function ProjectTicker({ projects, onSelect, onSpinStateChange }, ref) {
+    function ProjectTicker({ projects, onSelect, onSpinStateChange, onSpinStart }, ref) {
         const trackRef = useRef<HTMLDivElement>(null);
         const scrollX = useRef(0);
         const velocity = useRef(0);
@@ -46,6 +47,7 @@ export const ProjectTicker = React.forwardRef<{ spin: () => void }, ProjectTicke
 
                 // 1. Choose a random target project index
                 const targetIndex = Math.floor(Math.random() * projects.length);
+                onSpinStart?.(targetIndex);
 
                 // 2. Calculate targetScrollX to center the selected project
                 const viewportW = window.innerWidth;
