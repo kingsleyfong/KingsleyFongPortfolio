@@ -98,11 +98,17 @@ export const ProjectTicker = React.forwardRef<{ spin: () => void }, ProjectTicke
 
                         // Step 3: After another 600ms (total 1400ms), execute the router push
                         setTimeout(() => {
-                            isSpinning.current = false;
-                            isUserInteracting.current = false;
-                            setActiveSpinIndex(null); // Reset highlight
-                            setIsExpanding(false);
+                            // Trigger router push instantly to start the SPA navigation
                             onSelect(targetIndex);
+                            
+                            // Delay the reset of layout states to prevent the home page from flickering/flashing
+                            // before the next page actually mounts
+                            setTimeout(() => {
+                                isSpinning.current = false;
+                                isUserInteracting.current = false;
+                                setActiveSpinIndex(null);
+                                setIsExpanding(false);
+                            }, 1200);
                         }, 1400);
                     }
                 };
