@@ -53,7 +53,7 @@ export async function getProjects(): Promise<Project[]> {
 
   try {
     const fetchedProjects = await client.fetch<Project[]>(
-      `*[_type == "project"] | order(startDate desc){
+      `*[_type == "project" && !(_id in *[_type == "experience" && hidden == true].projects[]._ref)] | order(startDate desc){
         _id,
         title,
         slug,
@@ -189,7 +189,7 @@ export async function getProjectsByIds(ids: string[]): Promise<Project[]> {
 
   try {
     const fetchedProjects = await client.fetch<Project[]>(
-      `*[_type == "project" && _id in $ids]{
+      `*[_type == "project" && _id in $ids && !(_id in *[_type == "experience" && hidden == true].projects[]._ref)]{
         _id,
         title,
         slug,

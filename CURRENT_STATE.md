@@ -15,9 +15,10 @@
 - V7 updates: Added a dynamic rectangular slot machine "Spin" easter egg next to the LinkedIn button in the hero section. Designed smooth deceleration animations to land randomly on any project.
 - V8 updates: Resolved SPA navigation latency by designing an ultra-early parallel pre-fetching and background image pre-loading pipeline triggered the exact millisecond the "Spin" button is pressed. Successfully pushed custom `link` URL field schema to the Sanity database cloud studio (https://kingsleyfong.sanity.studio/), and configured dynamic experience company header logo thumbnails to conditionally zoom and redirect to company websites only when a link exists.
 - V8.2 updates: Added a new `hidden` boolean schema field to the Sanity database for the Experience/Recent Work document, allowing dynamic filter/masking of an experience and all of its associated projects in frontend queries. Deployed updates successfully to Sanity cloud studio.
+- V8.2.1 updates: Cascade-filtered out projects belonging to hidden experiences from `getProjects()` and `getProjectsByIds()` GROQ queries to completely mask associated projects from homepage ticker tape and project sections.
 
 **Current Task**:
-- Completed hidden schema implementation and documentation updates.
+- Completed cascading hidden project implementation and synchronized ledgers.
 
 **Next Steps**:
 - Begin mapping actual user screenshots and Zipline specific project data into the mock/Sanity data structure.
