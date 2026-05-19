@@ -295,9 +295,7 @@ export const ProjectTicker = React.forwardRef<{ spin: () => void }, ProjectTicke
                                     onClick={(e) => handleCardClick(originalIndex, e)}
                                     className={`relative w-[300px] h-[200px] md:w-[400px] md:h-[260px] rounded-[1.5rem] overflow-hidden cursor-pointer transition-all duration-[600ms] bg-foreground/5 border ${
                                         isSelected 
-                                            ? isExpanding
-                                                ? 'opacity-0 scale-100 z-[100]' // Seamless transition to body portal
-                                                : 'scale-105 border-blue-500 shadow-[0_0_60px_rgba(37,99,235,0.75)] ring-2 ring-blue-500/30 animate-pulse z-[100]' 
+                                            ? 'scale-105 border-blue-500 shadow-[0_0_60px_rgba(37,99,235,0.75)] ring-2 ring-blue-500/30 z-[100] ' + (isExpanding ? 'opacity-20 scale-100' : 'animate-pulse')
                                             : 'border-border hover:scale-[1.02]'
                                     } group/card`}
                                 >

@@ -596,15 +596,21 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
             `}</style>
 
             {/* Absolute/Fixed fullscreen portal overlay (outside overflow-hidden containing blocks) */}
-            {spinIndex !== null && isExpanding && (
-                <div className="fixed inset-0 z-[9999] pointer-events-none flex items-center justify-center">
+            {spinIndex !== null && (
+                <div 
+                    className={`fixed inset-0 z-[9999] pointer-events-none flex items-center justify-center transition-opacity duration-300 ${
+                        isExpanding ? 'opacity-100' : 'opacity-0'
+                    }`}
+                >
                     {/* Dark sleek blurred backdrop */}
-                    <div className="absolute inset-0 bg-background/80 animate-fade-in-backdrop" />
+                    <div className={`absolute inset-0 bg-background/80 ${isExpanding ? 'animate-fade-in-backdrop' : ''}`} />
                     
                     {/* The full screen expanding element */}
-                    <div className="relative w-[300px] h-[200px] md:w-[400px] md:h-[260px] overflow-hidden border border-blue-500/50 shadow-[0_0_100px_rgba(37,99,235,0.8)] animate-expand-card">
+                    <div className={`relative w-[300px] h-[200px] md:w-[400px] md:h-[260px] overflow-hidden border border-blue-500/50 shadow-[0_0_100px_rgba(37,99,235,0.8)] ${
+                        isExpanding ? 'animate-expand-card' : ''
+                    }`}>
                         <img
-                            src={projects[spinIndex].mainImage ? urlFor(projects[spinIndex].mainImage).width(1200).quality(100).url() : '/portfolio-assets/pdf_img_p3_1.png'}
+                            src={projects[spinIndex].mainImage ? urlFor(projects[spinIndex].mainImage).width(800).quality(100).url() : '/portfolio-assets/pdf_img_p3_1.png'}
                             alt={projects[spinIndex].title}
                             className="w-full h-full object-cover"
                         />
