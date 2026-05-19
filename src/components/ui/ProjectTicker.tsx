@@ -27,6 +27,7 @@ export const ProjectTicker = React.forwardRef<{ spin: () => void }, ProjectTicke
         const lastDragTime = useRef(0);
         const [isGrabbing, setIsGrabbing] = useState(false);
         const isSpinning = useRef(false);
+        const [activeSpinIndex, setActiveSpinIndex] = useState<number | null>(null);
 
         React.useImperativeHandle(ref, () => ({
             spin: () => {
@@ -81,11 +82,16 @@ export const ProjectTicker = React.forwardRef<{ spin: () => void }, ProjectTicke
                         scrollX.current = ((targetScrollX % halfW) + halfW) % halfW;
                         trackRef.current.style.transform = `translate3d(${-scrollX.current}px, 0, 0)`;
 
-                        isSpinning.current = false;
-                        isUserInteracting.current = false;
+                        // Highlight the landed project card
+                        setActiveSpinIndex(targetIndex);
 
-                        // Navigate/Select the project!
-                        onSelect(targetIndex);
+                        // Pause for 1.3 seconds to let the beautiful visual landing settle
+                        setTimeout(() => {
+                            isSpinning.current = false;
+                            isUserInteracting.current = false;
+                            setActiveSpinIndex(null); // Reset highlight
+                            onSelect(targetIndex);
+                        }, 1300);
                     }
                 };
 
@@ -151,6 +157,7 @@ export const ProjectTicker = React.forwardRef<{ spin: () => void }, ProjectTicke
 
     // ── Mouse Drag ──
     const handleMouseDown = useCallback((e: React.MouseEvent) => {
+        if (isSpinning.current) return;
         isDragging.current = true;
         isUserInteracting.current = true;
         setIsGrabbing(true);
@@ -184,6 +191,7 @@ export const ProjectTicker = React.forwardRef<{ spin: () => void }, ProjectTicke
 
     // ── Mouse Wheel (horizontal) ──
     const handleWheel = useCallback((e: React.WheelEvent) => {
+        if (isSpinning.current) return;
         // Use deltaX for horizontal scroll, fall back to deltaY
         const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
         isUserInteracting.current = true;
@@ -194,6 +202,7 @@ export const ProjectTicker = React.forwardRef<{ spin: () => void }, ProjectTicke
 
     // ── Touch (mobile) ──
     const handleTouchStart = useCallback((e: React.TouchEvent) => {
+        if (isSpinning.current) return;
         isUserInteracting.current = true;
         isDragging.current = true;
         const touch = e.touches[0];
@@ -257,13 +266,24 @@ export const ProjectTicker = React.forwardRef<{ spin: () => void }, ProjectTicke
                 <div className="flex gap-8">
                     {tripled.map((project, index) => {
                         const originalIndex = index % projects.length;
+                        const isSelected = activeSpinIndex !== null && originalIndex === activeSpinIndex;
+                        const isDimmed = activeSpinIndex !== null && originalIndex !== activeSpinIndex;
 
                         return (
-                            <div key={`${project._id}-${index}`} className="flex flex-col items-center shrink-0">
+                            <div 
+                                key={`${project._id}-${index}`} 
+                                className={`flex flex-col items-center shrink-0 transition-all duration-700 ${
+                                    isDimmed ? 'opacity-25 scale-95 blur-[2px]' : ''
+                                }`}
+                            >
                                 {/* The Card */}
                                 <div
                                     onClick={(e) => handleCardClick(originalIndex, e)}
-                                    className="relative w-[300px] h-[200px] md:w-[400px] md:h-[260px] rounded-[1.5rem] overflow-hidden cursor-pointer transition-all duration-500 hover:scale-[1.02] bg-foreground/5 border border-border group/card"
+                                    className={`relative w-[300px] h-[200px] md:w-[400px] md:h-[260px] rounded-[1.5rem] overflow-hidden cursor-pointer transition-all duration-[800ms] bg-foreground/5 border ${
+                                        isSelected 
+                                            ? 'scale-105 border-blue-500 shadow-[0_0_60px_rgba(37,99,235,0.75)] ring-2 ring-blue-500/30 animate-pulse' 
+                                            : 'border-border hover:scale-[1.02]'
+                                    } group/card`}
                                 >
                                     <Image
                                         src={project.mainImage ? urlFor(project.mainImage).width(800).quality(100).url() : '/portfolio-assets/pdf_img_p3_1.png'}
