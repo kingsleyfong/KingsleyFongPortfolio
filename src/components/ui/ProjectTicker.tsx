@@ -28,6 +28,7 @@ export const ProjectTicker = React.forwardRef<{ spin: () => void }, ProjectTicke
         const [isGrabbing, setIsGrabbing] = useState(false);
         const isSpinning = useRef(false);
         const [activeSpinIndex, setActiveSpinIndex] = useState<number | null>(null);
+        const [isExpanding, setIsExpanding] = useState(false);
 
         React.useImperativeHandle(ref, () => ({
             spin: () => {
@@ -82,16 +83,22 @@ export const ProjectTicker = React.forwardRef<{ spin: () => void }, ProjectTicke
                         scrollX.current = ((targetScrollX % halfW) + halfW) % halfW;
                         trackRef.current.style.transform = `translate3d(${-scrollX.current}px, 0, 0)`;
 
-                        // Highlight the landed project card
+                        // Step 1: Highlight the landed project card
                         setActiveSpinIndex(targetIndex);
 
-                        // Pause for 1.3 seconds to let the beautiful visual landing settle
+                        // Step 2: After 800ms of pulsing highlight, start the sleek Apple expand zoom animation
+                        setTimeout(() => {
+                            setIsExpanding(true);
+                        }, 800);
+
+                        // Step 3: After another 600ms (total 1400ms), execute the router push
                         setTimeout(() => {
                             isSpinning.current = false;
                             isUserInteracting.current = false;
                             setActiveSpinIndex(null); // Reset highlight
+                            setIsExpanding(false);
                             onSelect(targetIndex);
-                        }, 1300);
+                        }, 1400);
                     }
                 };
 
@@ -272,18 +279,25 @@ export const ProjectTicker = React.forwardRef<{ spin: () => void }, ProjectTicke
                         return (
                             <div 
                                 key={`${project._id}-${index}`} 
-                                className={`flex flex-col items-center shrink-0 transition-all duration-700 ${
-                                    isDimmed ? 'opacity-25 scale-95 blur-[2px]' : ''
+                                className={`flex flex-col items-center shrink-0 transition-all duration-[800ms] ease-out ${
+                                    isDimmed ? 'opacity-10 scale-90 blur-[4px]' : ''
+                                } ${
+                                    isSelected && isExpanding ? 'z-[100]' : ''
                                 }`}
                             >
                                 {/* The Card */}
                                 <div
                                     onClick={(e) => handleCardClick(originalIndex, e)}
-                                    className={`relative w-[300px] h-[200px] md:w-[400px] md:h-[260px] rounded-[1.5rem] overflow-hidden cursor-pointer transition-all duration-[800ms] bg-foreground/5 border ${
+                                    className={`relative w-[300px] h-[200px] md:w-[400px] md:h-[260px] rounded-[1.5rem] overflow-hidden cursor-pointer transition-all duration-[600ms] bg-foreground/5 border ${
                                         isSelected 
-                                            ? 'scale-105 border-blue-500 shadow-[0_0_60px_rgba(37,99,235,0.75)] ring-2 ring-blue-500/30 animate-pulse' 
+                                            ? isExpanding
+                                                ? 'scale-[2.2] md:scale-[2.8] border-blue-500 shadow-[0_0_100px_rgba(37,99,235,0.9)] opacity-0 blur-[6px] z-[100]'
+                                                : 'scale-105 border-blue-500 shadow-[0_0_60px_rgba(37,99,235,0.75)] ring-2 ring-blue-500/30 animate-pulse z-[100]' 
                                             : 'border-border hover:scale-[1.02]'
                                     } group/card`}
+                                    style={{
+                                        transitionTimingFunction: isExpanding ? 'cubic-bezier(0.16, 1, 0.3, 1)' : 'ease'
+                                    }}
                                 >
                                     <Image
                                         src={project.mainImage ? urlFor(project.mainImage).width(800).quality(100).url() : '/portfolio-assets/pdf_img_p3_1.png'}

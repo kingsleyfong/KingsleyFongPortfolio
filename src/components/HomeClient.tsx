@@ -12,6 +12,7 @@ import { SkillsTicker } from '@/components/ui/SkillsTicker';
 import { FEAMesh } from '@/components/ui/FEAMesh';
 import { urlFor } from '@/sanity/lib/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 interface HomeClientProps {
     initialProjects: ExtendedProject[];
@@ -30,6 +31,7 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
     const [hero, setHero] = useState<any>(initialHero);
     const projectTickerRef = useRef<{ spin: () => void }>(null);
     const [settings, setSettings] = useState<any>(initialSettings);
+    const router = useRouter();
     const [isSending, setIsSending] = useState(false);
     const [isSent, setIsSent] = useState(false);
     const [sendError, setSendError] = useState<string | null>(null);
@@ -326,7 +328,7 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
                                 const exp = experiences.find(e => e.projects?.some(p => p._id === projectId));
                                 const expSlug = exp ? (exp.slug?.current || exp.slug) : 'independent-projects';
                                 const targetUrl = `/work/${expSlug}#${projectSlug}`;
-                                window.location.href = targetUrl;
+                                router.push(targetUrl);
                             }}
                         />
                     </div>
