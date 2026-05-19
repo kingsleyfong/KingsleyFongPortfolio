@@ -102,13 +102,13 @@ export const ProjectTicker = React.forwardRef<{ spin: () => void }, ProjectTicke
                             onSelect(targetIndex);
                             
                             // Delay the reset of layout states to prevent the home page from flickering/flashing
-                            // before the next page actually mounts
+                            // before the next page actually mounts (generous delay of 8s, reset on next mount)
                             setTimeout(() => {
                                 isSpinning.current = false;
                                 isUserInteracting.current = false;
                                 setActiveSpinIndex(null);
                                 setIsExpanding(false);
-                            }, 1200);
+                            }, 8000);
                         }, 1400);
                     }
                 };

@@ -40,6 +40,8 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
 
     useEffect(() => {
         setMounted(true);
+        setSpinIndex(null);
+        setIsExpanding(false);
     }, []);
 
     const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -335,6 +337,14 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
                             onSpinStateChange={(index, expanding) => {
                                 setSpinIndex(index);
                                 setIsExpanding(expanding);
+                                if (index !== null) {
+                                    const projectId = projects[index]._id;
+                                    const projectSlug = projects[index].slug?.current || projects[index].slug || projectId;
+                                    const exp = experiences.find(e => e.projects?.some(p => p._id === projectId));
+                                    const expSlug = exp ? (exp.slug?.current || exp.slug) : 'independent-projects';
+                                    const targetUrl = `/work/${expSlug}#${projectSlug}`;
+                                    router.prefetch(targetUrl);
+                                }
                             }}
                         />
                     </div>
