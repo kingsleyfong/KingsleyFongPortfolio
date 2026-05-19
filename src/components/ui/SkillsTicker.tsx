@@ -199,6 +199,16 @@ export function SkillsTicker({ skills: sanitySkills }: SkillsTickerProps) {
         scheduleResume();
     }, [scheduleResume]);
 
+    // ── Mouse Wheel (horizontal) ──
+    const handleWheel = useCallback((e: React.WheelEvent) => {
+        // Use deltaX for horizontal scroll, fall back to deltaY
+        const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+        isUserInteracting.current = true;
+        velocity.current = 0;
+        scrollX.current -= delta * 0.8;
+        scheduleResume();
+    }, [scheduleResume]);
+
     return (
         <div 
             className={`w-full overflow-hidden py-3 border-b border-border/30 bg-background/20 backdrop-blur-sm relative cursor-grab ${isGrabbing ? 'cursor-grabbing' : ''}`}
@@ -206,6 +216,7 @@ export function SkillsTicker({ skills: sanitySkills }: SkillsTickerProps) {
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
             onMouseLeave={handleMouseUp}
+            onWheel={handleWheel}
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
