@@ -11,22 +11,89 @@ interface ProjectTickerProps {
     onSelect: (index: number) => void;
 }
 
-export function ProjectTicker({ projects, onSelect }: ProjectTickerProps) {
-    const trackRef = useRef<HTMLDivElement>(null);
-    const scrollX = useRef(0);
-    const velocity = useRef(0);
-    const autoSpeed = useRef(0.55); // Increased for smoother, slightly faster drift
-    const isUserInteracting = useRef(false);
-    const resumeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-    const rafId = useRef<number>(0);
-    const isDragging = useRef(false);
-    const dragStartX = useRef(0);
-    const dragScrollStart = useRef(0);
-    const lastDragX = useRef(0);
-    const lastDragTime = useRef(0);
-    const [isGrabbing, setIsGrabbing] = useState(false);
+export const ProjectTicker = React.forwardRef<{ spin: () => void }, ProjectTickerProps>(
+    function ProjectTicker({ projects, onSelect }, ref) {
+        const trackRef = useRef<HTMLDivElement>(null);
+        const scrollX = useRef(0);
+        const velocity = useRef(0);
+        const autoSpeed = useRef(0.55); // Increased for smoother, slightly faster drift
+        const isUserInteracting = useRef(false);
+        const resumeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+        const rafId = useRef<number>(0);
+        const isDragging = useRef(false);
+        const dragStartX = useRef(0);
+        const dragScrollStart = useRef(0);
+        const lastDragX = useRef(0);
+        const lastDragTime = useRef(0);
+        const [isGrabbing, setIsGrabbing] = useState(false);
+        const isSpinning = useRef(false);
 
-    if (!projects || projects.length === 0) return null;
+        React.useImperativeHandle(ref, () => ({
+            spin: () => {
+                if (isSpinning.current || !trackRef.current || !projects || projects.length === 0) return;
+                isSpinning.current = true;
+                isUserInteracting.current = true;
+
+                const halfW = getHalfWidth();
+                const itemW = halfW / projects.length;
+
+                // 1. Choose a random target project index
+                const targetIndex = Math.floor(Math.random() * projects.length);
+
+                // 2. Calculate targetScrollX to center the selected project
+                const viewportW = window.innerWidth;
+                const targetScrollX = (targetIndex * itemW + itemW / 2) - viewportW / 2;
+
+                const startScrollX = scrollX.current;
+
+                // Make sure we spin at least 3 full rotations, and always in the forward direction
+                const rotations = 3;
+                const currentPositionInCycle = ((startScrollX % halfW) + halfW) % halfW;
+                let relativeTarget = targetScrollX - currentPositionInCycle;
+                if (relativeTarget < 0) {
+                    relativeTarget += halfW; // Ensure it spins forward
+                }
+
+                const endScrollX = startScrollX + relativeTarget + rotations * halfW;
+
+                const duration = 4000; // 4 seconds spin
+                const startTime = performance.now();
+
+                // Easing function: Sleek Quintic Ease Out
+                const easeOut = (t: number) => 1 - Math.pow(1 - t, 5);
+
+                const animateSpin = (now: number) => {
+                    if (!trackRef.current) return;
+                    const elapsed = now - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+
+                    const eased = easeOut(progress);
+                    scrollX.current = startScrollX + (endScrollX - startScrollX) * eased;
+
+                    // During spin, wrap scrollX for the DOM translation to keep it looking infinite
+                    const displayScrollX = ((scrollX.current % halfW) + halfW) % halfW;
+                    trackRef.current.style.transform = `translate3d(${-displayScrollX}px, 0, 0)`;
+
+                    if (progress < 1) {
+                        rafId.current = requestAnimationFrame(animateSpin);
+                    } else {
+                        // Spin finished!
+                        scrollX.current = ((targetScrollX % halfW) + halfW) % halfW;
+                        trackRef.current.style.transform = `translate3d(${-scrollX.current}px, 0, 0)`;
+
+                        isSpinning.current = false;
+                        isUserInteracting.current = false;
+
+                        // Navigate/Select the project!
+                        onSelect(targetIndex);
+                    }
+                };
+
+                rafId.current = requestAnimationFrame(animateSpin);
+            }
+        }));
+
+        if (!projects || projects.length === 0) return null;
 
     // Triple the array for seamless wrapping
     const tripled = [...projects, ...projects, ...projects];
@@ -37,32 +104,35 @@ export function ProjectTicker({ projects, onSelect }: ProjectTickerProps) {
         return trackRef.current.scrollWidth / 3;
     }, []);
 
-    // Core animation loop
-    const tick = useCallback(() => {
-        if (!trackRef.current) return;
-        const halfW = getHalfWidth();
+        // Core animation loop
+        const tick = useCallback(() => {
+            if (!trackRef.current) return;
 
-        if (!isUserInteracting.current) {
-            // Auto-scroll: smooth constant drift to the left
-            scrollX.current += autoSpeed.current;
-        } else {
-            // Apply momentum/friction from user fling
-            scrollX.current += velocity.current;
-            velocity.current *= 0.97; // reduced friction for 20% more 'swing'
-            if (Math.abs(velocity.current) < 0.1) velocity.current = 0;
-        }
+            if (!isSpinning.current) {
+                const halfW = getHalfWidth();
 
-        // Seamless wrap: when we've scrolled past one full set, jump back
-        if (scrollX.current >= halfW) {
-            scrollX.current -= halfW;
-        } else if (scrollX.current < 0) {
-            scrollX.current += halfW;
-        }
+                if (!isUserInteracting.current) {
+                    // Auto-scroll: smooth constant drift to the left
+                    scrollX.current += autoSpeed.current;
+                } else {
+                    // Apply momentum/friction from user fling
+                    scrollX.current += velocity.current;
+                    velocity.current *= 0.97; // reduced friction for 20% more 'swing'
+                    if (Math.abs(velocity.current) < 0.1) velocity.current = 0;
+                }
 
-        trackRef.current.style.transform = `translate3d(${-scrollX.current}px, 0, 0)`;
+                // Seamless wrap: when we've scrolled past one full set, jump back
+                if (scrollX.current >= halfW) {
+                    scrollX.current -= halfW;
+                } else if (scrollX.current < 0) {
+                    scrollX.current += halfW;
+                }
 
-        rafId.current = requestAnimationFrame(tick);
-    }, [getHalfWidth]);
+                trackRef.current.style.transform = `translate3d(${-scrollX.current}px, 0, 0)`;
+            }
+
+            rafId.current = requestAnimationFrame(tick);
+        }, [getHalfWidth]);
 
     useEffect(() => {
         // Start on the middle copy so we have room to scroll left
@@ -226,4 +296,4 @@ export function ProjectTicker({ projects, onSelect }: ProjectTickerProps) {
             </div>
         </div>
     );
-}
+});

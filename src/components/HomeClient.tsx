@@ -1,8 +1,8 @@
 'use client';
 
 import { useTheme } from 'next-themes';
-import { useEffect, useState, useMemo } from 'react';
-import { Sun, Moon, ArrowRight } from 'lucide-react';
+import { useEffect, useState, useMemo, useRef } from 'react';
+import { Sun, Moon, ArrowRight, Dices } from 'lucide-react';
 import { SiteHeader } from '@/components/ui/SiteHeader';
 import { Experience } from '@/sanity/types';
 import { ExtendedProject, InteractiveProjectCard } from '@/components/ui/InteractiveProjectCard';
@@ -28,6 +28,7 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
     const [projects, setProjects] = useState<ExtendedProject[]>(initialProjects);
     const [experiences, setExperiences] = useState<Experience[]>(initialExperiences);
     const [hero, setHero] = useState<any>(initialHero);
+    const projectTickerRef = useRef<{ spin: () => void }>(null);
     const [settings, setSettings] = useState<any>(initialSettings);
     const [isSending, setIsSending] = useState(false);
     const [isSent, setIsSent] = useState(false);
@@ -299,6 +300,15 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
                                     <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
                                 </svg>
                             </a>
+                            {/* Easter Egg Slots Spin Button */}
+                            <button
+                                onClick={() => projectTickerRef.current?.spin()}
+                                className="w-11 h-11 rounded-md border border-border bg-zinc-900 text-zinc-100 opacity-20 md:opacity-0 hover:opacity-100 md:hover:opacity-100 hover:bg-zinc-800 hover:border-foreground/30 hover:shadow-[0_0_20px_rgba(255,255,255,0.05)] transition-all duration-500 flex items-center justify-center shrink-0 w-full sm:w-11 text-center cursor-pointer group"
+                                aria-label="Spin Projects"
+                                title="Surprise Me!"
+                            >
+                                <Dices className="w-5 h-5 text-zinc-400 group-hover:text-white transition-colors duration-300" />
+                            </button>
                         </div>
                     </div>
                 </section>
@@ -308,6 +318,7 @@ export default function HomeClient({ initialProjects, initialExperiences, initia
                     {/* The Infinite Scrolling Timeline */}
                     <div className="w-[100vw] relative left-1/2 -translate-x-1/2 mb-2 [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
                         <ProjectTicker
+                            ref={projectTickerRef}
                             projects={projects}
                             onSelect={(index) => {
                                 const projectId = projects[index]._id;
