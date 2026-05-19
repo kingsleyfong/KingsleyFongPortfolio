@@ -8,6 +8,7 @@ This document is the absolute source-of-truth for the **Antigravity Agentic Deve
 
 | Version | Date / Timestamp | Author | Type | Description |
 | :--- | :--- | :--- | :--- | :--- |
+| **v8.2.0** | 2026-05-19T03:17 EST | Antigravity v12.1 | `Feature & CMS` | Added `hidden` boolean schema to experience document, filtered out hidden experiences/projects in queries, and successfully deployed updates to sanity cloud studio (`sanity deploy`). |
 | **v8.1.0** | 2026-05-19T03:10 EST | Antigravity v12.1 | `Performance & CMS` | Prefetched route/image payload in background during spin (0ms SPA latency). Successfully pushed experience website `link` URL schema addition to Sanity cloud studio (`sanity deploy`). |
 | **v7.0.0** | 2026-05-18T22:30 EST | Antigravity v12.1 | `Feature` | Added slot machine "Spin" button in hero section, horizontal project timeline deceleration, and cinematic fullscreen zoom portal. |
 | **v6.0.0** | 2026-05-15T15:00 EST | Antigravity v11.8 | `Architecture` | Refactored from Single-Page Scroll to Next.js Hub-and-Spoke Dynamic Router, establishing `/work/[slug]` routes. |

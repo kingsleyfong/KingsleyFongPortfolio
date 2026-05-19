@@ -63,4 +63,5 @@ export interface Experience {
     link?: string;
     thumbnail?: string; // Thumbnail image path
     projects: Project[];
+    hidden?: boolean;
 }

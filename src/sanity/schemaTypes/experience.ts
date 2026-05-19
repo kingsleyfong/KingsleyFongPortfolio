@@ -60,5 +60,12 @@ export const experience = defineType({
             type: 'array',
             of: [{ type: 'reference', to: { type: 'project' } }],
         }),
+        defineField({
+            name: 'hidden',
+            title: 'Hide Experience',
+            type: 'boolean',
+            description: 'If checked, this experience and all of its associated projects will be completely hidden from the website.',
+            initialValue: false,
+        }),
     ],
 });

@@ -96,7 +96,7 @@ export async function getExperiences(): Promise<Experience[]> {
 
   try {
     const fetchedExps = await client.fetch<Experience[]>(
-      `*[_type == "experience"] | order(startDate desc){
+      `*[_type == "experience" && hidden != true] | order(startDate desc){
         _id,
         company,
         slug,
@@ -142,7 +142,7 @@ export async function getExperienceBySlug(slug: string): Promise<Experience | nu
 
   try {
     const fetchedExp = await client.fetch<Experience>(
-      `*[_type == "experience" && slug.current == $slug][0]{
+      `*[_type == "experience" && slug.current == $slug && hidden != true][0]{
         _id,
         company,
         slug,
